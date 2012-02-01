@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <include layout="@layout/title_bar" />
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="6dp"
+        android:layout_marginRight="6dp"
+        android:layout_marginTop="30dp"
+        android:stretchColumns="1" >
+
+        <TableRow >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/lblUserName"
+                android:textSize="14sp" />
+
+            <EditText
+                android:id="@+id/txtUserName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="@string/lblHintUserName" />
+        </TableRow>
+
+        <TableRow >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/lblPassword"
+                android:textSize="14sp" />
+
+            <EditText
+                android:id="@+id/txtPassword"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="@string/lblHintPassword"
+                android:password="true" />
+        </TableRow>
+
+        <TableRow >
+
+            <TextView
+                android:id="@+id/txtSiginMessage"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_span="2"
+                android:textSize="14sp" />
+        </TableRow>
+
+        <TableRow >
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_span="2" >
+
+                <Button
+                    android:id="@+id/btnSigin"
+                    android:layout_width="120dp"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:text="@string/lblSigin" />
+
+                <Button
+                    android:id="@+id/btnCanenl"
+                    android:layout_width="120dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="20dp"
+                    android:layout_toLeftOf="@id/btnSigin"
+                    android:text="@string/lblCanenl" />
+            </RelativeLayout>
+        </TableRow>
+    </TableLayout>
+
+</LinearLayout>

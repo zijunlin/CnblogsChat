@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <dimen name="itemImgWidth">68dp</dimen>
+    <dimen name="itemImgHeight">68dp</dimen>
+    <dimen name="imgTitleLogoWidth">48dp</dimen>
+    <dimen name="imgTitleLogoHeight">48dp</dimen>
+    <dimen name="imgLogoWidth">142dp</dimen>
+    <dimen name="imgLogoHeight">55dp</dimen>
+
+</resources>

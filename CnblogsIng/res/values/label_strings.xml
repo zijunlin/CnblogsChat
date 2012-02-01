@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">博客园闪存</string>
+    <string name="lblUserName">用户名:</string>
+    <string name="lblHintUserName">请输入登录名</string>
+    <string name="lblPassword">密码:</string>
+    <string name="lblHintPassword">请输入密码</string>
+    <string name="lblSigin">登    录</string>
+    <string name="lblCanenl">取    消</string>
+    <string name="lblSend">发    送</string>
+    <string name="lblNoAuthenticate">请先登录</string>
+
+
+</resources>
