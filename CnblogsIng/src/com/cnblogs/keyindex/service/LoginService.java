@@ -10,7 +10,9 @@ import com.cnblogs.keyindex.R;
 import com.cnblogs.keyindex.LoginActivity;
 import com.cnblogs.keyindex.kernel.CnblogsIngContext;
 import com.cnblogs.keyindex.model.User;
-import com.cnblogs.keyindex.model.res.AspDotNetForms;
+import com.cnblogs.keyindex.response.res.AspDotNetForms;
+import com.cnblogs.keyindex.response.res.LoginResult;
+import com.cnblogs.keyindex.serializers.LoginResultSerializer;
 
 import android.content.SharedPreferences;
 import android.os.Handler;
@@ -53,10 +55,15 @@ public class LoginService implements Callback {
 		CookieStore cookieStore = CnblogsIngContext.getContext()
 				.getCookieStore();
 		loginHandler.sendEmptyMessage(R.string.msgLogining);
-		re.getResource(uri, forms, cookieStore);
-		CnblogsIngContext.getContext().setCookieStore(cookieStore);
-		if (cookieStore != null) {
+		re.getResource(uri, forms, cookieStore).serializerResult(
+				LoginResultSerializer.class.getName());
+
+		LoginResult loginResult = (LoginResult) re.getResponseResource();
+
+		if (loginResult != null && loginResult.getCookieStore() != null) {
 			loginHandler.sendEmptyMessage(R.string.msgLoginSuccess);
+			CnblogsIngContext.getContext().setCookieStore(
+					loginResult.getCookieStore());
 		} else {
 			loginHandler.sendEmptyMessage(R.string.msgLoginError);
 		}
