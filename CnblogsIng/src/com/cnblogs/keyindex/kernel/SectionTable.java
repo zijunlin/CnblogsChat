@@ -23,8 +23,13 @@ import com.cnblogs.keyindex.model.Section;
 	public void clearSection() {
 		map.clear();
 	}
+	
+	public Section getSection(String key)
+	{
+		return map.get(key);
+	}
 
-	public List<Section> getAllSction() {
+	public List<Section> getAllSection() {
 		List<Section> list = new ArrayList<Section>();
 		for (Map.Entry<String, Section> item : map.entrySet()) {
 			list.add(item.getValue());
