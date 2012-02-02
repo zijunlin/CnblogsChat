@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.List;
 
-
+import org.apache.http.Header;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.HttpStatus;
@@ -14,6 +14,7 @@ import org.apache.http.client.CookieStore;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.methods.HttpHead;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.methods.HttpUriRequest;
 import org.apache.http.client.protocol.ClientContext;
@@ -36,10 +37,15 @@ public class HttpHelper {
 	private HttpContext httpLocalContext;
 	private CookieStore cookieStore;
 	private String charSet;
+	private Header[] responseHeads;
 
 	public HttpHelper() {
 		httpLocalContext = new BasicHttpContext();
 		charSet = HTTP.UTF_8;
+	}
+
+	public Header[] getResponseHead() {
+		return responseHeads;
 	}
 
 	public void setCookieStore(CookieStore value) {
@@ -56,9 +62,10 @@ public class HttpHelper {
 		String result = null;
 		httpClient = buildHttpClient();
 		HttpGet httpget = new HttpGet(url);
-//		pasteHeaders(httpget);
+		// pasteHeaders(httpget);
 		try {
 			HttpResponse response = httpClient.execute(httpget);
+			responseHeads = response.getAllHeaders();
 			if (response.getStatusLine().getStatusCode() == HttpStatus.SC_OK) {
 				result = EntityUtils.toString(response.getEntity(), charSet);
 			}
@@ -80,16 +87,18 @@ public class HttpHelper {
 		String result = null;
 		httpClient = buildHttpClient();
 		HttpPost httpPost = new HttpPost(url);
-//		pasteHeaders(httpPost);
+		// pasteHeaders(httpPost);
 		HttpEntity entity;
 		try {
 			entity = new UrlEncodedFormEntity(forms, charSet);
 			httpPost.setEntity(entity);
 			HttpResponse response = httpClient.execute(httpPost,
 					httpLocalContext);
+			responseHeads = response.getAllHeaders();
 			if (response.getStatusLine().getStatusCode() == HttpStatus.SC_OK) {
 				result = EntityUtils.toString(response.getEntity(), charSet);
 				cookieStore = ((DefaultHttpClient) httpClient).getCookieStore();
+
 			}
 		} catch (UnsupportedEncodingException e) {
 			Log.e("cnblogs", e.getLocalizedMessage());
