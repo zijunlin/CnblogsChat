@@ -57,6 +57,7 @@ public class IngListActivity extends Activity {
 
 	public void onDownloadingIng() {
 		pgbDownLoadMsg.setVisibility(View.VISIBLE);
+		
 	}
 
 	public void onDownloadSuccess(List<FlashMessage> list) {

@@ -17,7 +17,7 @@ import com.cnblogs.keyindex.model.Section;
 	}
 
 	public void regSection(Section section) {
-		map.put(section.getName(), section);
+		map.put(section.getAction(), section);
 	}
 
 	public void clearSection() {

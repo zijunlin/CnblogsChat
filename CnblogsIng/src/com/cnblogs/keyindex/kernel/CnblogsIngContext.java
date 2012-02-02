@@ -33,6 +33,11 @@ public class CnblogsIngContext {
 		}
 		return instance;
 	}
+	
+	public Section getSectionByName(String name)
+	{
+		return sections.getSection(name);
+	}
 
 	public List<Section> getAllSection() {
 		List<Section> list=sections.getAllSection();

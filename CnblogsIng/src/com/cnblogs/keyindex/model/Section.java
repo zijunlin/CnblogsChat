@@ -2,20 +2,24 @@ package com.cnblogs.keyindex.model;
 
 public class Section {
 
+
 	private String name;
 	private int logoUriResId;
 	private String activityAction;
 
 	public Section(String name, String action) {
-		this(name, action,-1);
+		this(name, action, -1);
 	}
 
 	public Section(String name, String action, int logoResId) {
 		this.name = name;
 		logoUriResId = logoResId;
 		activityAction = action;
+		
 
 	}
+
+	
 
 	public void setName(String value) {
 		name = value;
@@ -34,7 +38,7 @@ public class Section {
 	}
 
 	public void setLogoUri(int resId) {
-		logoUriResId =resId;
+		logoUriResId = resId;
 	}
 
 	public int getLogoUri() {
