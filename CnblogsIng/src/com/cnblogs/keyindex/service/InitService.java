@@ -7,7 +7,8 @@ import android.os.Handler.Callback;
 import com.cnblogs.keyindex.R;
 import com.cnblogs.keyindex.StartActivity;
 import com.cnblogs.keyindex.kernel.CnblogsIngContext;
-import com.cnblogs.keyindex.model.res.AspDotNetForms;
+import com.cnblogs.keyindex.response.res.AspDotNetForms;
+import com.cnblogs.keyindex.serializers.AspDotNetFormsSerializer;
 
 public class InitService implements Callback {
 
@@ -46,7 +47,7 @@ public class InitService implements Callback {
 	private void bulidAspForms() {
 		startHandler.sendEmptyMessage(R.string.msgDownload);
 		re = new ResourceExplorer();
-		re.getResource(uri).serializerResult(AspDotNetForms.class.getName());
+		re.getResource(uri).serializerResult(AspDotNetFormsSerializer.class.getName());
 		startHandler.sendEmptyMessage(R.string.msgInitContext);
 		AspDotNetForms model = (AspDotNetForms) re.getResponseResource();
 		if (model != null && model.getViewState() != null) {
