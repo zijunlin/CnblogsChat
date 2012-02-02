@@ -35,7 +35,12 @@ public class CnblogsIngContext {
 	}
 
 	public List<Section> getAllSection() {
-		return sections.getAllSction();
+		List<Section> list=sections.getAllSection();
+		if(IsAuthorization())
+		{
+			list.remove(sections.getSection("µÇ   Â¼"));
+		}
+		return list;
 	}
 
 	protected void enrollSection(String name, int logoResId, String action) {
