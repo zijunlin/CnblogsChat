@@ -52,12 +52,20 @@ public class LoginActivity extends Activity implements OnClickListener {
 	public void onClick(View v) {
 		switch (v.getId()) {
 		case R.id.btnSigin:
-			loginService.login(getUserNameText(), getPasswordText());
+			authenticate();
 			break;
 		case R.id.btnCanenl:
 			cancel();
 			break;
 		}
+	}
+
+	private void authenticate() {
+		if (editTextVerify(txtUserName)&&editTextVerify(txtPassword) ) {
+			logining.show();
+			loginService.login(getUserNameText(), getPasswordText());
+		}
+
 	}
 
 	public void authenticateFaild() {
@@ -83,6 +91,7 @@ public class LoginActivity extends Activity implements OnClickListener {
 	}
 
 	public String getPasswordText() {
+
 		return txtPassword.getText().toString();
 	}
 
@@ -90,13 +99,17 @@ public class LoginActivity extends Activity implements OnClickListener {
 		txtPassword.setText(value);
 	}
 
-	public void onLogining(int resId) {
-		logining.show();
-		showLoginingMessage(resId);
-	}
-
 	public void showLoginingMessage(int resId) {
 
 		logining.setMessage(getString(resId));
+	}
+
+	public boolean editTextVerify(EditText view) {
+		if (view.getText().toString().length() == 0) {
+			view.setError("²»ÄÜÎª¿Õ");
+			return false;
+		} else {
+			return true;
+		}
 	}
 }

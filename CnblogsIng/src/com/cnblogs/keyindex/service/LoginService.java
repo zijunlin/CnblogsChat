@@ -33,7 +33,7 @@ public class LoginService implements Callback {
 	}
 
 	public void login(String userName, String password) {
-		activity.onLogining(R.string.msgLogining);
+		activity.showLoginingMessage(R.string.msgLogining);
 		final User user = new User();
 		user.setPassword(password);
 		user.setUserName(userName);
