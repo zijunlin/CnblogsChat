@@ -1,8 +1,9 @@
 package com.cnblogs.keyindex.serializers;
 
-import com.cnblogs.keyindex.model.res.Resource;
+import com.cnblogs.keyindex.net.HttpResult;
+import com.cnblogs.keyindex.response.res.Resource;
 
 public interface Serializer {
 
-	Resource format(String result);
+	Resource format(HttpResult response);
 }
