@@ -32,8 +32,6 @@ public class IngListService implements Callback {
 
 	public void getIngList() {
 		activity.onDownloadingIng();
-		if (context.getCookieStore() == null)
-			return;
 		List<BasicNameValuePair> forms = bulidFormsForList("all",1,50);
 		downLoadMsgList(activity.getString(R.string.urlGetMessageList), forms);
 	}
@@ -45,7 +43,6 @@ public class IngListService implements Callback {
 
 			@Override
 			public void run() {
-
 				ingHandler.sendEmptyMessage(R.string.msgGetingMessageList);
 				ResourceExplorer re=new ResourceExplorer();
 				re.getResource(uri, forms, context.getCookieStore())
