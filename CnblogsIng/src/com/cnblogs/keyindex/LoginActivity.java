@@ -41,7 +41,6 @@ public class LoginActivity extends Activity implements OnClickListener {
 		txtMessage = (TextView) findViewById(R.id.txtSiginMessage);
 		logining = new ProgressDialog(this);
 		logining.setTitle("µÇÂ¼");
-
 	}
 
 	@Override

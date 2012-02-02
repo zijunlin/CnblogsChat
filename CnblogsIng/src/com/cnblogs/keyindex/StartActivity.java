@@ -1,7 +1,5 @@
 package com.cnblogs.keyindex;
 
-
-
 import com.cnblogs.keyindex.service.InitService;
 
 import android.app.Activity;

@@ -27,7 +27,6 @@ public class CnblogsActivity extends Activity implements OnItemClickListener {
 
 	@Override
 	protected void onResume() {
-
 		super.onResume();
 		CnblogsIngContext context = CnblogsIngContext.getContext();
 		SectionAdapter adapter = new SectionAdapter(this,
