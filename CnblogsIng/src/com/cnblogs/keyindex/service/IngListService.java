@@ -20,7 +20,6 @@ public class IngListService implements Callback {
 
 	private Handler ingHandler;
 	private IngListActivity activity;
-	private ResourceExplorer re;
 	private List<FlashMessage> messagesList;
 	private CnblogsIngContext context;
 
@@ -28,6 +27,7 @@ public class IngListService implements Callback {
 		activity = ingListActivity;
 		ingHandler = new Handler(this);
 		context = CnblogsIngContext.getContext();
+
 	}
 
 	public void getIngList() {
@@ -47,7 +47,7 @@ public class IngListService implements Callback {
 			public void run() {
 
 				ingHandler.sendEmptyMessage(R.string.msgGetingMessageList);
-
+				ResourceExplorer re=new ResourceExplorer();
 				re.getResource(uri, forms, context.getCookieStore())
 						.serializerResult(MessageSerializer.class.getName());
 				if (messagesList != null)
