@@ -60,12 +60,30 @@ public class LoginService implements Callback {
 
 		LoginResult loginResult = (LoginResult) re.getResponseResource();
 
-		if (loginResult != null && loginResult.getCookieStore() != null) {
+		if (isSueecssedLogin(loginResult)) {
 			loginHandler.sendEmptyMessage(R.string.msgLoginSuccess);
 			CnblogsIngContext.getContext().setCookieStore(
 					loginResult.getCookieStore());
 		} else {
 			loginHandler.sendEmptyMessage(R.string.msgLoginError);
+		}
+	}
+	
+	private boolean isSueecssedLogin(LoginResult loginResult)
+	{
+		if(loginResult==null)
+			return false;
+		CookieStore cookieStore=loginResult.getCookieStore();
+		if(cookieStore==null)
+			return false;
+		
+		if(cookieStore.getCookies().size()>0)
+		{
+			return true;
+		}
+		else
+		{
+			return false;
 		}
 	}
 

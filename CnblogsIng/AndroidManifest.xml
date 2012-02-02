@@ -1,25 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.cnblogs.keyindex"
-    android:versionCode="1"
+    android:versionCode="2"
     android:versionName="1.0" >
 
     <uses-sdk android:minSdkVersion="8" />
-    <uses-permission android:name="android.permission.INTERNET"/>
+
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
         android:theme="@android:style/Theme.Light.NoTitleBar" >
         <activity android:name=".StartActivity" >
-            <intent-filter >
+            <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity android:name=".CnblogsActivity" >
-            <intent-filter >
+            <intent-filter>
                 <action android:name="com.cnblogs.keyindex.CnblogsActivity.view" >
                 </action>
 
@@ -28,7 +29,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".LoginActivity" >
-            <intent-filter >
+            <intent-filter>
                 <action android:name="com.cnblogs.keyindex.UserAcitivity.sigin" >
                 </action>
 
@@ -37,8 +38,17 @@
             </intent-filter>
         </activity>
         <activity android:name=".IngListActivity" >
-            <intent-filter >
+            <intent-filter>
                 <action android:name="com.cnblogs.keyindex.FlashMessageActivity.view" >
+                </action>
+
+                <category android:name="android.intent.category.DEFAULT" >
+                </category>
+            </intent-filter>
+        </activity>
+        <activity android:name=".IngSenderActivity" >
+            <intent-filter>
+                <action android:name="com.cnblogs.keyindex.FlashMessageActivity.Sender" >
                 </action>
 
                 <category android:name="android.intent.category.DEFAULT" >

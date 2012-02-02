@@ -1,6 +1,5 @@
 package com.cnblogs.keyindex;
 
-
 import com.cnblogs.keyindex.adapter.SectionAdapter;
 import com.cnblogs.keyindex.kernel.CnblogsIngContext;
 import com.cnblogs.keyindex.model.Section;
@@ -44,8 +43,7 @@ public class CnblogsActivity extends Activity implements OnItemClickListener {
 		Intent intent = new Intent(model.getAction());
 		startActivity(intent);
 	}
-	
-	
+
 	@Override
 	public boolean dispatchKeyEvent(KeyEvent event) {
 		if (event.getAction() == KeyEvent.ACTION_DOWN
@@ -54,8 +52,7 @@ public class CnblogsActivity extends Activity implements OnItemClickListener {
 		}
 		return super.dispatchKeyEvent(event);
 	}
-	
-	
+
 	public void exitApp() {
 		AlertDialog.Builder builder = new AlertDialog.Builder(this);
 		builder.setMessage("您确定退出吗？").setTitle("退出")
@@ -68,13 +65,12 @@ public class CnblogsActivity extends Activity implements OnItemClickListener {
 				.setPositiveButton("确定", new DialogInterface.OnClickListener() {
 					@Override
 					public void onClick(DialogInterface dialog, int id) {
-						
-						CnblogsActivity.this.finish();
+						android.os.Process.killProcess(android.os.Process
+								.myPid());
 					}
 				});
 		AlertDialog alert = builder.create();
 		alert.show();
 	}
-	
 
 }
