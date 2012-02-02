@@ -1,13 +1,9 @@
 package com.cnblogs.keyindex.kernel;
 
-
 import java.util.List;
 import org.apache.http.client.CookieStore;
-
-import android.content.Context;
-
 import com.cnblogs.keyindex.model.Section;
-import com.cnblogs.keyindex.model.res.Resource;
+import com.cnblogs.keyindex.response.res.Resource;
 
 public class CnblogsIngContext {
 
@@ -17,18 +13,16 @@ public class CnblogsIngContext {
 	private SectionTable sections;
 	private Resource baseForms;
 
+	private CnblogsIngContext() {
 
-	private CnblogsIngContext() {	
-		
 	}
 
-	public void initContext()
-	{
-		sections=new SectionTable();
-		SectionRegister register=new SectionRegister();
+	public void initContext() {
+		sections = new SectionTable();
+		SectionRegister register = new SectionRegister();
 		register.onEnroll(this);
 	}
-	
+
 	public static CnblogsIngContext getContext() {
 		if (instance == null) {
 			synchronized (CnblogsIngContext.class) {
@@ -40,17 +34,14 @@ public class CnblogsIngContext {
 		return instance;
 	}
 
-	
-	public List<Section> getAllSection()
-	{
+	public List<Section> getAllSection() {
 		return sections.getAllSction();
 	}
-	
-	protected void enrollSection(String name,int logoResId,String action)
-	{
+
+	protected void enrollSection(String name, int logoResId, String action) {
 		sections.regSection(new Section(name, action, logoResId));
 	}
-	
+
 	public CookieStore getCookieStore() {
 		return cookieStore;
 	}
@@ -58,14 +49,16 @@ public class CnblogsIngContext {
 	public void setCookieStore(CookieStore value) {
 		cookieStore = value;
 	}
-	
-	
-	public Resource getAspDotNetForms()
-	{
+
+	public boolean IsAuthorization() {
+		return cookieStore != null;
+	}
+
+	public Resource getAspDotNetForms() {
 		return baseForms;
 	}
-	public void setAspDotNetForms(Resource forms)
-	{
-		baseForms=forms;
+
+	public void setAspDotNetForms(Resource forms) {
+		baseForms = forms;
 	}
 }
