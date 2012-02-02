@@ -1,6 +1,5 @@
 package com.cnblogs.keyindex;
 
-
 import com.cnblogs.keyindex.service.LoginService;
 
 import android.app.Activity;
@@ -48,19 +47,19 @@ public class LoginActivity extends Activity implements OnClickListener {
 		super.onResume();
 		txtUserName.setText(loginService.getUserName());
 	}
-	
+
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {
 		case R.id.btnSigin:
-			loginService.login(getUserNameText(),getPasswordText());
+			loginService.login(getUserNameText(), getPasswordText());
 			break;
 		case R.id.btnCanenl:
 			cancel();
 			break;
 		}
 	}
-	
+
 	public void authenticateFaild() {
 		logining.dismiss();
 		txtMessage.setText("登录失败，请确认用户名或密码是否正确");
@@ -91,7 +90,13 @@ public class LoginActivity extends Activity implements OnClickListener {
 		txtPassword.setText(value);
 	}
 
+	public void onLogining(int resId) {
+		logining.show();
+		showLoginingMessage(resId);
+	}
+
 	public void showLoginingMessage(int resId) {
+
 		logining.setMessage(getString(resId));
 	}
 }
