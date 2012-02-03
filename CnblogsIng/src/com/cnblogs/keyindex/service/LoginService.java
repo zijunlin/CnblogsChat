@@ -52,8 +52,7 @@ public class LoginService implements Callback {
 		String uri = activity.getResources().getString(R.string.urlPassport);
 		List<BasicNameValuePair> forms = bulidForm(user.getUserName(),
 				user.getPassword());
-		CookieStore cookieStore = CnblogsIngContext.getContext()
-				.getCookieStore();
+		CookieStore cookieStore = null;
 		loginHandler.sendEmptyMessage(R.string.msgLogining);
 		re.getResource(uri, forms, cookieStore).serializerResult(
 				LoginResultSerializer.class.getName());

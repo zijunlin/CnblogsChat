@@ -33,17 +33,16 @@ public class CnblogsIngContext {
 		}
 		return instance;
 	}
-	
-	public Section getSectionByName(String name)
-	{
+
+	public Section getSectionByName(String name) {
 		return sections.getSection(name);
 	}
 
 	public List<Section> getAllSection() {
-		List<Section> list=sections.getAllSection();
-		if(IsAuthorization())
-		{
-			list.remove(sections.getSection("µÇ   Â¼"));
+		List<Section> list = sections.getAllSection();
+		if (IsAuthorization()) {
+			list.remove(sections
+					.getSection("com.cnblogs.keyindex.UserAcitivity.sigin"));
 		}
 		return list;
 	}

@@ -24,8 +24,9 @@ public final class R {
         public static final int log_in=0x7f020002;
         public static final int logo_small=0x7f020003;
         public static final int message_star=0x7f020004;
-        public static final int title_bar=0x7f020005;
-        public static final int title_logo=0x7f020006;
+        public static final int send_message=0x7f020005;
+        public static final int title_bar=0x7f020006;
+        public static final int title_logo=0x7f020007;
     }
     public static final class id {
         public static final int btnCanenl=0x7f070014;
