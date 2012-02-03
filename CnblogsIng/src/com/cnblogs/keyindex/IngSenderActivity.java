@@ -2,6 +2,7 @@ package com.cnblogs.keyindex;
 
 import com.cnblogs.keyindex.kernel.CnblogsIngContext;
 import com.cnblogs.keyindex.model.Section;
+import com.cnblogs.keyindex.service.MessageSender;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -19,10 +20,13 @@ public class IngSenderActivity extends Activity {
 	private TextView txtMessage;
 	private ProgressBar pgbSending;
 
+	private MessageSender sender;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.flash_message_sender);
+		sender = new MessageSender(this);
 		initViews();
 	}
 
@@ -61,6 +65,8 @@ public class IngSenderActivity extends Activity {
 			pgbSending.setVisibility(View.VISIBLE);
 			btnOk.setEnabled(false);
 			txtInput.setEnabled(false);
+			sender.send(txtInput.getText().toString(),
+					getString(R.string.urlMessage));
 		}
 	};
 
@@ -86,58 +92,7 @@ public class IngSenderActivity extends Activity {
 		}
 	}
 
-	// private void sendMessage(String message) {
-	// pgbDownLoadMsg.setVisibility(View.VISIBLE);
-	// btnSend.setEnabled(false);
-	// txtInput.setEnabled(false);
-	// final List<BasicNameValuePair> forms = bulidForm(message);
-	// new Thread(new Runnable() {
-	//
-	// @Override
-	// public void run() {
-	//
-	// CnblogsContext context = CnblogsContext.getContext();
-	// HttpHelper httpHelper = new HttpHelper();
-	// httpHelper.setCookieStore(context.getCookieStore());
-	// handler.sendEmptyMessage(R.string.msgSending);
-	// String result = httpHelper.postMethod(
-	// getString(R.string.urlMessage), forms);
-	//
-	// if (result != null
-	// && result.contentEquals("{\"IsSuccess\":true}")) {
-	// handler.sendEmptyMessage(R.string.msgSendSuccess);
-	//
-	// } else {
-	// handler.sendEmptyMessage(R.string.msgSendError);
-	// }
-	//
-	// }
-	// }).start();
-	// }
-
-	// private List<BasicNameValuePair> bulidForm(String message) {
-	// List<BasicNameValuePair> forms = new ArrayList<BasicNameValuePair>();
-	// forms.add(new BasicNameValuePair("content", message));
-	// forms.add(new BasicNameValuePair("publicFlag", "1"));
-	// return forms;
-	// }
-
-	// @Override
-	// public boolean handleMessage(Message msg) {
-	//
-	// txtResultMessage.setText(getString(msg.what));
-	// switch (msg.what) {
-	// case R.string.msgSendSuccess:
-	// sendSuccess();
-	// break;
-	// case R.string.msgSendError:
-	// faildSend();
-	// case R.string.msgGetMessageSuccess:
-	// pgbDownLoadMsg.setVisibility(View.INVISIBLE);
-	// bindMessage();
-	// default:
-	// break;
-	// }
-	// return false;
-	// }
+	public void showMessage(int resId) {
+		txtMessage.setText(getString(resId));
+	}
 }

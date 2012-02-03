@@ -38,8 +38,12 @@ import com.cnblogs.keyindex.model.Section;
 	}
 
 	public List<Section> getAllSection() {
-		
-		return sections;
+		List<Section> list=new ArrayList<Section>();
+		for(Section item :sections)
+		{
+			list.add(item);
+		}
+		return list;
 	}
 
 }
