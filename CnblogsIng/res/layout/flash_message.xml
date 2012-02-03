@@ -10,6 +10,7 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical" >
+
         <ProgressBar
             android:id="@+id/pgbDownloadMsg"
             style="?android:attr/progressBarStyleSmall"
@@ -33,7 +34,11 @@
     <ListView
         android:id="@+id/lstFlashMessages"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" >
+        android:layout_height="match_parent"
+        android:background="#F1EEE7"
+        android:divider="@drawable/list_divider" 
+        android:dividerHeight="2dp"
+        android:cacheColorHint="@android:color/transparent">
     </ListView>
 
 </LinearLayout>
