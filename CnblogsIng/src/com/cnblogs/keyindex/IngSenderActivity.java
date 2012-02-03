@@ -47,7 +47,7 @@ public class IngSenderActivity extends Activity {
 	private void authorization() {
 		if (!CnblogsIngContext.getContext().IsAuthorization()) {
 			btnOk.setEnabled(false);
-			txtMessage.setText("请先登录");
+			txtMessage.setText(R.string.lblNeedAuthenticate);
 		} else {
 			btnOk.setEnabled(true);
 			txtMessage.setText("");
@@ -59,7 +59,7 @@ public class IngSenderActivity extends Activity {
 		@Override
 		public void onClick(View v) {
 			if (txtInput.getText().toString().length() == 0) {
-				txtInput.setError("不能为空");
+				txtInput.setError(getString(R.string.lblNeedInput));
 				return;
 			}
 			pgbSending.setVisibility(View.VISIBLE);
@@ -74,9 +74,11 @@ public class IngSenderActivity extends Activity {
 		pgbSending.setVisibility(View.INVISIBLE);
 		btnOk.setEnabled(true);
 		txtInput.setEnabled(true);
-		txtMessage.setText("发送失败");
+		txtMessage.setText(R.string.lblSendError);
 
 	}
+
+	private String FlashMessageAction = "com.cnblogs.keyindex.FlashMessageActivity.view";
 
 	public void onSuccessedSend() {
 		pgbSending.setVisibility(View.INVISIBLE);
@@ -84,7 +86,7 @@ public class IngSenderActivity extends Activity {
 		txtInput.setEnabled(true);
 		txtMessage.setText("");
 		Section section = CnblogsIngContext.getContext().getSectionByName(
-				"com.cnblogs.keyindex.FlashMessageActivity.view");
+				FlashMessageAction);
 		if (section != null) {
 			Intent intent = new Intent(section.getAction());
 			startActivity(intent);

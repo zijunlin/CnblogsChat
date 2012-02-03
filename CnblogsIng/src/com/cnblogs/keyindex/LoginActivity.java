@@ -39,7 +39,7 @@ public class LoginActivity extends Activity implements OnClickListener {
 		txtPassword = (EditText) findViewById(R.id.txtPassword);
 		txtMessage = (TextView) findViewById(R.id.txtSiginMessage);
 		logining = new ProgressDialog(this);
-		logining.setTitle("登录");
+		logining.setTitle(R.string.lblLogin);
 	}
 
 	@Override
@@ -70,7 +70,7 @@ public class LoginActivity extends Activity implements OnClickListener {
 
 	public void authenticateFaild() {
 		logining.dismiss();
-		txtMessage.setText("登录失败，请确认用户名或密码是否正确");
+		txtMessage.setText(R.string.lblFaildAuthenticate);
 	}
 
 	public void authenticateSuccess() {
@@ -106,7 +106,7 @@ public class LoginActivity extends Activity implements OnClickListener {
 
 	public boolean editTextVerify(EditText view) {
 		if (view.getText().toString().length() == 0) {
-			view.setError("不能为空");
+			view.setError(getString(R.string.lblNeedInput));
 			return false;
 		} else {
 			return true;

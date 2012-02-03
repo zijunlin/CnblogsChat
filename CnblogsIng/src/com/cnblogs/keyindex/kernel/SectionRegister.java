@@ -4,13 +4,21 @@ import com.cnblogs.keyindex.R;
 
 class SectionRegister {
 
+	private String loginSectionTitle = "µÇ   Â¼";
+	private String loginAction = "com.cnblogs.keyindex.UserAcitivity.sigin";
+
+	private String ingSectionTitle = "ÉÁ   ´æ";
+	private String ingAction = "com.cnblogs.keyindex.FlashMessageActivity.view";
+
+	private String senderTitle = "·¢ËÍ";
+	private String senderAction = "com.cnblogs.keyindex.FlashMessageActivity.Sender";
+
 	public void onEnroll(CnblogsIngContext context) {
-		context.enrollSection("µÇ   Â¼", R.drawable.log_in,
-				"com.cnblogs.keyindex.UserAcitivity.sigin");
-		context.enrollSection("ÉÁ   ´æ", R.drawable.message_star,
-				"com.cnblogs.keyindex.FlashMessageActivity.view");
-		context.enrollSection("·¢ËÍÉÁ´æ", R.drawable.send_message,
-		"com.cnblogs.keyindex.FlashMessageActivity.Sender");
+		context.enrollSection(loginSectionTitle, R.drawable.log_in, loginAction);
+		context.enrollSection(ingSectionTitle, R.drawable.message_star,
+				ingAction);
+		context.enrollSection(senderTitle, R.drawable.send_message,
+				senderAction);
 	}
 
 }

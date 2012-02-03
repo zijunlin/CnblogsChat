@@ -19,11 +19,8 @@ public class IngListActivity extends Activity {
 
 	private ListView lstMsg;
 	private ProgressBar pgbDownLoadMsg;
-	private List<FlashMessage> messagesList;
 	private MessageAdapter adapter;
 	private TextView txtResultMessage;
-	private int lastItem = 0;
-	private int isRefreshing = 0;
 
 	private IngListService ingListService;
 
@@ -48,9 +45,6 @@ public class IngListActivity extends Activity {
 		ingListService.getIngList();
 	}
 
-
-
-	/****************************************************************************/
 	public void showMessageText(int resId) {
 		txtResultMessage.setText(getString(resId));
 	}

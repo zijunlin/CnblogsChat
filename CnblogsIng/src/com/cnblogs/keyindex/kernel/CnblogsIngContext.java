@@ -38,11 +38,12 @@ public class CnblogsIngContext {
 		return sections.getSection(name);
 	}
 
+	private String userloginAction = "com.cnblogs.keyindex.UserAcitivity.sigin";
+
 	public List<Section> getAllSection() {
 		List<Section> list = sections.getAllSection();
 		if (IsAuthorization()) {
-			list.remove(sections
-					.getSection("com.cnblogs.keyindex.UserAcitivity.sigin"));
+			list.remove(sections.getSection(userloginAction));
 		}
 		return list;
 	}
