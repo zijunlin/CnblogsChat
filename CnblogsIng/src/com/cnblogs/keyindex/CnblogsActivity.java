@@ -18,6 +18,7 @@ import android.widget.GridView;
 public class CnblogsActivity extends Activity implements OnItemClickListener {
 
 	private GridView grdFucntion;
+	private SectionAdapter adapter;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -25,15 +26,15 @@ public class CnblogsActivity extends Activity implements OnItemClickListener {
 		setContentView(R.layout.cnblogs);
 		grdFucntion = (GridView) findViewById(R.id.grdFucntion);
 		grdFucntion.setOnItemClickListener(this);
+		CnblogsIngContext context = CnblogsIngContext.getContext();
+		adapter = new SectionAdapter(this, context.getAllSection());
+		grdFucntion.setAdapter(adapter);
 	}
 
 	@Override
 	protected void onResume() {
 		super.onResume();
-		CnblogsIngContext context = CnblogsIngContext.getContext();
-		SectionAdapter adapter = new SectionAdapter(this,
-				context.getAllSection());
-		grdFucntion.setAdapter(adapter);
+		adapter.notifyDataSetChanged();
 	}
 
 	@Override
@@ -55,20 +56,23 @@ public class CnblogsActivity extends Activity implements OnItemClickListener {
 
 	public void exitApp() {
 		AlertDialog.Builder builder = new AlertDialog.Builder(this);
-		builder.setMessage("您确定退出吗？").setTitle("退出")
-				.setNegativeButton("取消", new DialogInterface.OnClickListener() {
-					@Override
-					public void onClick(DialogInterface arg0, int arg1) {
-						arg0.cancel();
-					}
-				})
-				.setPositiveButton("确定", new DialogInterface.OnClickListener() {
-					@Override
-					public void onClick(DialogInterface dialog, int id) {
-						android.os.Process.killProcess(android.os.Process
-								.myPid());
-					}
-				});
+		builder.setMessage(R.string.lblExitDialogMessage)
+				.setTitle(R.string.lblExitDialogTitle)
+				.setNegativeButton(R.string.lblCancel,
+						new DialogInterface.OnClickListener() {
+							@Override
+							public void onClick(DialogInterface arg0, int arg1) {
+								arg0.cancel();
+							}
+						})
+				.setPositiveButton(R.string.lblOk,
+						new DialogInterface.OnClickListener() {
+							@Override
+							public void onClick(DialogInterface dialog, int id) {
+								android.os.Process
+										.killProcess(android.os.Process.myPid());
+							}
+						});
 		AlertDialog alert = builder.create();
 		alert.show();
 	}
