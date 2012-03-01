@@ -31,7 +31,7 @@
             android:textSize="14sp" />
     </RelativeLayout>
 
-    <ListView
+    <com.markupartist.android.widget.PullToRefreshListView
         android:id="@+id/lstFlashMessages"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -39,6 +39,6 @@
         android:divider="@drawable/list_divider" 
         android:dividerHeight="2dp"
         android:cacheColorHint="@android:color/transparent">
-    </ListView>
+    </com.markupartist.android.widget.PullToRefreshListView>
 
 </LinearLayout>

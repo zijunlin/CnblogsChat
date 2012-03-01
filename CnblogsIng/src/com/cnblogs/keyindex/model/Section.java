@@ -2,47 +2,40 @@ package com.cnblogs.keyindex.model;
 
 public class Section {
 
-
 	private String name;
-	private int logoUriResId;
 	private String activityAction;
+	private int logoResId;
 
-	public Section(String name, String action) {
-		this(name, action, -1);
+	public Section() {
 	}
 
-	public Section(String name, String action, int logoResId) {
+	public Section(String name, String action, int logo) {
 		this.name = name;
-		logoUriResId = logoResId;
 		activityAction = action;
-		
-
-	}
-
-	
-
-	public void setName(String value) {
-		name = value;
+		logoResId = logo;
 	}
 
 	public String getName() {
 		return name;
 	}
 
-	public void setAction(String value) {
-		activityAction = value;
+	public void setName(String value) {
+		name = value;
 	}
 
 	public String getAction() {
 		return activityAction;
 	}
 
-	public void setLogoUri(int resId) {
-		logoUriResId = resId;
+	public void setAction(String value) {
+		activityAction = value;
 	}
 
-	public int getLogoUri() {
-		return logoUriResId;
+	public int getLogoResId() {
+		return logoResId;
 	}
 
+	public void setLogoResId(int value) {
+		logoResId = value;
+	}
 }

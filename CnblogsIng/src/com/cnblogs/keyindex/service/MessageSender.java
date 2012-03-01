@@ -1,10 +1,7 @@
 package com.cnblogs.keyindex.service;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import org.apache.http.client.CookieStore;
-import org.apache.http.message.BasicNameValuePair;
+import java.util.HashMap;
+import java.util.Map;
 
 import android.os.Handler;
 import android.os.Handler.Callback;
@@ -13,15 +10,20 @@ import android.os.Message;
 import com.cnblogs.keyindex.IngSenderActivity;
 import com.cnblogs.keyindex.R;
 import com.cnblogs.keyindex.kernel.CnblogsIngContext;
+import com.loopj.android.http.AsyncHttpClient;
+import com.loopj.android.http.AsyncHttpResponseHandler;
+import com.loopj.android.http.RequestParams;
 
 public class MessageSender implements Callback {
 
 	private IngSenderActivity activity;
 	private Handler handler;
+	private AsyncHttpClient httpClient;
 
 	public MessageSender(IngSenderActivity context) {
 		activity = context;
 		handler = new Handler(this);
+		httpClient = new AsyncHttpClient();
 	}
 
 	public void send(String message, String uri) {
@@ -30,18 +32,23 @@ public class MessageSender implements Callback {
 
 	private void sendMessage(final String message, final String uri) {
 
-		new Thread(new Runnable() {
+		httpClient.setCookieStore(CnblogsIngContext.getContext()
+				.getCookieStore());
+		RequestParams requestParams = new RequestParams(bulidForm(message));
+		httpClient.post(uri, requestParams, new AsyncHttpResponseHandler() {
 
 			@Override
-			public void run() {
-				List<BasicNameValuePair> forms = bulidForm(message);
-				CookieStore cookieStore = CnblogsIngContext.getContext()
-						.getCookieStore();
-				ResourceExplorer re = new ResourceExplorer();
-				handler.sendEmptyMessage(R.string.msgSending);
-				re.getResource(uri, forms, cookieStore);
+			public void onFailure(Throwable arg0) {
+				handler.sendEmptyMessage(R.string.msgSendError);
+			}
 
-				String result = re.getResponse().getContentHtml();
+			@Override
+			public void onStart() {
+				handler.sendEmptyMessage(R.string.msgSending);
+			}
+
+			@Override
+			public void onSuccess(String result) {
 				if (result != null
 						&& result.contentEquals("{\"IsSuccess\":true}")) {
 					handler.sendEmptyMessage(R.string.msgSendSuccess);
@@ -49,15 +56,16 @@ public class MessageSender implements Callback {
 				} else {
 					handler.sendEmptyMessage(R.string.msgSendError);
 				}
-
 			}
-		}).start();
+
+		});
+
 	}
 
-	private List<BasicNameValuePair> bulidForm(String message) {
-		List<BasicNameValuePair> forms = new ArrayList<BasicNameValuePair>();
-		forms.add(new BasicNameValuePair("content", message));
-		forms.add(new BasicNameValuePair("publicFlag", "1"));
+	private Map<String, String> bulidForm(String message) {
+		Map<String, String> forms = new HashMap<String, String>();
+		forms.put("content", message);
+		forms.put("publicFlag", "1");
 		return forms;
 	}
 

@@ -1,7 +1,6 @@
 package com.cnblogs.keyindex;
 
 import com.cnblogs.keyindex.kernel.CnblogsIngContext;
-import com.cnblogs.keyindex.model.Section;
 import com.cnblogs.keyindex.service.MessageSender;
 
 import android.app.Activity;
@@ -85,13 +84,11 @@ public class IngSenderActivity extends Activity {
 		btnOk.setEnabled(true);
 		txtInput.setEnabled(true);
 		txtMessage.setText("");
-		Section section = CnblogsIngContext.getContext().getSectionByName(
-				FlashMessageAction);
-		if (section != null) {
-			Intent intent = new Intent(section.getAction());
-			startActivity(intent);
-			this.finish();
-		}
+
+		Intent intent = new Intent(FlashMessageAction);
+		startActivity(intent);
+		this.finish();
+
 	}
 
 	public void showMessage(int resId) {

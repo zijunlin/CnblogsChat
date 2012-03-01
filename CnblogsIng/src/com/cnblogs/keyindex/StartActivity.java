@@ -1,9 +1,10 @@
 package com.cnblogs.keyindex;
 
-import com.cnblogs.keyindex.service.InitService;
+import com.cnblogs.keyindex.service.InitContext;
 
 import android.app.Activity;
 import android.content.Intent;
+
 import android.os.Bundle;
 import android.text.Html;
 import android.view.View;
@@ -14,8 +15,8 @@ public class StartActivity extends Activity {
 
 	private ProgressBar pgbLoading;
 	private TextView txtMessage;
-	private InitService beginService;
-	private final String MAIN_ACTION = "com.cnblogs.keyindex.CnblogsActivity.view";
+	private InitContext beginService;
+	private final String MAIN_ACTION = "com.cnblogs.keyindex.FlashMessageActivity.view";
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -23,32 +24,23 @@ public class StartActivity extends Activity {
 		setContentView(R.layout.start);
 		pgbLoading = (ProgressBar) findViewById(R.id.pgbInit);
 		txtMessage = (TextView) findViewById(R.id.txtMessage);
-		beginService=new InitService(this);
+		beginService = new InitContext(this);
+		beginService.buildContext();
 	}
 
-	@Override
-	protected void onResume() {
-		super.onResume();
-		beginService.startInit();
-	}
-	
-	//展示提示消息
-	public void onMessageChanged(int resId)
-	{
+	public void onIniting(int resId) {
 		String message = getString(resId);
 		txtMessage.setText(Html.fromHtml(message));
 	}
-	
-	public void onStartCatalog() {
+
+	public void onSuccessInit() {
 		Intent intent = new Intent(MAIN_ACTION);
 		startActivity(intent);
 		finish();
 	}
 
-	public void onError() {
+	public void onFailureInit() {
 		pgbLoading.setVisibility(View.INVISIBLE);
 	}
-
-	
 
 }

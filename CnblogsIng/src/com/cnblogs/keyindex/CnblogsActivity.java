@@ -4,6 +4,7 @@ import com.cnblogs.keyindex.adapter.SectionAdapter;
 import com.cnblogs.keyindex.kernel.CnblogsIngContext;
 import com.cnblogs.keyindex.model.Section;
 
+
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;

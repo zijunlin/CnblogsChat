@@ -1,17 +1,15 @@
 package com.cnblogs.keyindex.serializers;
 
-import com.cnblogs.keyindex.net.HttpResult;
-import com.cnblogs.keyindex.response.res.AspDotNetForms;
-import com.cnblogs.keyindex.response.res.Resource;
+import com.cnblogs.keyindex.model.AspDotNetForms;
 
 public class AspDotNetFormsSerializer implements Serializer {
 
 	@Override
-	public Resource format(HttpResult response) {
+	public AspDotNetForms format(String response) {
 
 		if (response == null)
 			return null;
-		String result = response.getContentHtml();
+		String result = response;
 		AspDotNetForms model = new AspDotNetForms();
 
 		String viewKey = "id=\"__VIEWSTATE\" value=\"";

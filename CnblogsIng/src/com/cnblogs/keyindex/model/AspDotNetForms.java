@@ -1,19 +1,21 @@
-package com.cnblogs.keyindex.response.res;
+package com.cnblogs.keyindex.model;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
+import java.util.Map;
 
-import org.apache.http.message.BasicNameValuePair;
 
-public class AspDotNetForms extends Resource{
+/**
+ * 以key -vlaue 形式存储 ，asp.net 网站需要用到的表单数据
+ * @author IndexKey
+ *
+ */
+public class AspDotNetForms{
 
 	private HashMap<String, String> forms;
 	public final String viewStateKey = "__VIEWSTATE";
 	public final String eventKey = "__EVENTVALIDATION";
 	public final String eventTagetKey = "__EVENTTARGET";
 	public final String eventArgKey = "__EVENTARGUMENT";
-	
 	
 	
 	public AspDotNetForms()
@@ -33,20 +35,12 @@ public class AspDotNetForms extends Resource{
 		return forms.get(viewStateKey);
 	}
 
-	public BasicNameValuePair getViewStateForm() {
-		return getFormByKey(viewStateKey);
-	}
-
 	public void setEvent(String value) {
 		forms.put(eventKey, value);
 	}
 
 	public String getEvent() {
 		return forms.get(eventKey);
-	}
-
-	public BasicNameValuePair getEventForm() {
-		return getFormByKey(eventKey);
 	}
 
 	public void setEventTaget(String value) {
@@ -57,10 +51,6 @@ public class AspDotNetForms extends Resource{
 		return forms.get(eventTagetKey);
 	}
 
-	public BasicNameValuePair getEventTagetForm() {
-		return getFormByKey(eventTagetKey);
-	}
-
 	public void setEventArg(String value) {
 		forms.put(eventArgKey, value);
 	}
@@ -69,25 +59,15 @@ public class AspDotNetForms extends Resource{
 		return forms.get(eventArgKey);
 	}
 
-	public BasicNameValuePair getEventArgForm() {
-		return getFormByKey(eventArgKey);
-	}
 
 	public String getViewStateValue(String key) {
 		return forms.get(key);
 	}
 
-	public BasicNameValuePair getFormByKey(String key) {
-		return new BasicNameValuePair(key, forms.get(key));
-	}
 
-	public List<BasicNameValuePair> getForms() {
-		List<BasicNameValuePair> list = new ArrayList<BasicNameValuePair>();
-		list.add(getEventArgForm());
-		list.add(getEventForm());
-		list.add(getEventTagetForm());
-		list.add(getViewStateForm());
-		return list;
+	public Map<String,String> getForms() {
+	
+		return forms;
 	}
 
 }

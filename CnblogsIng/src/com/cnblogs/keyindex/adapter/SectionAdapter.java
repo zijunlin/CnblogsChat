@@ -57,7 +57,7 @@ public class SectionAdapter extends BaseAdapter {
 		}
 		Section model = sectionList.get(position);
 		if (model != null) {
-			view.img.setImageResource(model.getLogoUri());
+			view.img.setImageResource(model.getLogoResId());
 			view.txtTile.setText(model.getName());
 		}
 		return convertView;

@@ -4,6 +4,8 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import android.graphics.Bitmap;
+
 public class FlashMessage {
 
 	private String author;
@@ -11,6 +13,8 @@ public class FlashMessage {
 	private Date sendTime;
 	private String generalTime;
 	private String ingId;
+	private String headImageUrl;
+	private Bitmap headImage;
 
 	public String getFeedId() {
 		return ingId;
