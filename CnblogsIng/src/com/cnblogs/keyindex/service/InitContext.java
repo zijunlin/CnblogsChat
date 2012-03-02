@@ -3,13 +3,14 @@
  */
 package com.cnblogs.keyindex.service;
 
+import android.content.Context;
 import android.content.res.Resources;
 import android.os.Handler;
 import android.os.Message;
 import android.os.Handler.Callback;
 import com.cnblogs.keyindex.R;
-import com.cnblogs.keyindex.StartActivity;
 import com.cnblogs.keyindex.kernel.CnblogsIngContext;
+import com.cnblogs.keyindex.kernel.IServiceHandler;
 import com.cnblogs.keyindex.model.AspDotNetForms;
 import com.cnblogs.keyindex.serializers.AspDotNetFormsSerializer;
 import com.cnblogs.keyindex.serializers.Serializer;
@@ -19,21 +20,25 @@ import com.loopj.android.http.AsyncHttpResponseHandler;
 
 public class InitContext implements Callback {
 
-	private StartActivity mActivity;
+	// private StartActivity mActivity;
 	private Handler mHandler;
 	private String uri;
 	private int delayMillis;
 	private Resources res;
 	private AsyncHttpClient httpClient;
-	private final int retryMillis=5000;
+	private final int retryMillis = 5000;
+	private IServiceHandler contextMessage;
 
-	public InitContext(StartActivity context) {
-		mActivity = context;
+	public InitContext(Context context) {
 		mHandler = new Handler(this);
-		res = mActivity.getResources();
+		res = context.getResources();
 		uri = res.getString(R.string.urlPassport);
 		delayMillis = res.getInteger(R.integer.delayMillis);
 		httpClient = new AsyncHttpClient();
+	}
+
+	public void setContextMessageHandler(IServiceHandler value) {
+		contextMessage = value;
 	}
 
 	/**
@@ -90,7 +95,10 @@ public class InitContext implements Callback {
 
 	@Override
 	public boolean handleMessage(Message msg) {
-		mActivity.onIniting(msg.what);
+
+		if (contextMessage != null) {
+			contextMessage.onProcessing(msg.what, res.getString(msg.what));
+		}
 		switch (msg.what) {
 		case R.string.msgSuccessStart:
 			initComplete();
@@ -107,13 +115,17 @@ public class InitContext implements Callback {
 		mHandler.postDelayed(new Runnable() {
 			@Override
 			public void run() {
-				mActivity.onSuccessInit();
+				if (contextMessage != null) {
+					contextMessage.onSuccess();
+				}
 			}
 		}, delayMillis);
 	}
 
 	private void error() {
-		mActivity.onFailureInit();
+		if (contextMessage != null) {
+			contextMessage.onFailure();
+		}
 		mHandler.postDelayed(new Runnable() {
 
 			@Override
