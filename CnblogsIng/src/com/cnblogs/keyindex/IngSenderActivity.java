@@ -1,7 +1,9 @@
 package com.cnblogs.keyindex;
 
+import com.cnblogs.keyindex.business.BusinessPipeline;
+import com.cnblogs.keyindex.business.IPipelineCallback;
+import com.cnblogs.keyindex.business.MessageSenderService;
 import com.cnblogs.keyindex.kernel.CnblogsIngContext;
-import com.cnblogs.keyindex.service.MessageSender;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -12,20 +14,21 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-public class IngSenderActivity extends Activity {
+public class IngSenderActivity extends Activity implements IPipelineCallback {
 
 	private Button btnOk;
 	private EditText txtInput;
 	private TextView txtMessage;
 	private ProgressBar pgbSending;
 
-	private MessageSender sender;
+	private MessageSenderService sender;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.flash_message_sender);
-		sender = new MessageSender(this);
+		sender = new MessageSenderService();
+		sender.setPipeLineListener(this);
 		initViews();
 	}
 
@@ -64,22 +67,27 @@ public class IngSenderActivity extends Activity {
 			pgbSending.setVisibility(View.VISIBLE);
 			btnOk.setEnabled(false);
 			txtInput.setEnabled(false);
-			sender.send(txtInput.getText().toString(),
-					getString(R.string.urlMessage));
+			sender.setSendMessage(txtInput.getText().toString());
+			sender.Start();
 		}
 	};
 
-	public void onFaildSend() {
-		pgbSending.setVisibility(View.INVISIBLE);
-		btnOk.setEnabled(true);
-		txtInput.setEnabled(true);
-		txtMessage.setText(R.string.lblSendError);
-
-	}
+	
 
 	private String FlashMessageAction = "com.cnblogs.keyindex.FlashMessageActivity.view";
 
-	public void onSuccessedSend() {
+	public void showMessage(int resId) {
+		txtMessage.setText(getString(resId));
+	}
+
+	@Override
+	public void onMaking(int messageId, String message) {
+		showMessage(messageId);
+
+	}
+
+	@Override
+	public void onSuccess(BusinessPipeline context) {
 		pgbSending.setVisibility(View.INVISIBLE);
 		btnOk.setEnabled(true);
 		txtInput.setEnabled(true);
@@ -91,7 +99,12 @@ public class IngSenderActivity extends Activity {
 
 	}
 
-	public void showMessage(int resId) {
-		txtMessage.setText(getString(resId));
+	@Override
+	public void onFailure(BusinessPipeline context) {
+		pgbSending.setVisibility(View.INVISIBLE);
+		btnOk.setEnabled(true);
+		txtInput.setEnabled(true);
+		txtMessage.setText(R.string.lblSendError);
+
 	}
 }

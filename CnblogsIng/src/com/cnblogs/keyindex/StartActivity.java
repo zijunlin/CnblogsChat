@@ -1,6 +1,8 @@
 package com.cnblogs.keyindex;
 
-import com.cnblogs.keyindex.service.InitContext;
+import com.cnblogs.keyindex.business.BusinessPipeline;
+import com.cnblogs.keyindex.business.IPipelineCallback;
+import com.cnblogs.keyindex.business.InitContext;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -11,11 +13,11 @@ import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-public class StartActivity extends Activity {
+public class StartActivity extends Activity implements IPipelineCallback {
 
 	private ProgressBar pgbLoading;
 	private TextView txtMessage;
-	private InitContext beginService;
+	private BusinessPipeline beginService;
 	private final String MAIN_ACTION = "com.cnblogs.keyindex.FlashMessageActivity.view";
 
 	@Override
@@ -24,23 +26,30 @@ public class StartActivity extends Activity {
 		setContentView(R.layout.start);
 		pgbLoading = (ProgressBar) findViewById(R.id.pgbInit);
 		txtMessage = (TextView) findViewById(R.id.txtMessage);
-		beginService = new InitContext(this);
-		beginService.buildContext();
+		beginService = new InitContext();
+		beginService.InitPipeline(this);
+		beginService.setPipeLineListener(this);
+		beginService.Start();
 	}
 
-	public void onIniting(int resId) {
-		String message = getString(resId);
+	@Override
+	public void onMaking(int messageId, String message) {
 		txtMessage.setText(Html.fromHtml(message));
+
 	}
 
-	public void onSuccessInit() {
+	@Override
+	public void onSuccess(BusinessPipeline context) {
 		Intent intent = new Intent(MAIN_ACTION);
 		startActivity(intent);
 		finish();
+
 	}
 
-	public void onFailureInit() {
+	@Override
+	public void onFailure(BusinessPipeline context) {
 		pgbLoading.setVisibility(View.INVISIBLE);
+
 	}
 
 }

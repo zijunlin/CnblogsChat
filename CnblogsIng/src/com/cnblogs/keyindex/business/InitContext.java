@@ -1,50 +1,43 @@
 /*
  * 初始化上下文环境，主要负责处理asp.net viewstate 的获取
  */
-package com.cnblogs.keyindex.service;
+package com.cnblogs.keyindex.business;
 
 import android.content.Context;
 import android.content.res.Resources;
-import android.os.Handler;
 import android.os.Message;
-import android.os.Handler.Callback;
 import com.cnblogs.keyindex.R;
 import com.cnblogs.keyindex.kernel.CnblogsIngContext;
-import com.cnblogs.keyindex.kernel.IServiceHandler;
 import com.cnblogs.keyindex.model.AspDotNetForms;
 import com.cnblogs.keyindex.serializers.AspDotNetFormsSerializer;
 import com.cnblogs.keyindex.serializers.Serializer;
 import com.cnblogs.keyindex.serializers.SerializerFactory;
-import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 
-public class InitContext implements Callback {
+public class InitContext extends BusinessPipeline {
 
-	// private StartActivity mActivity;
-	private Handler mHandler;
-	private String uri;
 	private int delayMillis;
 	private Resources res;
-	private AsyncHttpClient httpClient;
 	private final int retryMillis = 5000;
-	private IServiceHandler contextMessage;
+	private String uri;
 
-	public InitContext(Context context) {
-		mHandler = new Handler(this);
+	@Override
+	public void InitPipeline(Context context) {
+		super.InitPipeline(context);
 		res = context.getResources();
-		uri = res.getString(R.string.urlPassport);
 		delayMillis = res.getInteger(R.integer.delayMillis);
-		httpClient = new AsyncHttpClient();
+		uri=context.getString(R.string.urlPassport);
 	}
 
-	public void setContextMessageHandler(IServiceHandler value) {
-		contextMessage = value;
+	@Override
+	public void Start() {
+		buildContext();
 	}
 
 	/**
 	 * 构建上下文
 	 */
-	public void buildContext() {
+	private void buildContext() {
 		initCnblogsContext();
 		initBaseState();
 	}
@@ -96,8 +89,8 @@ public class InitContext implements Callback {
 	@Override
 	public boolean handleMessage(Message msg) {
 
-		if (contextMessage != null) {
-			contextMessage.onProcessing(msg.what, res.getString(msg.what));
+		if (serviceHandler != null) {
+			serviceHandler.onMaking(msg.what, res.getString(msg.what));
 		}
 		switch (msg.what) {
 		case R.string.msgSuccessStart:
@@ -115,16 +108,16 @@ public class InitContext implements Callback {
 		mHandler.postDelayed(new Runnable() {
 			@Override
 			public void run() {
-				if (contextMessage != null) {
-					contextMessage.onSuccess();
+				if (serviceHandler != null) {
+					serviceHandler.onSuccess(InitContext.this);
 				}
 			}
 		}, delayMillis);
 	}
 
 	private void error() {
-		if (contextMessage != null) {
-			contextMessage.onFailure();
+		if (serviceHandler != null) {
+			serviceHandler.onFailure(this);
 		}
 		mHandler.postDelayed(new Runnable() {
 
@@ -134,4 +127,7 @@ public class InitContext implements Callback {
 			}
 		}, retryMillis);
 	}
+
+	
+
 }

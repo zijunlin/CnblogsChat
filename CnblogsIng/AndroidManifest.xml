@@ -37,7 +37,7 @@
                 </category>
             </intent-filter>
         </activity>
-        <activity android:name=".IngListActivity" >
+        <activity android:name=".IngListActivity" android:launchMode="singleInstance">
             <intent-filter>
                 <action android:name="com.cnblogs.keyindex.FlashMessageActivity.view" >
                 </action>

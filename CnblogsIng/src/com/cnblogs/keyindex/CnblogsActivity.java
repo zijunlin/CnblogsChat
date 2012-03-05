@@ -25,9 +25,9 @@ public class CnblogsActivity extends Activity implements OnItemClickListener {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.cnblogs);
+		CnblogsIngContext context = CnblogsIngContext.getContext();
 		grdFucntion = (GridView) findViewById(R.id.grdFucntion);
 		grdFucntion.setOnItemClickListener(this);
-		CnblogsIngContext context = CnblogsIngContext.getContext();
 		adapter = new SectionAdapter(this, context.getAllSection());
 		grdFucntion.setAdapter(adapter);
 	}

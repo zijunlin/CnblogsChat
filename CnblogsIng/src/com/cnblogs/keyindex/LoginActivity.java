@@ -1,6 +1,9 @@
 package com.cnblogs.keyindex;
 
-import com.cnblogs.keyindex.service.LoginService;
+import com.cnblogs.keyindex.business.BusinessPipeline;
+import com.cnblogs.keyindex.business.IPipelineCallback;
+import com.cnblogs.keyindex.business.LoginService;
+import com.cnblogs.keyindex.model.User;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
@@ -12,7 +15,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-public class LoginActivity extends Activity implements OnClickListener {
+public class LoginActivity extends Activity implements OnClickListener,
+		IPipelineCallback {
 
 	private Button btnSign;
 	private Button btnCancel;
@@ -20,13 +24,15 @@ public class LoginActivity extends Activity implements OnClickListener {
 	private EditText txtPassword;
 	private ProgressDialog logining;
 	private TextView txtMessage;
-	private LoginService loginService;
+	private LoginService Signer;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.user_sigin);
-		loginService = new LoginService(this);
+		Signer = new LoginService();
+		Signer.InitPipeline(this);
+		Signer.setPipeLineListener(this);
 		initViews();
 	}
 
@@ -45,7 +51,8 @@ public class LoginActivity extends Activity implements OnClickListener {
 	@Override
 	protected void onResume() {
 		super.onResume();
-		txtUserName.setText(loginService.getUserName());
+		String userName = Signer.loadUserName();
+		txtUserName.setText(userName);
 	}
 
 	@Override
@@ -61,47 +68,31 @@ public class LoginActivity extends Activity implements OnClickListener {
 	}
 
 	private void authenticate() {
-		if (editTextVerify(txtUserName)&&editTextVerify(txtPassword) ) {
+		if (editTextVerify(txtUserName) && editTextVerify(txtPassword)) {
 			logining.show();
-			loginService.login(getUserNameText(), getPasswordText());
+
+			User user = new User();
+			user.setUserName(getUserNameText());
+			user.setPassword(getPasswordText());
+			Signer.setUser(user);
+			Signer.Start();
+
 		}
 
 	}
 
-	public void authenticateFaild() {
-		logining.dismiss();
-		txtMessage.setText(R.string.lblFaildAuthenticate);
-	}
-
-	public void authenticateSuccess() {
-		logining.dismiss();
-		finish();
-	}
-
-	public void cancel() {
-		this.finish();
-	}
-
-	public String getUserNameText() {
-		return txtUserName.getText().toString();
-	}
-
-	public void setUserNameText(String value) {
-		txtUserName.setText(value);
-	}
-
-	public String getPasswordText() {
+	private String getPasswordText() {
 
 		return txtPassword.getText().toString();
 	}
 
-	public void setPasswordText(String value) {
-		txtPassword.setText(value);
+	private String getUserNameText() {
+
+		return txtUserName.getText().toString();
 	}
 
-	public void showLoginingMessage(int resId) {
-
-		logining.setMessage(getString(resId));
+	public void cancel() {
+		this.finish();
 	}
 
 	public boolean editTextVerify(EditText view) {
@@ -112,4 +103,23 @@ public class LoginActivity extends Activity implements OnClickListener {
 			return true;
 		}
 	}
+
+	@Override
+	public void onMaking(int messageId, String message) {
+		txtMessage.setText(messageId);
+
+	}
+
+	@Override
+	public void onSuccess(BusinessPipeline context) {
+		logining.dismiss();
+		finish();
+	}
+
+	@Override
+	public void onFailure(BusinessPipeline context) {
+		logining.dismiss();
+		txtMessage.setText(R.string.lblFaildAuthenticate);
+	}
+
 }

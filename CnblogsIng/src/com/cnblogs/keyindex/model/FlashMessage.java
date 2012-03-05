@@ -1,8 +1,14 @@
+/**
+ * …¡¥Ê µÃÂ¿‡
+ */
 package com.cnblogs.keyindex.model;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
+import java.util.List;
 
 import android.graphics.Bitmap;
 
@@ -15,6 +21,60 @@ public class FlashMessage {
 	private String ingId;
 	private String headImageUrl;
 	private Bitmap headImage;
+	private boolean isShining=false;
+
+	private List<FlashMessage> followMessage;
+
+	public FlashMessage() {
+		followMessage = new ArrayList<FlashMessage>();
+	}
+	
+	public boolean IsShining()
+	{
+		return isShining;
+	}
+	
+	public void setShine(boolean value)
+	{
+		isShining=value;
+	}
+
+	public String getHeadImageUrl() {
+		return headImageUrl;
+	}
+
+	public void setHeadImageUrl(String url) {
+		headImageUrl = url;
+	}
+
+	public Bitmap getHeadImage() {
+		return headImage;
+	}
+
+	public void setHeadImage(Bitmap value) {
+		headImage = value;
+	}
+
+	public List<FlashMessage> getFollowMessage() {
+		return followMessage;
+	}
+
+	public void addOneFollowMessage(FlashMessage value) {
+		followMessage.add(value);
+	}
+
+	public void addAllFollowMessage(Collection<FlashMessage> list) {
+		followMessage.addAll(list);
+	}
+
+	public void addAllFollowMessage(int postion, Collection<FlashMessage> list) {
+		if (postion >= 0 && postion < followMessage.size())
+			followMessage.addAll(postion, list);
+	}
+
+	public void clearFollowMessage() {
+		followMessage.clear();
+	}
 
 	public String getFeedId() {
 		return ingId;
@@ -67,7 +127,6 @@ public class FlashMessage {
 		try {
 			sendTime = sdf.parse(time);
 		} catch (ParseException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}

@@ -11,6 +11,9 @@ public final class R {
     public static final class attr {
     }
     public static final class dimen {
+        public static final int flashAutherTextSize=0x7f060006;
+        public static final int flashContentTextSize=0x7f060007;
+        public static final int flashTimeTestSize=0x7f060008;
         public static final int imgLogoHeight=0x7f060005;
         public static final int imgLogoWidth=0x7f060004;
         public static final int imgTitleLogoHeight=0x7f060003;

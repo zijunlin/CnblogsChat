@@ -1,33 +1,29 @@
-package com.cnblogs.keyindex.service;
+package com.cnblogs.keyindex.business;
 
 import java.util.HashMap;
 import java.util.Map;
 
-import android.os.Handler;
-import android.os.Handler.Callback;
 import android.os.Message;
 
-import com.cnblogs.keyindex.IngSenderActivity;
 import com.cnblogs.keyindex.R;
 import com.cnblogs.keyindex.kernel.CnblogsIngContext;
-import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 
-public class MessageSender implements Callback {
+public class MessageSenderService extends BusinessPipeline {
 
-	private IngSenderActivity activity;
-	private Handler handler;
-	private AsyncHttpClient httpClient;
+	private String uri;
+	private String flashMessage;
 
-	public MessageSender(IngSenderActivity context) {
-		activity = context;
-		handler = new Handler(this);
-		httpClient = new AsyncHttpClient();
+	public void setSendMessage(String value) {
+		flashMessage = value;
+		uri = mContext.getString(R.string.urlMessage);
 	}
 
-	public void send(String message, String uri) {
-		sendMessage(message, uri);
+	@Override
+	public void Start() {
+		sendMessage(flashMessage, uri);
+
 	}
 
 	private void sendMessage(final String message, final String uri) {
@@ -39,22 +35,22 @@ public class MessageSender implements Callback {
 
 			@Override
 			public void onFailure(Throwable arg0) {
-				handler.sendEmptyMessage(R.string.msgSendError);
+				mHandler.sendEmptyMessage(R.string.msgSendError);
 			}
 
 			@Override
 			public void onStart() {
-				handler.sendEmptyMessage(R.string.msgSending);
+				mHandler.sendEmptyMessage(R.string.msgSending);
 			}
 
 			@Override
 			public void onSuccess(String result) {
 				if (result != null
 						&& result.contentEquals("{\"IsSuccess\":true}")) {
-					handler.sendEmptyMessage(R.string.msgSendSuccess);
+					mHandler.sendEmptyMessage(R.string.msgSendSuccess);
 
 				} else {
-					handler.sendEmptyMessage(R.string.msgSendError);
+					mHandler.sendEmptyMessage(R.string.msgSendError);
 				}
 			}
 
@@ -72,17 +68,19 @@ public class MessageSender implements Callback {
 	@Override
 	public boolean handleMessage(Message msg) {
 
-		activity.showMessage(msg.what);
+		processing(msg.what);
 		switch (msg.what) {
 		case R.string.msgSendSuccess:
-			activity.onSuccessedSend();
+			success();
 			break;
 		case R.string.msgSendError:
-			activity.onFaildSend();
+			failure();
 		default:
 			break;
 		}
 		return false;
 	}
+
+	
 
 }

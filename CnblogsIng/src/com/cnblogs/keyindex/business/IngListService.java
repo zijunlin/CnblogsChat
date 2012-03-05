@@ -1,49 +1,45 @@
-package com.cnblogs.keyindex.service;
+package com.cnblogs.keyindex.business;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.cnblogs.keyindex.IngListActivity;
 import com.cnblogs.keyindex.R;
 import com.cnblogs.keyindex.model.FlashMessage;
 import com.cnblogs.keyindex.serializers.MessageSerializer;
 import com.cnblogs.keyindex.serializers.Serializer;
 import com.cnblogs.keyindex.serializers.SerializerFactory;
-import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
-
-import android.os.Handler;
 import android.os.Message;
-import android.os.Handler.Callback;
 
-public class IngListService implements Callback {
+/**
+ * 闪存列表获取服务
+ * @author IndexKey
+ *
+ */
+public class IngListService extends BusinessPipeline  {
 
-	private Handler ingHandler;
-	private IngListActivity activity;
 	private List<FlashMessage> messagesList;
-	private AsyncHttpClient httpClient;
-
 	private final String DEFAULT_LIST_TYPE = "all";
+	private final int DEFAULT_PAGE_INDEX = 1;
+	private final int DEFAULT_PAGE_SIZE = 50;
+	private String uri;
 
-
-	public IngListService(IngListActivity ingListActivity) {
-		activity = ingListActivity;
-		ingHandler = new Handler(this);
-		httpClient = new AsyncHttpClient();
-
+	@Override
+	public void Start() {
+		asynQueryList(DEFAULT_PAGE_INDEX, DEFAULT_PAGE_SIZE);
 	}
 
-
-	public void getIngList(int pageIndex, int pageSize) {
-		activity.onDownloadingIng();
-		Map<String, String> forms = bulidFormsForList(DEFAULT_LIST_TYPE, pageIndex,
-				pageSize);
-
-		downLoadMsgList(activity.getString(R.string.urlGetMessageList), forms);
+	
+	public void asynQueryList(int pageIndex, int pageSize) {
+		Map<String, String> forms = bulidFormsForList(DEFAULT_LIST_TYPE,
+				pageIndex, pageSize);
+		uri=mContext.getString(R.string.urlGetMessageList);
+		downLoadMsgList(uri, forms);
 	}
-
+	
+	
 	private void downLoadMsgList(final String uri,
 			final Map<String, String> forms) {
 		RequestParams requestParams = new RequestParams(forms);
@@ -55,7 +51,7 @@ public class IngListService implements Callback {
 
 			@Override
 			public void onStart() {
-				ingHandler.sendEmptyMessage(R.string.msgGetingMessageList);
+				mHandler.sendEmptyMessage(R.string.msgGetingMessageList);
 			}
 
 			@SuppressWarnings("unchecked")
@@ -65,10 +61,10 @@ public class IngListService implements Callback {
 						.CreateSerializer(MessageSerializer.class.getName());
 				messagesList = (List<FlashMessage>) format.format(response);
 				if (messagesList != null && messagesList.size() > 0) {
-					ingHandler.sendEmptyMessage(R.string.msgGetMessageSuccess);
+					mHandler.sendEmptyMessage(R.string.msgGetMessageSuccess);
 
 				} else {
-					ingHandler.sendEmptyMessage(R.string.msgGetMessageError);
+					mHandler.sendEmptyMessage(R.string.msgGetMessageError);
 				}
 			}
 
@@ -88,11 +84,24 @@ public class IngListService implements Callback {
 
 	@Override
 	public boolean handleMessage(Message msg) {
-
-		activity.showMessageText(msg.what);
-		if (msg.what == R.string.msgGetMessageSuccess) {
-			activity.onDownloadSuccess(messagesList);
+		switch (msg.what) {
+		case R.string.msgGetMessageSuccess:
+			success();
+			break;
+		case R.string.msgGetMessageError:
+			failure();
+			break;
+		case R.string.msgGetingMessageList:
+			processing(msg.what);
+			break;
 		}
 		return false;
 	}
+
+	public List<FlashMessage> getMsgList()
+	{
+		return messagesList;
+	}
+	
+
 }
