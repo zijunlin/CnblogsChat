@@ -15,8 +15,9 @@ public class MessageSenderService extends BusinessPipeline {
 	private String uri;
 	private String flashMessage;
 
-	public void setSendMessage(String value) {
-		flashMessage = value;
+	public void setSendMessage(String value,String template) {
+
+		flashMessage=String.format(template, value);		
 		uri = mContext.getString(R.string.urlMessage);
 	}
 

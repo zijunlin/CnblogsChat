@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 闪存模板，各种不同闪存内容的格式模板 -->
+<resources>
+    <string name="tmpCommentFlashMsg">[] %$s</string>
+    <string name="tmpThought">[IngAndroid]%1$s</string>
+</resources>

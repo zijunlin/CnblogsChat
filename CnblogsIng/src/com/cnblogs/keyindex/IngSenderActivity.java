@@ -20,7 +20,7 @@ public class IngSenderActivity extends Activity implements IPipelineCallback {
 	private EditText txtInput;
 	private TextView txtMessage;
 	private ProgressBar pgbSending;
-
+	private String msgTemplate;
 	private MessageSenderService sender;
 
 	@Override
@@ -28,6 +28,7 @@ public class IngSenderActivity extends Activity implements IPipelineCallback {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.flash_message_sender);
 		sender = new MessageSenderService();
+		sender.InitPipeline(this);
 		sender.setPipeLineListener(this);
 		initViews();
 	}
@@ -67,7 +68,9 @@ public class IngSenderActivity extends Activity implements IPipelineCallback {
 			pgbSending.setVisibility(View.VISIBLE);
 			btnOk.setEnabled(false);
 			txtInput.setEnabled(false);
-			sender.setSendMessage(txtInput.getText().toString());
+			//ÏûÏ¢Ä£°å
+			msgTemplate=getString(R.string.tmpThought);
+			sender.setSendMessage(txtInput.getText().toString(),msgTemplate);
 			sender.Start();
 		}
 	};
