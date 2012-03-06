@@ -44,33 +44,39 @@ public class MessageAdapter extends BaseAdapter {
 	public View getView(int position, View convertView, ViewGroup parent) {
 		ViewHolder view;
 		if (convertView == null) {
-			view=new ViewHolder();
+			view = new ViewHolder();
 			convertView = inflater.inflate(R.layout.flash_message_item, null);
 			view.author = (TextView) convertView
 					.findViewById(R.id.txtFlashMsgItemAuther);
-			view.content=(TextView)convertView.findViewById(R.id.txtFlashMsgItemContent);
-			view.time=(TextView)convertView.findViewById(R.id.txtFlashMsgItemTime);
+			view.content = (TextView) convertView
+					.findViewById(R.id.txtFlashMsgItemContent);
+			view.time = (TextView) convertView
+					.findViewById(R.id.txtFlashMsgItemTime);
 			convertView.setTag(view);
 		} else {
 			view = (ViewHolder) convertView.getTag();
 		}
 
 		FlashMessage message = messages.get(position);
-		
+
 		view.author.setText(message.getAuthorName());
 		view.content.setText(message.getSendContent());
-		view.time.setText(message.getGeneralTime());
+
+		String test = message.getGeneralTime();
+		for (FlashMessage item : message.getCommentsMessage()) {
+			test += "\n" + item.getAuthorName() + ":" + item.getSendContent()
+					+ " " + item.getGeneralTime();
+		}
+		view.time.setText(test);
 
 		return convertView;
 	}
-	
-	
-	private class ViewHolder 
-	{
+
+	private class ViewHolder {
 		public TextView author;
 		public TextView content;
 		public TextView time;
-		
+
 	}
 
 }

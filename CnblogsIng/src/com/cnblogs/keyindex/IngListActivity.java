@@ -21,7 +21,7 @@ public class IngListActivity extends Activity implements OnRefreshListener {
 
 	private BusinessPipeline businessService;
 	private int pageIndex = 1;
-	private int pageSize = 70;
+	private int pageSize = 15;
 	private final String MAIN_ACTIVITY_ACITON = "com.cnblogs.keyindex.CnblogsActivity.view";
 
 	@Override

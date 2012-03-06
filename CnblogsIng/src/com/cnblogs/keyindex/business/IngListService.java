@@ -6,7 +6,7 @@ import java.util.Map;
 
 import com.cnblogs.keyindex.R;
 import com.cnblogs.keyindex.model.FlashMessage;
-import com.cnblogs.keyindex.serializers.MessageSerializer;
+import com.cnblogs.keyindex.serializers.JsoupMessageSerializer;
 import com.cnblogs.keyindex.serializers.Serializer;
 import com.cnblogs.keyindex.serializers.SerializerFactory;
 import com.loopj.android.http.AsyncHttpResponseHandler;
@@ -23,7 +23,7 @@ public class IngListService extends BusinessPipeline  {
 	private List<FlashMessage> messagesList;
 	private final String DEFAULT_LIST_TYPE = "all";
 	private final int DEFAULT_PAGE_INDEX = 1;
-	private final int DEFAULT_PAGE_SIZE = 50;
+	private final int DEFAULT_PAGE_SIZE = 15;
 	private String uri;
 
 	@Override
@@ -58,7 +58,7 @@ public class IngListService extends BusinessPipeline  {
 			@Override
 			public void onSuccess(String response) {
 				Serializer format = SerializerFactory
-						.CreateSerializer(MessageSerializer.class.getName());
+						.CreateSerializer(JsoupMessageSerializer.class.getName());
 				messagesList = (List<FlashMessage>) format.format(response);
 				if (messagesList != null && messagesList.size() > 0) {
 					mHandler.sendEmptyMessage(R.string.msgGetMessageSuccess);
