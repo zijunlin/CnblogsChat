@@ -3,11 +3,12 @@
  */
 package com.cnblogs.keyindex.model;
 
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-import android.graphics.Bitmap;
+
 
 public class FlashMessage {
 
@@ -16,7 +17,7 @@ public class FlashMessage {
 	private String generalTime;
 	private String ingId;
 	private String headImageUrl;
-	private Bitmap headImage;
+
 	private boolean isShining = false;
 	private boolean isNewPerson = false;
 
@@ -54,15 +55,6 @@ public class FlashMessage {
 	public void setHeadImageUrl(String url) {
 		headImageUrl = url;
 	}
-
-	public Bitmap getHeadImage() {
-		return headImage;
-	}
-
-	public void setHeadImage(Bitmap value) {
-		headImage = value;
-	}
-
 	public List<FlashMessage> getCommentsMessage() {
 		return comments;
 	}

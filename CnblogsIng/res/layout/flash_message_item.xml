@@ -4,6 +4,15 @@
     android:layout_height="match_parent"
     android:orientation="vertical" >
 
+    <ImageView
+        android:id="@+id/imgHeader"
+        android:layout_width="48dp"
+        android:layout_height="48dp" 
+        android:scaleType="fitXY"
+        android:src="@drawable/sample_face"
+        android:contentDescription="@string/lblHeaderImage">
+    </ImageView>
+
     <TextView
         android:id="@+id/txtFlashMsgItemAuther"
         android:layout_width="fill_parent"
@@ -25,5 +34,23 @@
         android:layout_gravity="right"
         android:textColor="#44ADF6"
         android:textSize="@dimen/flashTimeTestSize" />
+    
+      <ImageView
+        android:id="@+id/imgShining"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" 
+        android:scaleType="fitXY"
+        android:src="@drawable/ing_lucky"
+        android:contentDescription="@string/lblShiningImage">
+    </ImageView>
+    
+        <ImageView
+        android:id="@+id/imgNewPerson"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" 
+        android:scaleType="fitXY"
+        android:src="@drawable/new_person"
+        android:contentDescription="@string/lblNewPerson">
+    </ImageView>
 
 </LinearLayout>

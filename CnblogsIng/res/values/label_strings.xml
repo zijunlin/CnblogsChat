@@ -19,4 +19,7 @@
 	<string name="lblNeedInput">不能为空</string>
 	<string name="lblFaildAuthenticate">登录失败，请确认用户名或密码是否正确</string>
 
+	<string name="lblHeaderImage">会员头像</string>
+	<string name="lblShiningImage">这是幸运闪</string>
+	<string name="lblNewPerson">欢迎新人</string>
 </resources>

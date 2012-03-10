@@ -26,7 +26,6 @@ public abstract class BusinessPipeline implements Callback {
 	public void setPipeLineListener(IPipelineCallback value) {
 		serviceHandler = value;
 	}
-
 	
 
 	/**

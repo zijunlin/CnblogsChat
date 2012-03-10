@@ -7,9 +7,7 @@ import java.util.Map;
 import com.cnblogs.keyindex.R;
 import com.cnblogs.keyindex.model.FlashMessage;
 import com.cnblogs.keyindex.serializers.JsoupMessageSerializer;
-import com.cnblogs.keyindex.serializers.Serializer;
-import com.cnblogs.keyindex.serializers.SerializerFactory;
-import com.loopj.android.http.AsyncHttpResponseHandler;
+import com.cnblogs.keyindex.serializers.SerializerHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 import android.os.Message;
 
@@ -23,7 +21,7 @@ public class IngListService extends BusinessPipeline  {
 	private List<FlashMessage> messagesList;
 	private final String DEFAULT_LIST_TYPE = "all";
 	private final int DEFAULT_PAGE_INDEX = 1;
-	private final int DEFAULT_PAGE_SIZE = 15;
+	private final int DEFAULT_PAGE_SIZE = 30;
 	private String uri;
 
 	@Override
@@ -43,7 +41,7 @@ public class IngListService extends BusinessPipeline  {
 	private void downLoadMsgList(final String uri,
 			final Map<String, String> forms) {
 		RequestParams requestParams = new RequestParams(forms);
-		httpClient.post(uri, requestParams, new AsyncHttpResponseHandler() {
+		httpClient.post(uri, requestParams, new SerializerHttpResponseHandler() {
 
 			@Override
 			public void onFailure(Throwable arg0) {
@@ -52,14 +50,14 @@ public class IngListService extends BusinessPipeline  {
 			@Override
 			public void onStart() {
 				mHandler.sendEmptyMessage(R.string.msgGetingMessageList);
+				this.setSerializer(JsoupMessageSerializer.class.getName());
 			}
 
 			@SuppressWarnings("unchecked")
 			@Override
-			public void onSuccess(String response) {
-				Serializer format = SerializerFactory
-						.CreateSerializer(JsoupMessageSerializer.class.getName());
-				messagesList = (List<FlashMessage>) format.format(response);
+			public void onSerializerSuccess(Object response) {
+				
+				messagesList = (List<FlashMessage>) response;
 				if (messagesList != null && messagesList.size() > 0) {
 					mHandler.sendEmptyMessage(R.string.msgGetMessageSuccess);
 
