@@ -20,6 +20,8 @@ public class FlashMessage {
 
 	private boolean isShining = false;
 	private boolean isNewPerson = false;
+	private boolean defineHeaderImage=true;
+	private final String DEFAULT_HEADER_IMG_URL = "http://pic.cnblogs.com/face/sample_face.gif";
 
 	private List<FlashMessage> comments;
 
@@ -27,6 +29,12 @@ public class FlashMessage {
 		comments = new ArrayList<FlashMessage>();
 	}
 
+	
+	public boolean HasDefineHeaderImage()
+	{
+		return defineHeaderImage;
+	}
+	
 	public boolean IsNewPerson() {
 		return isNewPerson;
 	}
@@ -54,6 +62,10 @@ public class FlashMessage {
 
 	public void setHeadImageUrl(String url) {
 		headImageUrl = url;
+		if(url.contentEquals(DEFAULT_HEADER_IMG_URL))
+		{
+			defineHeaderImage=false;
+		}
 	}
 	public List<FlashMessage> getCommentsMessage() {
 		return comments;

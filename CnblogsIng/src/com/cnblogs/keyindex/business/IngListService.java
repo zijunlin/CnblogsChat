@@ -21,7 +21,7 @@ public class IngListService extends BusinessPipeline  {
 	private List<FlashMessage> messagesList;
 	private final String DEFAULT_LIST_TYPE = "all";
 	private final int DEFAULT_PAGE_INDEX = 1;
-	private final int DEFAULT_PAGE_SIZE = 30;
+	private final int DEFAULT_PAGE_SIZE =925;
 	private String uri;
 
 	@Override

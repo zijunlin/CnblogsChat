@@ -10,9 +10,8 @@ import com.cnblogs.keyindex.R;
 import com.cnblogs.keyindex.kernel.CnblogsIngContext;
 import com.cnblogs.keyindex.model.AspDotNetForms;
 import com.cnblogs.keyindex.serializers.AspDotNetFormsSerializer;
-import com.cnblogs.keyindex.serializers.Serializer;
-import com.cnblogs.keyindex.serializers.SerializerFactory;
-import com.loopj.android.http.AsyncHttpResponseHandler;
+import com.cnblogs.keyindex.serializers.SerializerHttpResponseHandler;
+
 
 public class InitContext extends BusinessPipeline {
 
@@ -26,7 +25,7 @@ public class InitContext extends BusinessPipeline {
 		super.InitPipeline(context);
 		res = context.getResources();
 		delayMillis = res.getInteger(R.integer.delayMillis);
-		uri=context.getString(R.string.urlPassport);
+		uri = context.getString(R.string.urlPassport);
 	}
 
 	@Override
@@ -54,20 +53,19 @@ public class InitContext extends BusinessPipeline {
 	 * 获取Asp.net 的View State Event的Forms值
 	 */
 	private void initBaseState() {
-		httpClient.get(uri, new AsyncHttpResponseHandler() {
+		httpClient.get(uri, new SerializerHttpResponseHandler() {
 
 			@Override
 			public void onStart() {
 				mHandler.sendEmptyMessage(R.string.msgDownload);
+				setSerializer(AspDotNetFormsSerializer.class.getName());
 			}
 
 			@Override
-			public void onSuccess(String result) {
+			public void onSerializerSuccess(Object result) {
 				mHandler.sendEmptyMessage(R.string.msgInitContext);
-				Serializer format = SerializerFactory
-						.CreateSerializer(AspDotNetFormsSerializer.class
-								.getName());
-				AspDotNetForms model = (AspDotNetForms) format.format(result);
+				
+				AspDotNetForms model = (AspDotNetForms) result;
 
 				if (model != null && model.getViewState() != null) {
 					mHandler.sendEmptyMessage(R.string.msgSuccessStart);
@@ -127,7 +125,5 @@ public class InitContext extends BusinessPipeline {
 			}
 		}, retryMillis);
 	}
-
-	
 
 }

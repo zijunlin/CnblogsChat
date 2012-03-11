@@ -9,7 +9,6 @@
         android:layout_width="48dp"
         android:layout_height="48dp" 
         android:scaleType="fitXY"
-        android:src="@drawable/sample_face"
         android:contentDescription="@string/lblHeaderImage">
     </ImageView>
 
@@ -40,7 +39,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" 
         android:scaleType="fitXY"
-        android:src="@drawable/ing_lucky"
+        android:background="@drawable/ing_lucky"
         android:contentDescription="@string/lblShiningImage">
     </ImageView>
     
@@ -49,7 +48,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" 
         android:scaleType="fitXY"
-        android:src="@drawable/new_person"
+        android:background="@drawable/new_person"
         android:contentDescription="@string/lblNewPerson">
     </ImageView>
 

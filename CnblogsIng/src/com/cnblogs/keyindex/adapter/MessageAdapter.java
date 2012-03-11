@@ -22,14 +22,17 @@ public class MessageAdapter extends BaseAdapter {
 	private LayoutInflater inflater;
 	private List<FlashMessage> messages;
 	private ImageLoader asynImageLoader;
-	private final String DEFAULT_HEADER_IMG_URL = "http://pic.cnblogs.com/face/sample_face.gif";
+
 	private ImageViewChangeListener imgChangeListener;
 
-	public MessageAdapter(Context context, List<FlashMessage> list,
-			ImageLoader loader) {
+	public MessageAdapter(Context context, ImageLoader loader) {
 		inflater = LayoutInflater.from(context);
-		messages = list;
+
 		asynImageLoader = loader;
+	}
+
+	public void bindDate(List<FlashMessage> list) {
+		messages = list;
 	}
 
 	@Override
@@ -98,9 +101,9 @@ public class MessageAdapter extends BaseAdapter {
 		view.content.setText(message.getSendContent());
 		view.time.setText(message.getGeneralTime());
 		changeImageVisiblity(view.newPerson,
-				message.IsNewPerson() ? View.VISIBLE : View.GONE);
+				message.IsNewPerson() ? View.VISIBLE : View.INVISIBLE);
 		changeImageVisiblity(view.Shining, message.IsShining() ? View.VISIBLE
-				: View.GONE);
+				: View.INVISIBLE);
 
 	}
 
@@ -108,32 +111,39 @@ public class MessageAdapter extends BaseAdapter {
 		imageView.setVisibility(visiblity);
 	}
 
-	private void bindHeaderImage(int position, ImageView imageView,
+	private void bindHeaderImage(final int position, ImageView imageView,
 			FlashMessage message) {
 		String url = message.getHeadImageUrl();
 		// 用于图片下载完成时查找到该View
 		imageView.setTag(position);
-		if (!message.getHeadImageUrl().contentEquals(DEFAULT_HEADER_IMG_URL)) {
-			Drawable drawable = asynImageLoader.asynLoaderImage(url, position,
-					new ImageDownLoadedListener() {
+		// 必需先先恢复为默认图片
+		imageView.setImageResource(R.drawable.sample_face);
+		if (message.HasDefineHeaderImage()) {
+			Drawable drawable = asynImageLoader.getImage(message
+					.getHeadImageUrl());
 
-						@Override
-						public void onImageLoaded(Drawable imageDrawable,
-								int locationTag) {
-							if (imgChangeListener != null) {
-								imgChangeListener.onImageViewChange(imageDrawable,
-										locationTag);
-							}
-
-						}
-					});
 			if (drawable != null) {
 				imageView.setImageDrawable(drawable);
+			} else {
+
+				asynImageLoader
+						.asynLoaderImage(url, position, downloadListener);
 			}
 		}
 	}
 
-	private class ViewHolder {
+	private final ImageDownLoadedListener downloadListener = new ImageDownLoadedListener() {
+
+		@Override
+		public void onImageLoaded(Drawable imageDrawable, int locationTag) {
+			if (imgChangeListener != null) {
+				imgChangeListener.onImageViewChange(imageDrawable, locationTag);
+			}
+
+		}
+	};
+
+	private static class ViewHolder {
 		public TextView author;
 		public TextView content;
 		public TextView time;
