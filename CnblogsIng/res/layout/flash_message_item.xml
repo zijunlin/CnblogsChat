@@ -2,15 +2,30 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical" >
+    android:orientation="vertical"
+    android:paddingBottom="10dp"
+    android:paddingLeft="20dp"
+    android:paddingRight="20dp"
+    android:paddingTop="10dp" >
 
-    <ImageView
-        android:id="@+id/imgHeader"
-        android:layout_width="48dp"
-        android:layout_height="48dp" 
-        android:scaleType="fitXY"
-        android:contentDescription="@string/lblHeaderImage">
-    </ImageView>
+    <FrameLayout
+        android:layout_width="64dp"
+        android:layout_height="64dp" >
+
+        <ImageView
+            android:id="@+id/imgHeader"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:contentDescription="@string/lblHeaderImage"
+            android:scaleType="fitXY" >
+        </ImageView>
+
+        <ImageView
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:contentDescription="@string/lblHeaderImage"
+            android:src="@drawable/round_corn" />
+    </FrameLayout>
 
     <TextView
         android:id="@+id/txtFlashMsgItemAuther"
@@ -33,23 +48,23 @@
         android:layout_gravity="right"
         android:textColor="#44ADF6"
         android:textSize="@dimen/flashTimeTestSize" />
-    
-      <ImageView
+
+    <ImageView
         android:id="@+id/imgShining"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" 
-        android:scaleType="fitXY"
+        android:layout_height="wrap_content"
         android:background="@drawable/ing_lucky"
-        android:contentDescription="@string/lblShiningImage">
+        android:contentDescription="@string/lblShiningImage"
+        android:scaleType="fitXY" >
     </ImageView>
-    
-        <ImageView
+
+    <ImageView
         android:id="@+id/imgNewPerson"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" 
-        android:scaleType="fitXY"
+        android:layout_height="wrap_content"
         android:background="@drawable/new_person"
-        android:contentDescription="@string/lblNewPerson">
+        android:contentDescription="@string/lblNewPerson"
+        android:scaleType="fitXY" >
     </ImageView>
 
 </LinearLayout>

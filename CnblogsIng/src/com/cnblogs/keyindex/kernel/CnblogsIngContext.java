@@ -64,9 +64,9 @@ public class CnblogsIngContext {
 
 	public List<Section> getAllSection() {
 		List<Section> list = new ArrayList<Section>();
-		list.add(new Section("闪存列表",
-				"com.cnblogs.keyindex.FlashMessageActivity.view",
-				R.drawable.message_star));
+//		list.add(new Section("闪存列表",
+//				"com.cnblogs.keyindex.FlashMessageActivity.view",
+//				R.drawable.message_star));
 		list.add(new Section("会员登录",
 				"com.cnblogs.keyindex.UserAcitivity.sigin", R.drawable.log_in));
 		list.add(new Section("发送闪存",

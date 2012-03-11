@@ -6,11 +6,11 @@ import com.cnblogs.keyindex.model.Section;
 
 
 import android.app.Activity;
-import android.app.AlertDialog;
-import android.content.DialogInterface;
+//import android.app.AlertDialog;
+//import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.KeyEvent;
+//import android.view.KeyEvent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
@@ -46,36 +46,36 @@ public class CnblogsActivity extends Activity implements OnItemClickListener {
 		startActivity(intent);
 	}
 
-	@Override
-	public boolean dispatchKeyEvent(KeyEvent event) {
-		if (event.getAction() == KeyEvent.ACTION_DOWN
-				&& event.getKeyCode() == KeyEvent.KEYCODE_BACK) {
-			exitApp();
-		}
-		return super.dispatchKeyEvent(event);
-	}
-
-	public void exitApp() {
-		AlertDialog.Builder builder = new AlertDialog.Builder(this);
-		builder.setMessage(R.string.lblExitDialogMessage)
-				.setTitle(R.string.lblExitDialogTitle)
-				.setNegativeButton(R.string.lblCancel,
-						new DialogInterface.OnClickListener() {
-							@Override
-							public void onClick(DialogInterface arg0, int arg1) {
-								arg0.cancel();
-							}
-						})
-				.setPositiveButton(R.string.lblOk,
-						new DialogInterface.OnClickListener() {
-							@Override
-							public void onClick(DialogInterface dialog, int id) {
-								android.os.Process
-										.killProcess(android.os.Process.myPid());
-							}
-						});
-		AlertDialog alert = builder.create();
-		alert.show();
-	}
+//	@Override
+//	public boolean dispatchKeyEvent(KeyEvent event) {
+//		if (event.getAction() == KeyEvent.ACTION_DOWN
+//				&& event.getKeyCode() == KeyEvent.KEYCODE_BACK) {
+//			exitApp();
+//		}
+//		return super.dispatchKeyEvent(event);
+//	}
+//
+//	public void exitApp() {
+//		AlertDialog.Builder builder = new AlertDialog.Builder(this);
+//		builder.setMessage(R.string.lblExitDialogMessage)
+//				.setTitle(R.string.lblExitDialogTitle)
+//				.setNegativeButton(R.string.lblCancel,
+//						new DialogInterface.OnClickListener() {
+//							@Override
+//							public void onClick(DialogInterface arg0, int arg1) {
+//								arg0.cancel();
+//							}
+//						})
+//				.setPositiveButton(R.string.lblOk,
+//						new DialogInterface.OnClickListener() {
+//							@Override
+//							public void onClick(DialogInterface dialog, int id) {
+//								android.os.Process
+//										.killProcess(android.os.Process.myPid());
+//							}
+//						});
+//		AlertDialog alert = builder.create();
+//		alert.show();
+//	}
 
 }

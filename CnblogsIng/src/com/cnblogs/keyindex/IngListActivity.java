@@ -1,8 +1,5 @@
 package com.cnblogs.keyindex;
 
-
-
-
 import java.util.List;
 
 import com.cnblogs.keyindex.adapter.MessageAdapter;
@@ -20,20 +17,20 @@ import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.KeyEvent;
+import android.view.View;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 public class IngListActivity extends Activity implements OnRefreshListener,
 		ImageViewChangeListener {
 
 	private PullToRefreshListView lstMsg;
 	private MessageAdapter adapter;
-	private TextView txtResultMessage;
+	private View loadingView;
 	private ImageLoader loader;
 
 	private BusinessPipeline businessService;
 	private int pageIndex = 1;
-	private int pageSize = 150;
+	private int pageSize = 25;
 	private final String MAIN_ACTIVITY_ACITON = "com.cnblogs.keyindex.CnblogsActivity.view";
 	private List<FlashMessage> FlashMessages;
 
@@ -52,7 +49,8 @@ public class IngListActivity extends Activity implements OnRefreshListener,
 
 		lstMsg = (PullToRefreshListView) findViewById(R.id.lstFlashMessages);
 		lstMsg.setOnRefreshListener(this);
-		txtResultMessage = (TextView) findViewById(R.id.txOperMessage);
+		loadingView=findViewById(R.id.loading);
+		loadingView.setVisibility(View.VISIBLE);
 	}
 
 	private void initBussinessService() {
@@ -65,13 +63,13 @@ public class IngListActivity extends Activity implements OnRefreshListener,
 
 		@Override
 		public void onMaking(int messageId, String message) {
-			txtResultMessage.setText(getString(messageId));
-
+			
 		}
 
 		@Override
 		public void onSuccess(BusinessPipeline context) {
 
+			loadingView.setVisibility(View.GONE);
 			FlashMessages=((IngListService) context).getMsgList();
 			adapter.bindDate(FlashMessages);
 			adapter.setOnImageViewChangeListener(IngListActivity.this);
@@ -82,7 +80,7 @@ public class IngListActivity extends Activity implements OnRefreshListener,
 
 		@Override
 		public void onFailure(BusinessPipeline context) {
-
+			
 		}
 
 	};
@@ -98,9 +96,9 @@ public class IngListActivity extends Activity implements OnRefreshListener,
 	public boolean dispatchKeyEvent(KeyEvent event) {
 		if (event.getAction() == KeyEvent.ACTION_DOWN
 				&& event.getKeyCode() == KeyEvent.KEYCODE_BACK) {
-			Intent intent = new Intent(MAIN_ACTIVITY_ACITON);
-			startActivity(intent);
-			this.finish();
+//			Intent intent = new Intent(MAIN_ACTIVITY_ACITON);
+//			startActivity(intent);
+//			this.finish();
 		}
 		return super.dispatchKeyEvent(event);
 	}

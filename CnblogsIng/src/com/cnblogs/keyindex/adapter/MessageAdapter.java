@@ -101,9 +101,9 @@ public class MessageAdapter extends BaseAdapter {
 		view.content.setText(message.getSendContent());
 		view.time.setText(message.getGeneralTime());
 		changeImageVisiblity(view.newPerson,
-				message.IsNewPerson() ? View.VISIBLE : View.INVISIBLE);
+				message.IsNewPerson() ? View.VISIBLE : View.GONE);
 		changeImageVisiblity(view.Shining, message.IsShining() ? View.VISIBLE
-				: View.INVISIBLE);
+				: View.GONE);
 
 	}
 

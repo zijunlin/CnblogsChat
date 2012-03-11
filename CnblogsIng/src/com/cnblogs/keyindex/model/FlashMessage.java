@@ -21,6 +21,7 @@ public class FlashMessage {
 	private boolean isShining = false;
 	private boolean isNewPerson = false;
 	private boolean defineHeaderImage=true;
+	private boolean hasComment=false;
 	private final String DEFAULT_HEADER_IMG_URL = "http://pic.cnblogs.com/face/sample_face.gif";
 
 	private List<FlashMessage> comments;
@@ -29,6 +30,16 @@ public class FlashMessage {
 		comments = new ArrayList<FlashMessage>();
 	}
 
+	
+	public void setHasCommnets(boolean value)
+	{
+		hasComment=true;
+	}
+	
+	public boolean HasComments()
+	{
+		return hasComment;
+	}
 	
 	public boolean HasDefineHeaderImage()
 	{

@@ -7,38 +7,25 @@
     <include layout="@layout/title_bar" />
 
     <RelativeLayout
+        android:id="@+id/loading"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical" >
+        android:layout_height="match_parent" >
 
         <ProgressBar
-            android:id="@+id/pgbDownloadMsg"
-            style="?android:attr/progressBarStyleSmall"
+            android:layout_centerInParent="true"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="4dp"
-            android:visibility="invisible" />
-
-        <TextView
-            android:id="@+id/txOperMessage"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_toRightOf="@id/pgbDownloadMsg"
-            android:ellipsize="end"
-            android:singleLine="true"
-            android:textSize="14sp" />
+            android:layout_height="wrap_content" />
     </RelativeLayout>
 
     <com.markupartist.android.widget.PullToRefreshListView
         android:id="@+id/lstFlashMessages"
-        android:layout_width="match_parent"
+        android:layout_width="fill_parent"
         android:layout_height="match_parent"
-        android:background="#F1EEE7"
-        android:divider="@drawable/list_divider" 
-        android:dividerHeight="2dp"
-        android:cacheColorHint="@android:color/transparent">
+        android:background="@drawable/list_background"
+        android:cacheColorHint="@android:color/transparent"
+        android:divider="@drawable/list_divider"
+        
+        android:dividerHeight="1dp" >
     </com.markupartist.android.widget.PullToRefreshListView>
 
 </LinearLayout>

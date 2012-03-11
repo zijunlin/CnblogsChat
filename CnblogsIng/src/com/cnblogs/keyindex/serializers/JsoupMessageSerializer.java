@@ -11,6 +11,7 @@ import android.util.Log;
 
 import com.cnblogs.keyindex.model.FlashMessage;
 
+
 /**
  * 利用Jsoup 接口的 Select选择器
  * <p>
@@ -22,6 +23,7 @@ import com.cnblogs.keyindex.model.FlashMessage;
  * 
  */
 public class JsoupMessageSerializer implements Serializer {
+
 
 	@Override
 	public Object format(String response) {
@@ -43,7 +45,7 @@ public class JsoupMessageSerializer implements Serializer {
 
 	private FlashMessage serializerFlashMessage(Element element) {
 		try {
-			FlashMessage model = new FlashMessage();
+			final FlashMessage model = new FlashMessage();
 			model.setHeadImageUrl(element.select("div.feed_avatar")
 					.select("img").attr("src"));
 			String feedId = element.select("div.feed_body").attr("id");
@@ -54,6 +56,7 @@ public class JsoupMessageSerializer implements Serializer {
 			model.setNewPerson(!element.select("img.ing_icon_newbie").isEmpty());
 			model.setShine(!element.select("img.ing_icon_lucky").isEmpty());
 			model.setGeneralTime(element.select("a.ing_time").text());
+			model.setHasCommnets(hasComments(element));
 			return model;
 		} catch (Exception e) {
 			Log.e("Cnblogs", e.getMessage());
@@ -62,50 +65,10 @@ public class JsoupMessageSerializer implements Serializer {
 
 	}
 
-//	private List<FlashMessage> serializerComments(Elements elements) {
-//
-//		if (!hasComments(elements))
-//			return null;
-//
-//		List<FlashMessage> list = new ArrayList<FlashMessage>();
-//		FlashMessage comment;
-//		for (Element item : elements) {
-//			comment = serializerComment(item);
-//			if (comment != null) {
-//				list.add(comment);
-//			}
-//		}
-//
-//		return list;
-//	}
-//
-//	private boolean hasComments(Elements elements) {
-//
-//		if (elements.select("li[id]").isEmpty())
-//			return false;
-//		else
-//			return true;
-//	}
-//
-//	private FlashMessage serializerComment(Element element) {
-//		try {
-//			FlashMessage model = new FlashMessage();
-//			String feedId = element.attr("id");
-//			model.setFeedId(feedId.replace("comment_", ""));
-//
-//			model.setAuthorName(element.select("a[id]").text());
-//			model.setGeneralTime(element.select("ing_comment_time").text());
-//
-//			// element.text()会获取作者，时间，内容，所以将作者和时间替换为空字符串
-//			model.setSendContent(element.text()
-//					.replace(model.getAuthorName(), "")
-//					.replace(model.getGeneralTime(), ""));
-//
-//			return model;
-//		} catch (Exception e) {
-//			Log.e("Cnblogs", e.getMessage());
-//			return null;
-//		}
-//	}
+	private boolean hasComments(Element element) {
+		return !element.select("script ").isEmpty();
 
+	}
+
+	
 }

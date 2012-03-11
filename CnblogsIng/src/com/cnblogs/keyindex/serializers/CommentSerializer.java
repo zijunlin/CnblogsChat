@@ -7,6 +7,12 @@ import com.cnblogs.keyindex.model.FlashMessage;
 
 public class CommentSerializer {
 
+	
+	
+	
+	
+	
+	
 	/**
 	 * »ñÈ¡ÆÀÂÛ
 	 * 
