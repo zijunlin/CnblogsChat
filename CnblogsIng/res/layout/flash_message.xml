@@ -1,10 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical" >
 
-    <include layout="@layout/title_bar" />
+    <include
+        android:id="@+id/titleBar"
+        layout="@layout/title_bar" />
+
+    <com.markupartist.android.widget.PullToRefreshListView
+        android:id="@+id/lstFlashMessages"
+        android:layout_width="fill_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/titleBar"
+        android:background="@drawable/list_background"
+        android:cacheColorHint="@android:color/transparent"
+        android:divider="@drawable/list_divider"
+        android:dividerHeight="1dp" >
+    </com.markupartist.android.widget.PullToRefreshListView>
+
+    <ImageButton
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_marginBottom="15dp"
+        android:layout_marginLeft="10dp"
+        android:contentDescription="@string/lblShinginButton"
+        android:scaleType="fitXY"
+        
+        android:src="@drawable/quill_pen" />
 
     <RelativeLayout
         android:id="@+id/loading"
@@ -12,20 +37,9 @@
         android:layout_height="match_parent" >
 
         <ProgressBar
-            android:layout_centerInParent="true"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true" />
     </RelativeLayout>
 
-    <com.markupartist.android.widget.PullToRefreshListView
-        android:id="@+id/lstFlashMessages"
-        android:layout_width="fill_parent"
-        android:layout_height="match_parent"
-        android:background="@drawable/list_background"
-        android:cacheColorHint="@android:color/transparent"
-        android:divider="@drawable/list_divider"
-        
-        android:dividerHeight="1dp" >
-    </com.markupartist.android.widget.PullToRefreshListView>
-
-</LinearLayout>
+</RelativeLayout>

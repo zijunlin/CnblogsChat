@@ -8,7 +8,10 @@
     <dimen name="imgLogoWidth">142dp</dimen>
     <dimen name="imgLogoHeight">55dp</dimen>
     <dimen name="flashAutherTextSize">16sp</dimen>
-    <dimen name="flashContentTextSize">14sp</dimen>
+    <dimen name="flashContentTextSize">15sp</dimen>
     <dimen name="flashTimeTestSize">12sp</dimen>
 
+    <color name="msgAutherColor">#424242</color>
+    <color name="msgTimeColor">#5C6061</color>
+    <color name="msgContentColor">#5C6061</color>
 </resources>

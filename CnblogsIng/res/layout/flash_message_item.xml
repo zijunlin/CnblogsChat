@@ -2,15 +2,16 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:paddingBottom="10dp"
-    android:paddingLeft="20dp"
+    android:orientation="horizontal"
+    android:paddingBottom="5dp"
+    android:paddingLeft="15dp"
     android:paddingRight="20dp"
-    android:paddingTop="10dp" >
+    android:paddingTop="10dp" 
+   >
 
     <FrameLayout
-        android:layout_width="64dp"
-        android:layout_height="64dp" >
+        android:layout_width="40dp"
+        android:layout_height="40dp" >
 
         <ImageView
             android:id="@+id/imgHeader"
@@ -27,44 +28,67 @@
             android:src="@drawable/round_corn" />
     </FrameLayout>
 
-    <TextView
-        android:id="@+id/txtFlashMsgItemAuther"
+    <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:textColor="#44ADF6"
-        android:textSize="@dimen/flashAutherTextSize" />
+        android:layout_marginLeft="10dp"
+        android:orientation="vertical" >
 
-    <TextView
-        android:id="@+id/txtFlashMsgItemContent"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:textColor="#4E6A91"
-        android:textSize="@dimen/flashContentTextSize" />
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content" >
 
-    <TextView
-        android:id="@+id/txtFlashMsgItemTime"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="right"
-        android:textColor="#44ADF6"
-        android:textSize="@dimen/flashTimeTestSize" />
+            <TextView
+                android:id="@+id/txtFlashMsgItemAuther"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/msgAutherColor"
+                android:textSize="@dimen/flashAutherTextSize"
+                android:textStyle="bold"
+                 />
 
-    <ImageView
-        android:id="@+id/imgShining"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@drawable/ing_lucky"
-        android:contentDescription="@string/lblShiningImage"
-        android:scaleType="fitXY" >
-    </ImageView>
+            <TextView
+                android:id="@+id/txtFlashMsgItemTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:textColor="@color/msgTimeColor"
+                android:textSize="@dimen/flashTimeTestSize" />
+        </RelativeLayout>
 
-    <ImageView
-        android:id="@+id/imgNewPerson"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@drawable/new_person"
-        android:contentDescription="@string/lblNewPerson"
-        android:scaleType="fitXY" >
-    </ImageView>
+        <TextView
+            android:id="@+id/txtFlashMsgItemContent"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/msgContentColor"
+            android:lineSpacingMultiplier="1.4"
+            android:layout_marginTop="4dp"
+            android:textSize="@dimen/flashContentTextSize" />
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="6dp" >
+
+            <ImageView
+                android:id="@+id/imgShining"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/ing_lucky"
+                android:contentDescription="@string/lblShiningImage"
+                android:scaleType="fitXY" >
+            </ImageView>
+
+            <ImageView
+                android:id="@+id/imgNewPerson"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/new_person"
+                android:contentDescription="@string/lblNewPerson"
+                android:scaleType="fitXY" >
+            </ImageView>
+        </LinearLayout>
+    </LinearLayout>
 
 </LinearLayout>

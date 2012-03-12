@@ -22,4 +22,6 @@
 	<string name="lblHeaderImage">会员头像</string>
 	<string name="lblShiningImage">这是幸运闪</string>
 	<string name="lblNewPerson">欢迎新人</string>
+	
+	<string name="lblShinginButton">幸运键</string>
 </resources>
