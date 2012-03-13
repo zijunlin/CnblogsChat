@@ -6,6 +6,7 @@ import com.cnblogs.keyindex.R;
 import com.cnblogs.keyindex.business.ImageLoader;
 import com.cnblogs.keyindex.business.ImageLoader.ImageDownLoadedListener;
 
+import com.cnblogs.keyindex.kernel.CnblogsIngContext;
 import com.cnblogs.keyindex.model.FlashMessage;
 
 import android.content.Context;
@@ -27,12 +28,8 @@ public class MessageAdapter extends BaseAdapter {
 
 	public MessageAdapter(Context context, ImageLoader loader) {
 		inflater = LayoutInflater.from(context);
-
 		asynImageLoader = loader;
-	}
-
-	public void bindDate(List<FlashMessage> list) {
-		messages = list;
+		messages = CnblogsIngContext.getContext().getFlashMessageContainer();
 	}
 
 	@Override
@@ -88,6 +85,8 @@ public class MessageAdapter extends BaseAdapter {
 		view.Shining = (ImageView) convertView.findViewById(R.id.imgShining);
 		view.newPerson = (ImageView) convertView
 				.findViewById(R.id.imgNewPerson);
+		view.hasComments = (ImageView) convertView
+				.findViewById(R.id.imgHasComment);
 	}
 
 	/**
@@ -104,6 +103,8 @@ public class MessageAdapter extends BaseAdapter {
 				message.IsNewPerson() ? View.VISIBLE : View.GONE);
 		changeImageVisiblity(view.Shining, message.IsShining() ? View.VISIBLE
 				: View.GONE);
+		changeImageVisiblity(view.hasComments,
+				message.HasComments() ? View.VISIBLE : View.GONE);
 
 	}
 
@@ -150,6 +151,7 @@ public class MessageAdapter extends BaseAdapter {
 		public ImageView headerImage;
 		public ImageView Shining;
 		public ImageView newPerson;
+		public ImageView hasComments;
 
 	}
 

@@ -3,6 +3,7 @@
  */
 package com.cnblogs.keyindex.kernel;
 
+import java.lang.ref.SoftReference;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,16 +11,20 @@ import org.apache.http.client.CookieStore;
 
 import com.cnblogs.keyindex.R;
 import com.cnblogs.keyindex.model.AspDotNetForms;
+import com.cnblogs.keyindex.model.FlashMessage;
 import com.cnblogs.keyindex.model.Section;
 
-public class CnblogsIngContext {
+public final class CnblogsIngContext {
 
 	private static CnblogsIngContext instance = null;
 
 	private CookieStore cookieStore = null;
 	private AspDotNetForms baseforms = null;
+	private SoftReference<List<FlashMessage>> flashMessages;
 
 	private CnblogsIngContext() {
+		flashMessages = new SoftReference<List<FlashMessage>>(
+				new ArrayList<FlashMessage>());
 	}
 
 	public static CnblogsIngContext getContext() {
@@ -64,9 +69,9 @@ public class CnblogsIngContext {
 
 	public List<Section> getAllSection() {
 		List<Section> list = new ArrayList<Section>();
-//		list.add(new Section("闪存列表",
-//				"com.cnblogs.keyindex.FlashMessageActivity.view",
-//				R.drawable.message_star));
+		// list.add(new Section("闪存列表",
+		// "com.cnblogs.keyindex.FlashMessageActivity.view",
+		// R.drawable.message_star));
 		list.add(new Section("会员登录",
 				"com.cnblogs.keyindex.UserAcitivity.sigin", R.drawable.log_in));
 		list.add(new Section("发送闪存",
@@ -74,4 +79,9 @@ public class CnblogsIngContext {
 				R.drawable.send_message));
 		return list;
 	}
+
+	public List<FlashMessage> getFlashMessageContainer() {
+		return flashMessages.get();
+	}
+
 }

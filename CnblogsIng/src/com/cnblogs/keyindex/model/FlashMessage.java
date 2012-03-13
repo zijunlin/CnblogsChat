@@ -33,7 +33,7 @@ public class FlashMessage {
 	
 	public void setHasCommnets(boolean value)
 	{
-		hasComment=true;
+		hasComment=value;
 	}
 	
 	public boolean HasComments()

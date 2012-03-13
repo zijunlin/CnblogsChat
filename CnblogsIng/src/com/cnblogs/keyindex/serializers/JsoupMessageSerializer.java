@@ -66,7 +66,7 @@ public class JsoupMessageSerializer implements Serializer {
 	}
 
 	private boolean hasComments(Element element) {
-		return !element.select("script ").isEmpty();
+		return !element.select("script").isEmpty();
 
 	}
 

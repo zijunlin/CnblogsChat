@@ -6,10 +6,8 @@ import java.util.Map;
 
 import com.cnblogs.keyindex.R;
 import com.cnblogs.keyindex.model.FlashMessage;
-import com.cnblogs.keyindex.serializers.CommentSerializer;
 import com.cnblogs.keyindex.serializers.JsoupMessageSerializer;
 import com.cnblogs.keyindex.serializers.SerializerHttpResponseHandler;
-import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 import android.os.Message;
 
@@ -26,7 +24,6 @@ public class IngListService extends BusinessPipeline {
 	private final int DEFAULT_PAGE_INDEX = 1;
 	private final int DEFAULT_PAGE_SIZE = 25;
 	private String uri;
-	private String commentUrl;
 
 	@Override
 	public void Start() {
@@ -38,7 +35,6 @@ public class IngListService extends BusinessPipeline {
 				pageIndex, pageSize);
 		uri = mContext.getString(R.string.urlGetMessageList);
 		downLoadMsgList(uri, forms);
-		commentUrl = mContext.getString(R.string.urlComments);
 	}
 
 	private void downLoadMsgList(final String uri,
@@ -64,7 +60,6 @@ public class IngListService extends BusinessPipeline {
 
 						messagesList = (List<FlashMessage>) response;
 						if (messagesList != null && messagesList.size() > 0) {
-							downloadComments();
 							mHandler.sendEmptyMessage(R.string.msgGetMessageSuccess);
 
 						} else {
@@ -76,25 +71,7 @@ public class IngListService extends BusinessPipeline {
 
 	}
 
-	// ªÒ»°∆¿¬€
-	private void downloadComments() {
-		for (final FlashMessage item : messagesList) {
-			if (item.HasComments()) {
-				RequestParams params = new RequestParams();
-				params.put("ingId", item.getFeedId());
-				params.put("showcount", "5");
-				httpClient.post(commentUrl, params,
-						new AsyncHttpResponseHandler() {
-							@Override
-							public void onSuccess(String content) {
-								CommentSerializer cs = new CommentSerializer();
-								item.addAllComments(cs
-										.serialieComments(content));
-							}
-						});
-			}
-		}
-	}
+
 
 	private Map<String, String> bulidFormsForList(String listType,
 			int pageIndex, int pageSize) {
@@ -111,7 +88,6 @@ public class IngListService extends BusinessPipeline {
 		switch (msg.what) {
 		case R.string.msgGetMessageSuccess: {
 			success();
-//			downloadComments();
 		}
 			break;
 		case R.string.msgGetMessageError:
