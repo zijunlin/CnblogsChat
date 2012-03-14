@@ -14,13 +14,19 @@ import com.markupartist.android.widget.PullToRefreshListView;
 import com.markupartist.android.widget.PullToRefreshListView.OnRefreshListener;
 
 import android.app.Activity;
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ImageView;
 
 public class IngListActivity extends Activity implements OnRefreshListener,
-		ImageViewChangeListener {
+		ImageViewChangeListener, OnItemClickListener {
 
 	private PullToRefreshListView lstMsg;
 	private MessageAdapter adapter;
@@ -31,6 +37,8 @@ public class IngListActivity extends Activity implements OnRefreshListener,
 	private int pageIndex = 1;
 	private int pageSize = 25;
 	private int insertPosition = 0;
+
+	private final String DETAIL_ACTION = "com.cnblogs.keyindex.FlashMessageActivity.Details";
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +57,7 @@ public class IngListActivity extends Activity implements OnRefreshListener,
 
 		lstMsg = (PullToRefreshListView) findViewById(R.id.lstFlashMessages);
 		lstMsg.setOnRefreshListener(this);
+		lstMsg.setOnItemClickListener(this);
 		loadingView = findViewById(R.id.loading);
 		loadingView.setVisibility(View.VISIBLE);
 	}
@@ -74,7 +83,6 @@ public class IngListActivity extends Activity implements OnRefreshListener,
 			insertFlashMessage(list);
 			lstMsg.setAdapter(adapter);
 			lstMsg.onRefreshComplete();
-			
 
 		}
 
@@ -123,6 +131,33 @@ public class IngListActivity extends Activity implements OnRefreshListener,
 	@Override
 	public void onImageViewChange(Drawable imageDrawable, int location) {
 		changeListImageView(imageDrawable, location);
+	}
+
+	@Override
+	public boolean dispatchKeyEvent(KeyEvent event) {
+		if (event.getAction() == KeyEvent.ACTION_DOWN
+				&& event.getKeyCode() == KeyEvent.KEYCODE_BACK) {
+			List<FlashMessage> list = CnblogsIngContext.getContext()
+					.getFlashMessageContainer();
+			if (list != null) {
+				list.clear();
+			}
+			this.finish();
+		}
+		return super.dispatchKeyEvent(event);
+	}
+
+	@Override
+	public void onItemClick(AdapterView<?> parent, View view, int position,
+			long id) {
+		Intent intent = new Intent(DETAIL_ACTION);
+		//减一因为ListView有头部HeaderView在
+		intent.putExtra("Position", position-1);
+
+		ImageView imgView = (ImageView) view.findViewById(R.id.imgHeader);
+		Bitmap img = ((BitmapDrawable) imgView.getDrawable()).getBitmap();
+		intent.putExtra("HeanderImage", img);
+		startActivity(intent);
 	}
 
 }

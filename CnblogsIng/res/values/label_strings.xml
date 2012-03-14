@@ -24,4 +24,6 @@
 	<string name="lblNewPerson">欢迎新人</string>
 	
 	<string name="lblShinginButton">幸运键</string>
+	<string name="lblNext">下一条</string>
+	<string name="lblPervious">上一条</string>
 </resources>

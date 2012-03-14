@@ -16,6 +16,11 @@
         android:background="@drawable/list_background"
         android:cacheColorHint="@android:color/transparent"
         android:divider="@drawable/list_divider"
+        android:scrollingCache="true"
+        android:smoothScrollbar="true"
+        android:choiceMode="none"
+        android:alwaysDrawnWithCache="true"
+        android:drawingCacheQuality="high"
         android:dividerHeight="1dp" >
     </com.markupartist.android.widget.PullToRefreshListView>
 

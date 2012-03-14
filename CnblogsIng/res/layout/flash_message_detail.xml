@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/comment_header"
+        android:orientation="horizontal" >
+
+        <FrameLayout
+            android:layout_width="64dp"
+            android:layout_height="64dp"
+            android:layout_marginLeft="20dp" >
+
+            <ImageView
+                android:id="@+id/imgHeader"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:contentDescription="@string/lblHeaderImage"
+                android:scaleType="fitXY" >
+            </ImageView>
+
+            <!--
+               <ImageView
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:contentDescription="@string/lblHeaderImage"
+                android:src="@drawable/comment_round_corn" />
+            -->
+        </FrameLayout>
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+
+            <TextView
+                android:id="@+id/txtFlashMsgItemAuther"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="15dp"
+                android:textColor="@color/msgAutherColor"
+                android:textSize="@dimen/flashAutherTextSize"
+                android:textStyle="bold" />
+
+            <ImageView
+                android:id="@+id/imgShining"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/txtFlashMsgItemAuther"
+                android:background="@drawable/ing_lucky"
+                android:contentDescription="@string/lblShiningImage"
+                android:scaleType="fitXY" >
+            </ImageView>
+
+            <ImageView
+                android:id="@+id/imgNewPerson"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/txtFlashMsgItemAuther"
+                android:layout_toRightOf="@id/imgShining"
+                android:background="@drawable/new_person"
+                android:contentDescription="@string/lblNewPerson"
+                android:scaleType="fitXY" >
+            </ImageView>
+        </RelativeLayout>
+
+        <ImageButton
+            android:id="@+id/imgBtnPervious"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="@string/lblPervious" />
+
+        <ImageButton
+            android:id="@+id/imgBtnNext"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="@string/lblNext" />
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="match_parent" >
+
+        <ListView
+            android:id="@+id/lstComments"
+            android:layout_width="fill_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/list_background"
+            android:cacheColorHint="@android:color/transparent"
+            android:divider="@drawable/list_divider"
+            android:dividerHeight="1dp" >
+        </ListView>
+
+        <ImageButton
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:layout_marginBottom="15dp"
+            android:layout_marginLeft="10dp"
+            android:contentDescription="@string/lblShinginButton"
+            android:scaleType="fitXY"
+            android:src="@drawable/quill_pen" />
+
+        <ProgressBar
+            android:id="@+id/loading"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true" />
+    </RelativeLayout>
+
+</LinearLayout>

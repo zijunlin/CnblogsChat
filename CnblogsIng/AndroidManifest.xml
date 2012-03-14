@@ -55,6 +55,15 @@
                 </category>
             </intent-filter>
         </activity>
+          <activity android:name=".IngDetailsActivity" >
+            <intent-filter>
+                <action android:name="com.cnblogs.keyindex.FlashMessageActivity.Details" >
+                </action>
+
+                <category android:name="android.intent.category.DEFAULT" >
+                </category>
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>
