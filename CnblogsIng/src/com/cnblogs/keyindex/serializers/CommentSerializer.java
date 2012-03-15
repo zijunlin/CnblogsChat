@@ -9,10 +9,6 @@ public class CommentSerializer {
 
 	
 	
-	
-	
-	
-	
 	/**
 	 * »ñÈ¡ÆÀÂÛ
 	 * 

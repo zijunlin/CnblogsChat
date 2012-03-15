@@ -14,4 +14,9 @@
     <color name="msgAutherColor">#424242</color>
     <color name="msgTimeColor">#5C6061</color>
     <color name="msgContentColor">#5C6061</color>
+    
+    
+     <dimen name="flashDetailAutherTextSize">18sp</dimen>
+    <dimen name="flashDetailContentTextSize">18sp</dimen>
+    <dimen name="flashDetailTimeTestSize">14sp</dimen>
 </resources>

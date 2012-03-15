@@ -28,7 +28,7 @@
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
                 android:contentDescription="@string/lblHeaderImage"
-                android:src="@drawable/comment_round_corn" />
+                android:src="@drawable/comment_round_corn" />
             -->
         </FrameLayout>
 
@@ -44,7 +44,7 @@
                 android:layout_marginLeft="5dp"
                 android:layout_marginTop="15dp"
                 android:textColor="@color/msgAutherColor"
-                android:textSize="@dimen/flashAutherTextSize"
+                android:textSize="@dimen/flashDetailAutherTextSize"
                 android:textStyle="bold" />
 
             <ImageView
@@ -81,6 +81,22 @@
             android:layout_height="wrap_content"
             android:contentDescription="@string/lblNext" />
     </LinearLayout>
+
+    <TextView
+        android:id="@+id/txtFlashMsgItemContent"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:lineSpacingMultiplier="1.4"
+        android:textColor="@color/msgContentColor"
+        android:textSize="@dimen/flashDetailContentTextSize" />
+
+    <TextView
+        android:id="@+id/txtFlashMsgItemTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/msgTimeColor"
+        android:textSize="@dimen/flashDetailTimeTestSize" />
 
     <RelativeLayout
         android:layout_width="fill_parent"

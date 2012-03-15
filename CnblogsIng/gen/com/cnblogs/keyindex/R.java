@@ -18,6 +18,9 @@ public final class R {
     public static final class dimen {
         public static final int flashAutherTextSize=0x7f060006;
         public static final int flashContentTextSize=0x7f060007;
+        public static final int flashDetailAutherTextSize=0x7f060009;
+        public static final int flashDetailContentTextSize=0x7f06000a;
+        public static final int flashDetailTimeTestSize=0x7f06000b;
         public static final int flashTimeTestSize=0x7f060008;
         public static final int imgLogoHeight=0x7f060005;
         public static final int imgLogoWidth=0x7f060004;
@@ -50,41 +53,44 @@ public final class R {
         public static final int title_logo=0x7f020014;
     }
     public static final class id {
-        public static final int btnCanenl=0x7f080022;
-        public static final int btnSend=0x7f080011;
-        public static final int btnSigin=0x7f080021;
+        public static final int btnCanenl=0x7f080025;
+        public static final int btnSend=0x7f080014;
+        public static final int btnSigin=0x7f080024;
         public static final int grdFucntion=0x7f080000;
-        public static final int imgBtnNext=0x7f08000b;
-        public static final int imgBtnPervious=0x7f08000a;
+        public static final int imgBtnNext=0x7f08000e;
+        public static final int imgBtnPervious=0x7f08000d;
         public static final int imgCnblogsItem=0x7f080001;
-        public static final int imgHasComment=0x7f08000f;
-        public static final int imgHeader=0x7f080006;
-        public static final int imgLogo=0x7f080019;
-        public static final int imgNewPerson=0x7f080009;
-        public static final int imgShining=0x7f080008;
-        public static final int imgTitleAction=0x7f08001d;
-        public static final int imgTitleLogo=0x7f08001c;
-        public static final int loading=0x7f080005;
-        public static final int lstComments=0x7f08000c;
-        public static final int lstFlashMessages=0x7f080004;
-        public static final int pgbDownloadMsg=0x7f080012;
-        public static final int pgbInit=0x7f08001a;
-        public static final int pull_to_refresh_header=0x7f080014;
-        public static final int pull_to_refresh_image=0x7f080016;
-        public static final int pull_to_refresh_progress=0x7f080015;
-        public static final int pull_to_refresh_text=0x7f080017;
-        public static final int pull_to_refresh_updated_at=0x7f080018;
-        public static final int titleBar=0x7f080003;
-        public static final int txOperMessage=0x7f080013;
+        public static final int imgHasComment=0x7f080012;
+        public static final int imgHeader=0x7f080009;
+        public static final int imgLogo=0x7f08001c;
+        public static final int imgNewPerson=0x7f08000c;
+        public static final int imgShining=0x7f08000b;
+        public static final int imgTitleAction=0x7f080020;
+        public static final int imgTitleLogo=0x7f08001f;
+        public static final int loading=0x7f080008;
+        public static final int lstComments=0x7f080011;
+        public static final int lstFlashMessages=0x7f080007;
+        public static final int pgbDownloadMsg=0x7f080015;
+        public static final int pgbInit=0x7f08001d;
+        public static final int pull_to_refresh_header=0x7f080017;
+        public static final int pull_to_refresh_image=0x7f080019;
+        public static final int pull_to_refresh_progress=0x7f080018;
+        public static final int pull_to_refresh_text=0x7f08001a;
+        public static final int pull_to_refresh_updated_at=0x7f08001b;
+        public static final int titleBar=0x7f080006;
+        public static final int txOperMessage=0x7f080016;
         public static final int txtCnblogsItemTitle=0x7f080002;
-        public static final int txtFlashMsgItemAuther=0x7f080007;
-        public static final int txtFlashMsgItemContent=0x7f08000e;
-        public static final int txtFlashMsgItemTime=0x7f08000d;
-        public static final int txtInputMsg=0x7f080010;
-        public static final int txtMessage=0x7f08001b;
-        public static final int txtPassword=0x7f08001f;
-        public static final int txtSiginMessage=0x7f080020;
-        public static final int txtUserName=0x7f08001e;
+        public static final int txtCommentItemAuther=0x7f080003;
+        public static final int txtCommentItemContent=0x7f080004;
+        public static final int txtCommentItemTime=0x7f080005;
+        public static final int txtFlashMsgItemAuther=0x7f08000a;
+        public static final int txtFlashMsgItemContent=0x7f08000f;
+        public static final int txtFlashMsgItemTime=0x7f080010;
+        public static final int txtInputMsg=0x7f080013;
+        public static final int txtMessage=0x7f08001e;
+        public static final int txtPassword=0x7f080022;
+        public static final int txtSiginMessage=0x7f080023;
+        public static final int txtUserName=0x7f080021;
     }
     public static final class integer {
         public static final int delayMillis=0x7f050000;
@@ -100,9 +106,8 @@ public final class R {
         public static final int flash_message_sender=0x7f030007;
         public static final int pull_to_refresh_header=0x7f030008;
         public static final int start=0x7f030009;
-        public static final int test_flash_message_item=0x7f03000a;
-        public static final int title_bar=0x7f03000b;
-        public static final int user_sigin=0x7f03000c;
+        public static final int title_bar=0x7f03000a;
+        public static final int user_sigin=0x7f03000b;
     }
     public static final class string {
         public static final int app_name=0x7f040000;
@@ -129,6 +134,8 @@ public final class R {
         public static final int lblUserName=0x7f040007;
         public static final int msgCheckInternet=0x7f04001d;
         public static final int msgDownload=0x7f04001e;
+        public static final int msgDownloadCookie=0x7f04002e;
+        public static final int msgDownloadForms=0x7f04002f;
         public static final int msgFormatMessage=0x7f04002a;
         public static final int msgGetComments=0x7f04002d;
         public static final int msgGetMessageError=0x7f04002c;
@@ -151,9 +158,10 @@ public final class R {
         public static final int pull_to_refresh_tap_label=0x7f040004;
         public static final int tmpCommentFlashMsg=0x7f040005;
         public static final int tmpThought=0x7f040006;
-        public static final int urlComments=0x7f040031;
-        public static final int urlGetMessageList=0x7f040030;
-        public static final int urlMessage=0x7f04002f;
-        public static final int urlPassport=0x7f04002e;
+        public static final int urlComments=0x7f040034;
+        public static final int urlGetMessageList=0x7f040033;
+        public static final int urlMessage=0x7f040032;
+        public static final int urlPassport=0x7f040031;
+        public static final int urlSetCookie=0x7f040030;
     }
 }

@@ -32,6 +32,10 @@ public class MessageAdapter extends BaseAdapter {
 		messages = CnblogsIngContext.getContext().getFlashMessageContainer();
 	}
 
+	public void setList(List<FlashMessage> list) {
+		messages = list;
+	}
+
 	@Override
 	public int getCount() {
 

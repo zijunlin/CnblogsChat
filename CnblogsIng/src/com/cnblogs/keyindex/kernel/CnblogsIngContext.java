@@ -84,4 +84,9 @@ public final class CnblogsIngContext {
 		return flashMessages.get();
 	}
 
+	public void setFlashMessageList(List<FlashMessage> list) {
+		if (list != null)
+			flashMessages = new SoftReference<List<FlashMessage>>(list);
+	}
+
 }

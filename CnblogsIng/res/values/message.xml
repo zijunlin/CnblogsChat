@@ -3,7 +3,7 @@
 
     <string name="msgStart">初始化中请稍候...</string>
     <string name="msgCheckInternet">检查网络...</string>
-    <string name="msgDownload">下载信息...</string>
+    <string name="msgDownload">网络监测...</string>
     <string name="msgInitContext">构建上下文...</string>
 	<string name="msgSuccessStart">初始化成功</string>
 	<string name="msgInitError">初始化失败，5秒后将重试</string>
@@ -21,4 +21,8 @@
 	<string name="msgGetMessageError">获取闪存失败</string>
 	
 	<string name="msgGetComments">获取评论</string>
+	
+	<string name="msgDownloadCookie">构建网络环境</string>
+	<string name="msgDownloadForms">下载表单视图</string>
+	
 </resources>

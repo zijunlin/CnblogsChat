@@ -49,6 +49,7 @@ public class IngListActivity extends Activity implements OnRefreshListener,
 		loader = new ImageLoader();
 		adapter = new MessageAdapter(IngListActivity.this, loader);
 		adapter.setOnImageViewChangeListener(IngListActivity.this);
+
 		initBussinessService();
 		businessService.Start();
 	}
@@ -81,6 +82,8 @@ public class IngListActivity extends Activity implements OnRefreshListener,
 			loadingView.setVisibility(View.GONE);
 			List<FlashMessage> list = ((IngListService) context).getMsgList();
 			insertFlashMessage(list);
+			adapter.setList(CnblogsIngContext.getContext()
+					.getFlashMessageContainer());
 			lstMsg.setAdapter(adapter);
 			lstMsg.onRefreshComplete();
 
@@ -97,8 +100,10 @@ public class IngListActivity extends Activity implements OnRefreshListener,
 
 		List<FlashMessage> currentFlashMessage = CnblogsIngContext.getContext()
 				.getFlashMessageContainer();
-		if (currentFlashMessage == null)
+		if (currentFlashMessage == null) {
+			CnblogsIngContext.getContext().setFlashMessageList(list);
 			return;
+		}
 		if (currentFlashMessage.isEmpty()) {
 			currentFlashMessage.addAll(list);
 			return;
@@ -151,8 +156,8 @@ public class IngListActivity extends Activity implements OnRefreshListener,
 	public void onItemClick(AdapterView<?> parent, View view, int position,
 			long id) {
 		Intent intent = new Intent(DETAIL_ACTION);
-		//减一因为ListView有头部HeaderView在
-		intent.putExtra("Position", position-1);
+		// 减一因为ListView有头部HeaderView在
+		intent.putExtra("Position", position - 1);
 
 		ImageView imgView = (ImageView) view.findViewById(R.id.imgHeader);
 		Bitmap img = ((BitmapDrawable) imgView.getDrawable()).getBitmap();

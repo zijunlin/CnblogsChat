@@ -12,7 +12,6 @@ import com.cnblogs.keyindex.model.AspDotNetForms;
 import com.cnblogs.keyindex.serializers.AspDotNetFormsSerializer;
 import com.cnblogs.keyindex.serializers.SerializerHttpResponseHandler;
 
-
 public class InitContext extends BusinessPipeline {
 
 	private int delayMillis;
@@ -39,6 +38,7 @@ public class InitContext extends BusinessPipeline {
 	private void buildContext() {
 		initCnblogsContext();
 		initBaseState();
+
 	}
 
 	/**
@@ -64,7 +64,7 @@ public class InitContext extends BusinessPipeline {
 			@Override
 			public void onSerializerSuccess(Object result) {
 				mHandler.sendEmptyMessage(R.string.msgInitContext);
-				
+
 				AspDotNetForms model = (AspDotNetForms) result;
 
 				if (model != null && model.getViewState() != null) {
@@ -97,6 +97,7 @@ public class InitContext extends BusinessPipeline {
 		case R.string.msgInitError:
 			error();
 			break;
+
 		default:
 		}
 		return false;
