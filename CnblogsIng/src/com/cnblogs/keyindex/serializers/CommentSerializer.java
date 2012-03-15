@@ -3,81 +3,77 @@ package com.cnblogs.keyindex.serializers;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
+import android.util.Log;
+
 import com.cnblogs.keyindex.model.FlashMessage;
 
-public class CommentSerializer {
+public class CommentSerializer implements Serializer {
 
-	
-	
-	/**
-	 * ªÒ»°∆¿¬€
-	 * 
-	 * @param subHtml
-	 * @return
-	 */
-	public List<FlashMessage> serialieComments(String subHtml) {
-		if (subHtml == null)
+	@Override
+	public Object format(String response) {
+
+		if (response == null)
 			return null;
-		String result = subHtml;
 		List<FlashMessage> list = new ArrayList<FlashMessage>();
-		FlashMessage message;
-		String[] resultList = result.split("<li id=");
-		for (int i = 0; i < resultList.length; i++) {
-			message = serializerMdoel(resultList[i]);
-			if (message != null)
-				list.add(message);
+
+		String result = toHtmlString(response);
+		Document doc = Jsoup.parse(result);
+
+		FlashMessage comment;
+
+		Elements ul = doc.select("li[id]");
+		for (Element item : ul) {
+			comment = serializerComment(item);
+			if (comment != null)
+				list.add(comment);
 		}
 
 		return list;
 	}
 
-	private FlashMessage serializerMdoel(String html) {
-		FlashMessage message = new FlashMessage();
-
+	private String toHtmlString(String response) {
+		JSONObject jo;
 		try {
+			jo = new JSONObject(response);
 
-			message.setAuthorName(getName(html));
-			message.setGeneralTime(getGeneralTime(html));
-			message.setSendContent(getContent(html));
-			return message;
+			String htmlStr = jo.getString("d");
 
+			return htmlStr;
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return "";
+		}
+
+	}
+
+	private FlashMessage serializerComment(Element element) {
+		try {
+			final FlashMessage model = new FlashMessage();
+
+			String feedId = element.select("li").attr("id");
+			model.setFeedId(feedId.replace("comment_", ""));
+			model.setAuthorName(element.select(
+					"#comment_author_" + model.getFeedId()).text());
+
+			model.setGeneralTime(element.select("a.ing_comment_time").text());
+
+			String content =element.ownText();
+			
+			model.setSendContent(content.substring(1));
+
+			return model;
 		} catch (Exception e) {
+			Log.e("Cnblogs", e.getMessage());
 			return null;
 		}
+
 	}
 
-	private String getContent(String subHtml) throws Exception {
-		int begin = 0, end = 0;
-		String tag="</a>£∫";
-		begin = subHtml.indexOf(tag);
-		end=subHtml.indexOf("<a", begin);
-		if (end == -1 || begin == -1)
-			throw new Exception("Not Found");
-		return subHtml.substring(begin + tag.length(), end);
-	}
-
-	private String getGeneralTime(String subHtml) throws Exception {
-		int begin = 0, end = 0;
-		String tag=">";
-		end = subHtml.indexOf("class=\"ing_comment_time\"");
-		end = subHtml.indexOf("</a>", end);
-		begin = subHtml.lastIndexOf(tag, end);
-
-		if (end == -1 || begin == -1)
-			throw new Exception("Not Found");
-		return subHtml.substring(begin + tag.length(), end);
-	}
-
-	private String getName(String subHtml) throws Exception {
-		int begin = 0, end = 0;
-		end = subHtml.indexOf("</a>£∫");
-		String tag = ">";
-		begin = subHtml.lastIndexOf(tag, end);
-
-		if (end == -1 || begin == -1)
-			throw new Exception("Not Found");
-
-		String name = subHtml.substring(begin + tag.length(), end);
-		return name;
-	}
 }

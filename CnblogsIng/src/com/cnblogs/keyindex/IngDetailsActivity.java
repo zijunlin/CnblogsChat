@@ -87,12 +87,17 @@ public class IngDetailsActivity extends Activity implements IPipelineCallback {
 	}
 
 	private void getComments() {
-		pgbLoading.setVisibility(View.VISIBLE);
+
 		businessService = new CommentLoader();
 		businessService.InitPipeline(this);
+		businessService.setPipeLineListener(this);
+
 		businessService.setRequestIngId(currentFlashMessage.getFeedId());
 		businessService.setRequestIngCount(defaultCommentCount);
 		if (currentFlashMessage.HasComments()) {
+			if (currentFlashMessage.getCommentsMessage().size() == 0) {
+				pgbLoading.setVisibility(View.VISIBLE);
+			}
 			businessService.Start();
 		} else {
 			pgbLoading.setVisibility(View.INVISIBLE);
