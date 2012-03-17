@@ -11,7 +11,6 @@ import android.util.Log;
 
 import com.cnblogs.keyindex.model.FlashMessage;
 
-
 /**
  * 利用Jsoup 接口的 Select选择器
  * <p>
@@ -23,7 +22,6 @@ import com.cnblogs.keyindex.model.FlashMessage;
  * 
  */
 public class JsoupMessageSerializer implements Serializer {
-
 
 	@Override
 	public Object format(String response) {
@@ -66,9 +64,18 @@ public class JsoupMessageSerializer implements Serializer {
 	}
 
 	private boolean hasComments(Element element) {
-		return !element.select("script").isEmpty();
+
+		if (!element.select("script").isEmpty()) {
+			return true;
+		}
+		
+		//Cnblogs 里部分Comment 没有利用Ajax 加载，
+		if (element.select("div.ing_comments").select("li").size() > 1) {
+			return true;
+		}
+
+		return false;
 
 	}
 
-	
 }
