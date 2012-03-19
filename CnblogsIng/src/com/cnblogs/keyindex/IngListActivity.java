@@ -23,6 +23,7 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 
 public class IngListActivity extends Activity implements OnRefreshListener,
@@ -38,7 +39,8 @@ public class IngListActivity extends Activity implements OnRefreshListener,
 	private int pageSize = 25;
 	private int insertPosition = 0;
 
-	private final String DETAIL_ACTION = "com.cnblogs.keyindex.FlashMessageActivity.Details";
+	private static final String DETAIL_ACTION = "com.cnblogs.keyindex.FlashMessageActivity.Details";
+	private static final String SENDER_ACTION = "com.cnblogs.keyindex.FlashMessageActivity.Sender";
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -61,6 +63,8 @@ public class IngListActivity extends Activity implements OnRefreshListener,
 		lstMsg.setOnItemClickListener(this);
 		loadingView = findViewById(R.id.loading);
 		loadingView.setVisibility(View.VISIBLE);
+		((ImageButton) findViewById(R.id.btnImgSender))
+				.setOnClickListener(SenderListener);
 	}
 
 	private void initBussinessService() {
@@ -68,6 +72,16 @@ public class IngListActivity extends Activity implements OnRefreshListener,
 		businessService.InitPipeline(this);
 		businessService.setPipeLineListener(callback);
 	}
+
+	private View.OnClickListener SenderListener = new View.OnClickListener() {
+
+		@Override
+		public void onClick(View v) {
+
+			Intent intent = new Intent(SENDER_ACTION);
+			startActivity(intent);
+		}
+	};
 
 	private IPipelineCallback callback = new IPipelineCallback() {
 

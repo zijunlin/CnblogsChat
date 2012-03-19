@@ -10,9 +10,12 @@ import com.cnblogs.keyindex.kernel.CnblogsIngContext;
 import com.cnblogs.keyindex.model.FlashMessage;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
@@ -33,6 +36,9 @@ public class IngDetailsActivity extends Activity implements IPipelineCallback {
 	private CommentAdapter adapter;
 
 	private int defaultCommentCount = 45;
+	private static final String SENDER_ACTION = "com.cnblogs.keyindex.FlashMessageActivity.Sender";
+	private static final String FEED_ID_KEY = "FeedId";
+	private static final String RETURN_TO_AUTHOR = "Author";
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -61,6 +67,8 @@ public class IngDetailsActivity extends Activity implements IPipelineCallback {
 		txtTime = (TextView) findViewById(R.id.txtFlashMsgItemTime);
 		lstComment = (ListView) findViewById(R.id.lstComments);
 		pgbLoading = (ProgressBar) findViewById(R.id.loading);
+		((ImageButton) findViewById(R.id.btnImgSender))
+				.setOnClickListener(SenderListener);
 	}
 
 	private void bindData() {
@@ -75,7 +83,33 @@ public class IngDetailsActivity extends Activity implements IPipelineCallback {
 		adapter = new CommentAdapter(this.getApplicationContext(),
 				currentFlashMessage.getCommentsMessage());
 		lstComment.setAdapter(adapter);
+		lstComment.setOnItemClickListener(CommentListener);
 	}
+
+	private View.OnClickListener SenderListener = new View.OnClickListener() {
+
+		@Override
+		public void onClick(View v) {
+
+			Intent intent = new Intent(SENDER_ACTION);
+			intent.putExtra(FEED_ID_KEY, currentFlashMessage.getFeedId());
+			startActivity(intent);
+		}
+	};
+
+	private AdapterView.OnItemClickListener CommentListener = new AdapterView.OnItemClickListener() {
+
+		@Override
+		public void onItemClick(AdapterView<?> parent, View view, int position,
+				long id) {
+			Intent intent = new Intent(SENDER_ACTION);
+			intent.putExtra(FEED_ID_KEY, currentFlashMessage.getFeedId());
+			intent.putExtra(RETURN_TO_AUTHOR, currentFlashMessage
+					.getCommentsMessage().get(position).getAuthorName());
+			startActivity(intent);
+
+		}
+	};
 
 	private void changeVisiblility(boolean visibility, View view) {
 		view.setVisibility(visibility ? View.VISIBLE : View.INVISIBLE);

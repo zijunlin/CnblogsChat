@@ -28,7 +28,7 @@
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
                 android:contentDescription="@string/lblHeaderImage"
-                android:src="@drawable/comment_round_corn" />
+                android:src="@drawable/comment_round_corn" />
             -->
         </FrameLayout>
 
@@ -113,6 +113,7 @@
         </ListView>
 
         <ImageButton
+            android:id="@+id/btnImgSender"
             android:layout_width="48dp"
             android:layout_height="48dp"
             android:layout_alignParentBottom="true"

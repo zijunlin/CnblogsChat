@@ -33,7 +33,7 @@
         android:layout_marginLeft="10dp"
         android:contentDescription="@string/lblShinginButton"
         android:scaleType="fitXY"
-        
+        android:id="@+id/btnImgSender"
         android:src="@drawable/quill_pen" />
 
     <RelativeLayout

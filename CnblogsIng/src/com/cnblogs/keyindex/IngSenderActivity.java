@@ -1,9 +1,14 @@
 package com.cnblogs.keyindex;
 
+import java.util.Date;
+
+import org.apache.http.cookie.Cookie;
+
 import com.cnblogs.keyindex.business.BusinessPipeline;
 import com.cnblogs.keyindex.business.IPipelineCallback;
 import com.cnblogs.keyindex.business.MessageSenderService;
-import com.cnblogs.keyindex.kernel.CnblogsIngContext;
+
+import com.loopj.android.http.PersistentCookieStore;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -22,6 +27,11 @@ public class IngSenderActivity extends Activity implements IPipelineCallback {
 	private ProgressBar pgbSending;
 	private String msgTemplate;
 	private MessageSenderService sender;
+	private static final String FEED_ID_KEY = "FeedId";
+	private static final String RETURN_TO_AUTHOR = "Author";
+	private final String COOLKIE_NAME = ".DottextCookie";
+	private String IngId;
+	private String ToAcuthor;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -30,6 +40,8 @@ public class IngSenderActivity extends Activity implements IPipelineCallback {
 		sender = new MessageSenderService();
 		sender.InitPipeline(this);
 		sender.setPipeLineListener(this);
+		IngId = this.getIntent().getStringExtra(FEED_ID_KEY);
+		ToAcuthor = this.getIntent().getStringExtra(RETURN_TO_AUTHOR);
 		initViews();
 	}
 
@@ -39,6 +51,7 @@ public class IngSenderActivity extends Activity implements IPipelineCallback {
 		txtInput = (EditText) findViewById(R.id.txtInputMsg);
 		txtMessage = (TextView) findViewById(R.id.txOperMessage);
 		pgbSending = (ProgressBar) findViewById(R.id.pgbDownloadMsg);
+		txtInput.setText(ToAcuthor == null ? "" : "@" + ToAcuthor);
 	}
 
 	@Override
@@ -48,12 +61,13 @@ public class IngSenderActivity extends Activity implements IPipelineCallback {
 	}
 
 	private void authorization() {
-		if (!CnblogsIngContext.getContext().IsAuthorization()) {
-			btnOk.setEnabled(false);
-			txtMessage.setText(R.string.lblNeedAuthenticate);
-		} else {
+		if (hasAuthorization()) {
 			btnOk.setEnabled(true);
 			txtMessage.setText("");
+		} else {
+
+			btnOk.setEnabled(false);
+			txtMessage.setText(R.string.lblNeedAuthenticate);
 		}
 	}
 
@@ -68,19 +82,31 @@ public class IngSenderActivity extends Activity implements IPipelineCallback {
 			pgbSending.setVisibility(View.VISIBLE);
 			btnOk.setEnabled(false);
 			txtInput.setEnabled(false);
-			//消息模板
-			msgTemplate=getString(R.string.tmpThought);
-			sender.setSendMessage(txtInput.getText().toString(),msgTemplate);
+			// 消息模板
+			msgTemplate = getString(R.string.tmpThought);
+			sender.setSendMessage(txtInput.getText().toString(), msgTemplate);
+			sender.setMessageId(IngId);
 			sender.Start();
 		}
 	};
-
-	
 
 	private String FlashMessageAction = "com.cnblogs.keyindex.FlashMessageActivity.view";
 
 	public void showMessage(int resId) {
 		txtMessage.setText(getString(resId));
+	}
+
+	public boolean hasAuthorization() {
+		PersistentCookieStore cookieStore = new PersistentCookieStore(
+				this.getApplicationContext());
+
+		for (Cookie item : cookieStore.getCookies()) {
+			if (item.getName().contains(COOLKIE_NAME)
+					&& !item.isExpired(new Date())) {
+				return true;
+			}
+		}
+		return false;
 	}
 
 	@Override

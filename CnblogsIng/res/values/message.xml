@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="msgStart">初始化中请稍候...</string>
-    <string name="msgCheckInternet">检查网络...</string>
-    <string name="msgDownload">网络监测...</string>
-    <string name="msgInitContext">构建上下文...</string>
+    <string name="msgStart">初始化中请稍候&#8230;</string>
+    <string name="msgCheckInternet">检查网络&#8230;</string>
+    <string name="msgDownload">网络监测&#8230;</string>
+    <string name="msgInitContext">构建上下文&#8230;</string>
 	<string name="msgSuccessStart">初始化成功</string>
 	<string name="msgInitError">初始化失败，5秒后将重试</string>
-	<string name="msgLoginBulidForms">表单构造中...</string>
-	<string name="msgLogining">登录中请稍候...</string>
+	<string name="msgLoginBulidForms">表单构造中&#8230;</string>
+	<string name="msgLogining">登录中请稍候&#8230;</string>
 	<string name="msgLoginSuccess">登录成功</string>
 	<string name="msgLoginError">登录失败!</string>
-	<string name="msgSending">消息发送中...</string>
+	<string name="msgSending">消息发送中&#8230;</string>
 	<string name="msgSendSuccess">发送成功</string>
 	<string name="msgSendError">发送失败</string>
 	
