@@ -158,10 +158,9 @@ public final class R {
         public static final int pull_to_refresh_tap_label=0x7f040004;
         public static final int tmpCommentFlashMsg=0x7f040005;
         public static final int tmpThought=0x7f040006;
-        public static final int urlComments=0x7f040034;
-        public static final int urlGetMessageList=0x7f040033;
-        public static final int urlMessage=0x7f040032;
-        public static final int urlPassport=0x7f040031;
-        public static final int urlSetCookie=0x7f040030;
+        public static final int urlComments=0x7f040033;
+        public static final int urlGetMessageList=0x7f040032;
+        public static final int urlMessage=0x7f040031;
+        public static final int urlPassport=0x7f040030;
     }
 }

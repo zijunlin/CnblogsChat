@@ -7,6 +7,7 @@ import com.cnblogs.keyindex.model.User;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 
 import android.view.View;
@@ -18,6 +19,7 @@ import android.widget.TextView;
 public class LoginActivity extends Activity implements OnClickListener,
 		IPipelineCallback {
 
+	private static final String Ing_ACTION = "com.cnblogs.keyindex.FlashMessageActivity.view";
 	private Button btnSign;
 	private Button btnCancel;
 	private EditText txtUserName;
@@ -113,6 +115,8 @@ public class LoginActivity extends Activity implements OnClickListener,
 	@Override
 	public void onSuccess(BusinessPipeline context) {
 		logining.dismiss();
+		Intent intent = new Intent(Ing_ACTION);
+		startActivity(intent);
 		finish();
 	}
 
