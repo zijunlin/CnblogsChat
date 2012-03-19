@@ -65,15 +65,17 @@ public class JsoupMessageSerializer implements Serializer {
 
 	private boolean hasComments(Element element) {
 
+		//某些闪存评论 采用了ajax 方式加载
 		if (!element.select("script").isEmpty()) {
 			return true;
 		}
 		
 		//Cnblogs 里部分Comment 没有利用Ajax 加载，
-		if (element.select("div.ing_comments").select("li").size() > 1) {
+		if (element.select("div.ing_comments").select("li").select("a").size() >0 ) {
 			return true;
 		}
 
+	
 		return false;
 
 	}

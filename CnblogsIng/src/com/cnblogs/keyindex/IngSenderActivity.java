@@ -1,12 +1,15 @@
 package com.cnblogs.keyindex;
 
 import java.util.Date;
+import java.util.List;
 
 import org.apache.http.cookie.Cookie;
 
 import com.cnblogs.keyindex.business.BusinessPipeline;
 import com.cnblogs.keyindex.business.IPipelineCallback;
 import com.cnblogs.keyindex.business.MessageSenderService;
+import com.cnblogs.keyindex.kernel.CnblogsIngContext;
+import com.cnblogs.keyindex.model.FlashMessage;
 
 import com.loopj.android.http.PersistentCookieStore;
 
@@ -126,6 +129,14 @@ public class IngSenderActivity extends Activity implements IPipelineCallback {
 		startActivity(intent);
 		this.finish();
 
+	}
+
+	private void insertToCache() {
+//		List<FlashMessage> list=CnblogsIngContext.getContext().getFlashMessageContainer();
+//		if(list!=null)
+//		{
+//			list.add(0, object)
+//		}
 	}
 
 	@Override
