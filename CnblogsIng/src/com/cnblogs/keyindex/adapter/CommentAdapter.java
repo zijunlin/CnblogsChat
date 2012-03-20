@@ -56,7 +56,7 @@ public class CommentAdapter extends BaseAdapter {
 			view = (ViewHolder) convertView.getTag();
 		}
 		FlashMessage model = comments.get(position);
-		view.auther.setText(model.getAuthorName());
+		view.auther.setText(model.getAuthorName()+":");
 		view.content.setText(model.getSendContent());
 		view.time.setText(model.getGeneralTime());
 		return convertView;
