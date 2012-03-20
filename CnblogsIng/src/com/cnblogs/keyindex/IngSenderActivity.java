@@ -1,15 +1,14 @@
 package com.cnblogs.keyindex;
 
 import java.util.Date;
-import java.util.List;
+
 
 import org.apache.http.cookie.Cookie;
 
 import com.cnblogs.keyindex.business.BusinessPipeline;
 import com.cnblogs.keyindex.business.IPipelineCallback;
 import com.cnblogs.keyindex.business.MessageSenderService;
-import com.cnblogs.keyindex.kernel.CnblogsIngContext;
-import com.cnblogs.keyindex.model.FlashMessage;
+
 
 import com.loopj.android.http.PersistentCookieStore;
 
@@ -33,6 +32,7 @@ public class IngSenderActivity extends Activity implements IPipelineCallback {
 	private static final String FEED_ID_KEY = "FeedId";
 	private static final String RETURN_TO_AUTHOR = "Author";
 	private final String COOLKIE_NAME = ".DottextCookie";
+	private static final String LOGIN_ACTION = "com.cnblogs.keyindex.UserAcitivity.sigin";
 	private String IngId;
 	private String ToAcuthor;
 
@@ -71,6 +71,11 @@ public class IngSenderActivity extends Activity implements IPipelineCallback {
 
 			btnOk.setEnabled(false);
 			txtMessage.setText(R.string.lblNeedAuthenticate);
+
+			Intent intent = new Intent();
+			intent.setAction(LOGIN_ACTION);
+			startActivity(intent);
+			finish();
 		}
 	}
 
@@ -132,11 +137,12 @@ public class IngSenderActivity extends Activity implements IPipelineCallback {
 	}
 
 	private void insertToCache() {
-//		List<FlashMessage> list=CnblogsIngContext.getContext().getFlashMessageContainer();
-//		if(list!=null)
-//		{
-//			list.add(0, object)
-//		}
+		// List<FlashMessage>
+		// list=CnblogsIngContext.getContext().getFlashMessageContainer();
+		// if(list!=null)
+		// {
+		// list.add(0, object)
+		// }
 	}
 
 	@Override
