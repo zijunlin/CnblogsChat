@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@android:color/white"
     android:orientation="vertical" >
 
     <LinearLayout
@@ -22,14 +23,6 @@
                 android:contentDescription="@string/lblHeaderImage"
                 android:scaleType="fitXY" >
             </ImageView>
-
-            <!--
-               <ImageView
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent"
-                android:contentDescription="@string/lblHeaderImage"
-                android:src="@drawable/comment_round_corn" />
-            -->
         </FrameLayout>
 
         <RelativeLayout
@@ -82,21 +75,37 @@
             android:contentDescription="@string/lblNext" />
     </LinearLayout>
 
-    <TextView
-        android:id="@+id/txtFlashMsgItemContent"
-        android:layout_width="fill_parent"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
-        android:lineSpacingMultiplier="1.4"
-        android:textColor="@color/msgContentColor"
-        android:textSize="@dimen/flashDetailContentTextSize" />
+        android:background="@drawable/list_background"
+        android:orientation="vertical" >
 
-    <TextView
-        android:id="@+id/txtFlashMsgItemTime"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textColor="@color/msgTimeColor"
-        android:textSize="@dimen/flashDetailTimeTestSize" />
+        <TextView
+            android:id="@+id/txtFlashMsgItemContent"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:lineSpacingMultiplier="1.4"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:textColor="@color/msgContentColor"
+            android:textSize="@dimen/flashDetailContentTextSize" />
+
+        <TextView
+            android:id="@+id/txtFlashMsgItemTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:textColor="@color/msgTimeColor"
+            android:textSize="@dimen/flashDetailTimeTestSize" />
+
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="1dp"
+            android:background="@drawable/list_divider" />
+    </LinearLayout>
 
     <RelativeLayout
         android:layout_width="fill_parent"
@@ -109,7 +118,8 @@
             android:background="@drawable/list_background"
             android:cacheColorHint="@android:color/transparent"
             android:divider="@drawable/list_divider"
-            android:dividerHeight="1dp" >
+            android:dividerHeight="1dp"
+            android:headerDividersEnabled="true" >
         </ListView>
 
         <ImageButton

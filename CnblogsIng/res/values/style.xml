@@ -19,4 +19,8 @@
      <dimen name="flashDetailAutherTextSize">18sp</dimen>
     <dimen name="flashDetailContentTextSize">18sp</dimen>
     <dimen name="flashDetailTimeTestSize">14sp</dimen>
+    
+    <dimen name="commentAutherTextSize">16sp</dimen>
+    <dimen name="commentContentTextSize">15sp</dimen>
+    <dimen name="commentTimeTextSize">12sp</dimen>
 </resources>

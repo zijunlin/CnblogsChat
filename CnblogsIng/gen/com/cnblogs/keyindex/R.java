@@ -16,6 +16,9 @@ public final class R {
         public static final int msgTimeColor=0x7f070001;
     }
     public static final class dimen {
+        public static final int commentAutherTextSize=0x7f06000c;
+        public static final int commentContentTextSize=0x7f06000d;
+        public static final int commentTimeTextSize=0x7f06000e;
         public static final int flashAutherTextSize=0x7f060006;
         public static final int flashContentTextSize=0x7f060007;
         public static final int flashDetailAutherTextSize=0x7f060009;
@@ -34,23 +37,24 @@ public final class R {
         public static final int comment=0x7f020001;
         public static final int comment_header=0x7f020002;
         public static final int comment_round_corn=0x7f020003;
-        public static final int ic_launcher=0x7f020004;
-        public static final int ic_pulltorefresh_arrow=0x7f020005;
-        public static final int icon=0x7f020006;
-        public static final int ing_lucky=0x7f020007;
-        public static final int list_background=0x7f020008;
-        public static final int list_divider=0x7f020009;
-        public static final int log_in=0x7f02000a;
-        public static final int logo_small=0x7f02000b;
-        public static final int message_star=0x7f02000c;
-        public static final int new_person=0x7f02000d;
-        public static final int pull_to_refresh_header_background=0x7f02000e;
-        public static final int quill_pen=0x7f02000f;
-        public static final int round_corn=0x7f020010;
-        public static final int sample_face=0x7f020011;
-        public static final int send_message=0x7f020012;
-        public static final int title_bar=0x7f020013;
-        public static final int title_logo=0x7f020014;
+        public static final int flash_detail=0x7f020004;
+        public static final int ic_launcher=0x7f020005;
+        public static final int ic_pulltorefresh_arrow=0x7f020006;
+        public static final int icon=0x7f020007;
+        public static final int ing_lucky=0x7f020008;
+        public static final int list_background=0x7f020009;
+        public static final int list_divider=0x7f02000a;
+        public static final int log_in=0x7f02000b;
+        public static final int logo_small=0x7f02000c;
+        public static final int message_star=0x7f02000d;
+        public static final int new_person=0x7f02000e;
+        public static final int pull_to_refresh_header_background=0x7f02000f;
+        public static final int quill_pen=0x7f020010;
+        public static final int round_corn=0x7f020011;
+        public static final int sample_face=0x7f020012;
+        public static final int send_message=0x7f020013;
+        public static final int title_bar=0x7f020014;
+        public static final int title_logo=0x7f020015;
     }
     public static final class id {
         public static final int btnCanenl=0x7f080026;

@@ -2,14 +2,18 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical" >
+    android:orientation="vertical"
+    android:paddingBottom="5dp"
+    android:paddingLeft="15dp"
+    android:paddingRight="20dp"
+    android:paddingTop="10dp" >
 
     <TextView
         android:id="@+id/txtCommentItemAuther"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="@color/msgAutherColor"
-        android:textSize="@dimen/flashAutherTextSize"
+        android:textColor="@android:color/black"
+        android:textSize="@dimen/commentAutherTextSize"
         android:textStyle="bold" />
 
     <TextView
@@ -19,14 +23,14 @@
         android:layout_marginTop="4dp"
         android:lineSpacingMultiplier="1.4"
         android:textColor="@color/msgContentColor"
-        android:textSize="@dimen/flashContentTextSize" />
+        android:layout_marginLeft="10dp"
+        android:textSize="@dimen/commentContentTextSize" />
 
     <TextView
         android:id="@+id/txtCommentItemTime"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-
         android:textColor="@color/msgTimeColor"
-        android:textSize="@dimen/flashTimeTestSize" />
+        android:textSize="@dimen/commentTimeTextSize" />
 
 </LinearLayout>
