@@ -124,8 +124,10 @@ public class IngListActivity extends Activity implements OnRefreshListener,
 		}
 		if (insertPosition == 0
 				&& !currentFlashMessage.get(0).getFeedId()
-						.contentEquals(list.get(0).getFeedId()))
+						.contentEquals(list.get(0).getFeedId())) {
+			currentFlashMessage.clear();
 			currentFlashMessage.addAll(insertPosition, list);
+		}
 
 	}
 

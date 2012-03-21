@@ -17,7 +17,7 @@
         android:cacheColorHint="@android:color/transparent"
         android:divider="@drawable/list_divider"
         android:scrollingCache="true"
-        android:smoothScrollbar="true"
+        android:smoothScrollbar="false"
         android:choiceMode="none"
         android:alwaysDrawnWithCache="true"
         android:drawingCacheQuality="high"
