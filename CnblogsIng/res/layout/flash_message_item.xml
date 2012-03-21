@@ -43,7 +43,8 @@
                 android:layout_height="wrap_content"
                 android:textColor="@color/msgAutherColor"
                 android:textSize="@dimen/flashAutherTextSize"
-                android:textStyle="bold" />
+                android:textStyle="bold" 
+                android:maxLength="10"/>
 
             <TextView
                 android:id="@+id/txtFlashMsgItemTime"
