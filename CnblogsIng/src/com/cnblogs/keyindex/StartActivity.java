@@ -1,31 +1,31 @@
 package com.cnblogs.keyindex;
 
-import java.util.Date;
-
-import org.apache.http.cookie.Cookie;
-
-import com.cnblogs.keyindex.business.BusinessPipeline;
-import com.cnblogs.keyindex.business.IPipelineCallback;
-import com.cnblogs.keyindex.business.InitContext;
-import com.loopj.android.http.PersistentCookieStore;
+import com.cnblogs.keyindex.business.Authorization;
+import com.cnblogs.keyindex.model.AspDotNetForms;
 
 import android.app.Activity;
 import android.content.Intent;
 
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Handler.Callback;
+import android.os.Message;
 import android.text.Html;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-public class StartActivity extends Activity implements IPipelineCallback {
+public class StartActivity extends Activity implements Callback {
 
 	private ProgressBar pgbLoading;
 	private TextView txtMessage;
-	private BusinessPipeline beginService;
+	private Authorization authorize;
+	private Handler mHandler;
+	private final int delayMillis = 2000;
+	private final int retryMillis = 5000;
 	private static final String LOGIN_ACTION = "com.cnblogs.keyindex.UserAcitivity.sigin";
 	private static final String ING_ACTION = "com.cnblogs.keyindex.FlashMessageActivity.view";
-	private final String COOLKIE_NAME = ".DottextCookie";
+
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -33,43 +33,67 @@ public class StartActivity extends Activity implements IPipelineCallback {
 		setContentView(R.layout.start);
 		pgbLoading = (ProgressBar) findViewById(R.id.pgbInit);
 		txtMessage = (TextView) findViewById(R.id.txtMessage);
-		beginService = new InitContext();
-		beginService.InitPipeline(this);
-		beginService.setPipeLineListener(this);
-		beginService.Start();
+		authorize = new Authorization(this.getApplicationContext());
+		mHandler = new Handler(this);
+		turnToIngList();
 	}
 
-	@Override
-	public void onMaking(int messageId, String message) {
-		txtMessage.setText(Html.fromHtml(message));
+	private void turnToIngList() {
+		if (authorize.hasAuthorize()) {
+			mHandler.postDelayed(new Runnable() {
 
-	}
+				@Override
+				public void run() {
+					Intent intent = new Intent(ING_ACTION);
+					startActivity(intent);
+					finish();
+				}
+			}, delayMillis);
 
-	@Override
-	public void onSuccess(BusinessPipeline context) {
-
-		Intent intent = new Intent();
-		intent.setAction(LOGIN_ACTION);
-		PersistentCookieStore cookieStore = new PersistentCookieStore(
-				this.getApplicationContext());
-
-		for (Cookie item : cookieStore.getCookies()) {
-			if (item.getName().contains(COOLKIE_NAME)
-					&& !item.isExpired(new Date())) {
-				intent.setAction(ING_ACTION);
-				break;
-			}
+		} else {
+			pgbLoading.setVisibility(View.VISIBLE);
+			authorize.getAspDotNetForms(mHandler);
 		}
+	}
 
+	@Override
+	public boolean handleMessage(Message msg) {
+		showHandlerMessage(getString(msg.what));
+		switch (msg.what) {
+		case R.string.msgSuccessStart:
+			onSuccess((AspDotNetForms) msg.obj);
+			break;
+		case R.string.msgInitError:
+			onFailure();
+			break;
+		default:
+			break;
+		}
+		return false;
+	}
+
+	public void showHandlerMessage(String message) {
+		txtMessage.setText(Html.fromHtml(message));
+	}
+
+	public void onSuccess(AspDotNetForms model) {
+
+		Intent intent = new Intent(LOGIN_ACTION);
+		intent.putExtra(AspDotNetForms.VIEW_STATE_KEY, model);
 		startActivity(intent);
 		finish();
 
 	}
 
-	@Override
-	public void onFailure(BusinessPipeline context) {
+	public void onFailure() {
 		pgbLoading.setVisibility(View.INVISIBLE);
+		mHandler.postDelayed(new Runnable() {
 
+			@Override
+			public void run() {
+				authorize.getAspDotNetForms(mHandler);
+			}
+		}, retryMillis);
 	}
 
 }
