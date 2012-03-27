@@ -1,15 +1,18 @@
 package com.cnblogs.keyindex;
 
-import com.cnblogs.keyindex.business.BusinessPipeline;
-import com.cnblogs.keyindex.business.IPipelineCallback;
-import com.cnblogs.keyindex.business.LoginService;
+import com.cnblogs.keyindex.business.Authorization;
 import com.cnblogs.keyindex.model.User;
+import com.cnblogs.keyindex.model.ViewStateForms;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Handler.Callback;
+import android.os.Message;
 
+import android.text.Html;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -17,7 +20,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 public class LoginActivity extends Activity implements OnClickListener,
-		IPipelineCallback {
+		Callback {
 
 	private static final String Ing_ACTION = "com.cnblogs.keyindex.FlashMessageActivity.view";
 	private Button btnSign;
@@ -26,16 +29,29 @@ public class LoginActivity extends Activity implements OnClickListener,
 	private EditText txtPassword;
 	private ProgressDialog logining;
 	private TextView txtMessage;
-	private LoginService Signer;
+	private Authorization authorize;
+	private Handler mHandler;
+	private ViewStateForms baseForms;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.user_sigin);
-		Signer = new LoginService();
-		Signer.InitPipeline(this);
-		Signer.setPipeLineListener(this);
+		init();
+		showCurrentUser();
+	}
+
+	private void init() {
 		initViews();
+		authorize = new Authorization(this.getApplicationContext());
+		mHandler = new Handler(this);
+		// if the intent will be Null?
+		Intent intent = this.getIntent();
+		if (intent != null) {
+			baseForms = intent
+					.getParcelableExtra(ViewStateForms.VIEW_STATE_KEY);
+		}
+
 	}
 
 	private void initViews() {
@@ -50,18 +66,68 @@ public class LoginActivity extends Activity implements OnClickListener,
 		logining.setTitle(R.string.lblLogin);
 	}
 
+	private void showCurrentUser() {
+		txtUserName.setText(authorize.getUserName());
+	}
+
 	@Override
-	protected void onResume() {
-		super.onResume();
-		String userName = Signer.loadUserName();
-		txtUserName.setText(userName);
+	public boolean handleMessage(Message msg) {
+		showHandlerMessage(getString(msg.what));
+		switch (msg.what) {
+		case R.string.msgSuccessStart:
+			getViewStateSuccess((ViewStateForms) msg.obj);
+			break;
+		case R.string.msgLoginSuccess:
+			onLoginSuccess();
+			break;
+		case R.string.msgLoginError:
+			onLoginFailure();
+			break;
+		case R.string.msgInitError:
+			onLoginFailure();
+			break;
+		}
+		return false;
+	}
+
+	/**
+	 * download viewstate success
+	 * 
+	 * @param obj
+	 */
+	private void getViewStateSuccess(ViewStateForms obj) {
+		baseForms = obj;
+		sigin();
+	}
+
+	/**
+	 * success login,turn to IngActivity
+	 */
+	public void onLoginSuccess() {
+		authorize.saveUserName(getUserNameText());
+		logining.dismiss();
+		Intent intent = new Intent(Ing_ACTION);
+		startActivity(intent);
+		finish();
+	}
+
+	/**
+	 * login failure
+	 */
+	public void onLoginFailure() {
+		logining.dismiss();
+		txtMessage.setText(R.string.lblFaildAuthenticate);
+	}
+
+	public void showHandlerMessage(String message) {
+		txtMessage.setText(Html.fromHtml(message));
 	}
 
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {
 		case R.id.btnSigin:
-			authenticate();
+			sigin();
 			break;
 		case R.id.btnCanenl:
 			cancel();
@@ -69,16 +135,18 @@ public class LoginActivity extends Activity implements OnClickListener,
 		}
 	}
 
-	private void authenticate() {
-		if (editTextVerify(txtUserName) && editTextVerify(txtPassword)) {
-			logining.show();
+	private void sigin() {
 
-			User user = new User();
-			user.setUserName(getUserNameText());
-			user.setPassword(getPasswordText());
-			Signer.setUser(user);
-			Signer.Start();
-
+		if (baseForms != null) {
+			if (editTextVerify(txtUserName) && editTextVerify(txtPassword)) {
+				logining.show();
+				User user = new User();
+				user.setUserName(getUserNameText());
+				user.setPassword(getPasswordText());
+				authorize.Login(mHandler,baseForms,user);
+			}
+		} else {
+			authorize.getAspDotNetForms(mHandler);
 		}
 
 	}
@@ -104,26 +172,6 @@ public class LoginActivity extends Activity implements OnClickListener,
 		} else {
 			return true;
 		}
-	}
-
-	@Override
-	public void onMaking(int messageId, String message) {
-		txtMessage.setText(messageId);
-
-	}
-
-	@Override
-	public void onSuccess(BusinessPipeline context) {
-		logining.dismiss();
-		Intent intent = new Intent(Ing_ACTION);
-		startActivity(intent);
-		finish();
-	}
-
-	@Override
-	public void onFailure(BusinessPipeline context) {
-		logining.dismiss();
-		txtMessage.setText(R.string.lblFaildAuthenticate);
 	}
 
 }

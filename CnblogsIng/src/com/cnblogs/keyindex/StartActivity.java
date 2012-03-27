@@ -1,7 +1,7 @@
 package com.cnblogs.keyindex;
 
 import com.cnblogs.keyindex.business.Authorization;
-import com.cnblogs.keyindex.model.AspDotNetForms;
+import com.cnblogs.keyindex.model.ViewStateForms;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -25,7 +25,6 @@ public class StartActivity extends Activity implements Callback {
 	private final int retryMillis = 5000;
 	private static final String LOGIN_ACTION = "com.cnblogs.keyindex.UserAcitivity.sigin";
 	private static final String ING_ACTION = "com.cnblogs.keyindex.FlashMessageActivity.view";
-
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -61,7 +60,7 @@ public class StartActivity extends Activity implements Callback {
 		showHandlerMessage(getString(msg.what));
 		switch (msg.what) {
 		case R.string.msgSuccessStart:
-			onSuccess((AspDotNetForms) msg.obj);
+			onSuccess((ViewStateForms) msg.obj);
 			break;
 		case R.string.msgInitError:
 			onFailure();
@@ -76,13 +75,11 @@ public class StartActivity extends Activity implements Callback {
 		txtMessage.setText(Html.fromHtml(message));
 	}
 
-	public void onSuccess(AspDotNetForms model) {
-
+	public void onSuccess(ViewStateForms model) {
 		Intent intent = new Intent(LOGIN_ACTION);
-		intent.putExtra(AspDotNetForms.VIEW_STATE_KEY, model);
+		intent.putExtra(ViewStateForms.VIEW_STATE_KEY, model);
 		startActivity(intent);
 		finish();
-
 	}
 
 	public void onFailure() {
