@@ -58,9 +58,24 @@ public class FormatterFactory {
 	 * @param formatterClassName
 	 *            the Formatter extends IFormatter
 	 */
-	public static void binderModelToFormatter(String modelClassName,
+	public static void bindModelToFormatter(String modelClassName,
 			String formatterClassName) {
 
 		modelToFormatter.put(modelClassName, formatterClassName);
+	}
+
+	/**
+	 * 
+	 * @param modelClassNams
+	 * @param formatterClassNames
+	 */
+	public static void bindModelToFormatter(String[] modelClassNams,
+			String[] formatterClassNames) {
+		if (modelClassNams.length != formatterClassNames.length) {
+			return;
+		}
+		for (int i = 0; i < modelClassNams.length; i++) {
+			modelToFormatter.put(modelClassNams[i], formatterClassNames[i]);
+		}
 	}
 }
