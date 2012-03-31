@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+     xmlns:ptr="http://schemas.android.com/apk/res/com.cnblogs.keyindex"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical" >
@@ -8,7 +9,8 @@
         android:id="@+id/titleBar"
         layout="@layout/title_bar" />
 
-    <com.markupartist.android.widget.PullToRefreshListView
+    <com.handmark.pulltorefresh.library.PullToRefreshListView
+       
         android:id="@+id/lstFlashMessages"
         android:layout_width="fill_parent"
         android:layout_height="match_parent"
@@ -21,8 +23,9 @@
         android:choiceMode="none"
         android:alwaysDrawnWithCache="true"
         android:drawingCacheQuality="high"
-        android:dividerHeight="1dp" >
-    </com.markupartist.android.widget.PullToRefreshListView>
+        android:dividerHeight="1dp"
+        ptr:ptrMode="both" >
+    </com.handmark.pulltorefresh.library.PullToRefreshListView>
 
     <ImageButton
         android:layout_width="48dp"
