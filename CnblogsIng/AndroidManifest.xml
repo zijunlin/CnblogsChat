@@ -20,15 +20,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".CnblogsActivity" >
-            <intent-filter>
-                <action android:name="com.cnblogs.keyindex.CnblogsActivity.view" >
-                </action>
-
-                <category android:name="android.intent.category.DEFAULT" >
-                </category>
-            </intent-filter>
-        </activity>
         <activity android:name=".LoginActivity" >
             <intent-filter>
                 <action android:name="com.cnblogs.keyindex.UserAcitivity.sigin" >

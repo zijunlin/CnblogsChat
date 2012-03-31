@@ -3,7 +3,7 @@ package com.cnblogs.keyindex.formatters;
 import com.cnblogs.indexkey.formatter.IFormatter;
 import com.cnblogs.keyindex.model.ViewStateForms;
 
-public class ViewStateFormsFormatter implements IFormatter {
+class ViewStateFormsFormatter implements IFormatter {
 
 	@Override
 	public ViewStateForms format(String response) {

@@ -22,7 +22,7 @@ import com.cnblogs.keyindex.model.FlashMessage;
  * @author linzijun
  * 
  */
-public class JsoupMessageFormatter implements IFormatter{
+ class JsoupMessageFormatter implements IFormatter{
 
 
 	@Override

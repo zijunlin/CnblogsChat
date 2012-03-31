@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="ModelClassNames">
+        <item>com.cnblogs.keyindex.model.Comment</item>
+        <item>com.cnblogs.keyindex.model.FlashMessage</item>
+        <item>com.cnblogs.keyindex.model.ViewStateForms</item>
+    </string-array>
+    <string-array name="FormatterClassNames">
+        <item>com.cnblogs.keyindex.formatters.CommentFormatter</item>
+        <item>com.cnblogs.keyindex.formatters.JsoupMessageFormatter</item>
+        <item>com.cnblogs.keyindex.formatters.ViewStateFormsFormatter</item>
+    </string-array>
+
+</resources>

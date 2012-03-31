@@ -2,6 +2,7 @@ package com.cnblogs.keyindex.kernel;
 
 import com.cnblogs.indexkey.formatter.FormatterFactory;
 import com.cnblogs.keyindex.R;
+import com.indexkey.repository.dbutility.DataBaseProvider;
 
 import android.app.Application;
 
@@ -16,7 +17,10 @@ public class CnblogsIngApplication extends Application {
 	}
 
 	private void setRepository() {
-		// TODO Auto-generated method stub
+		
+		DataBaseProvider.setDataBaseName("CnblogsIngDb");
+		DataBaseProvider.setDataBaseVersion(1);
+		DataBaseProvider.AddTableDdlSql(getString(R.string.sqlFlashMessageTable));
 
 	}
 

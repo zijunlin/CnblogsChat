@@ -12,8 +12,6 @@ import com.indexkey.repository.IRepository;
 import com.indexkey.repository.dbutility.CursorFormatHelper;
 import com.indexkey.repository.dbutility.SqliteHelper;
 
-
-
 public class FlashMessageRepository implements IRepository<FlashMessage> {
 
 	private final String TABLE_NAME = "FlashMessages";
@@ -127,6 +125,25 @@ public class FlashMessageRepository implements IRepository<FlashMessage> {
 
 	}
 
+	/**
+	 * 
+	 * @param pageIndex base 0 the page index
+	 * @param pageSize
+	 * @return
+	 */
+	public List<FlashMessage> queryMessageBy(int pageIndex, int pageSize) {
+
+		
+		StringBuilder sqlStr = new StringBuilder();
+		sqlStr.append(String.format("select * from %1s", TABLE_NAME));
+		sqlStr.append(String.format(" order by %1s desc", COL_ID));
+		sqlStr.append(String.format(" limit %1d", (pageIndex+1) * pageSize));
+		sqlStr.append(String.format(" offset %1d", pageIndex  * pageSize));
+		List<FlashMessage> list = db.query(sqlStr.toString(), null, this);
+		return list;
+
+	}
+
 	@Override
 	public FlashMessage getEntityByKey(String key) {
 		StringBuilder sqlStr = new StringBuilder();
@@ -152,16 +169,15 @@ public class FlashMessageRepository implements IRepository<FlashMessage> {
 			if (i == 0) {
 				sqlStr.append(item + "=?");
 			}
-			
+
 			i++;
 			sqlStr.append("," + item + "=?");
-			if(i==ColAndValue.size())
-			{
+			if (i == ColAndValue.size()) {
 				sqlStr.append(String.format(" where %1s=? ", item));
 			}
 		}
-	
-		Object[] parameters =ColAndValue.values().toArray();
+
+		Object[] parameters = ColAndValue.values().toArray();
 		db.execSql(sqlStr.toString(), parameters);
 
 	}

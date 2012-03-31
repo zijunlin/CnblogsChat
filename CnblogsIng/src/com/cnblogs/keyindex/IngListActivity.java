@@ -1,17 +1,19 @@
 package com.cnblogs.keyindex;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.cnblogs.keyindex.adapter.MessageAdapter;
 import com.cnblogs.keyindex.adapter.MessageAdapter.ImageViewChangeListener;
 import com.cnblogs.keyindex.business.BusinessPipeline;
+import com.cnblogs.keyindex.business.FlashMessageProvider;
 import com.cnblogs.keyindex.business.IPipelineCallback;
 import com.cnblogs.keyindex.business.ImageLoader;
 import com.cnblogs.keyindex.business.IngListService;
-import com.cnblogs.keyindex.kernel.CnblogsIngContext;
 import com.cnblogs.keyindex.model.FlashMessage;
-import com.markupartist.android.widget.PullToRefreshListView;
-import com.markupartist.android.widget.PullToRefreshListView.OnRefreshListener;
+import com.handmark.pulltorefresh.library.PullToRefreshBase.OnRefreshListener;
+import com.handmark.pulltorefresh.library.PullToRefreshListView;
+
 
 import android.app.Activity;
 import android.content.Intent;
@@ -19,6 +21,9 @@ import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Handler.Callback;
+import android.os.Message;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.AdapterView;
@@ -27,15 +32,19 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 
 public class IngListActivity extends Activity implements OnRefreshListener,
-		ImageViewChangeListener, OnItemClickListener {
+		ImageViewChangeListener, OnItemClickListener, Callback {
 
 	private PullToRefreshListView lstMsg;
 	private MessageAdapter adapter;
 	private View loadingView;
 	private ImageLoader loader;
 
-	private BusinessPipeline businessService;
-	private int pageIndex = 1;
+	private FlashMessageProvider msgProvider;
+	private Handler mHandler;
+	private List<FlashMessage> currentFlashMessages;
+
+	private final int firstPageIndex = 0;
+	private int currentPageIndex = 0;
 	private int pageSize = 25;
 	private int insertPosition = 0;
 
@@ -46,32 +55,83 @@ public class IngListActivity extends Activity implements OnRefreshListener,
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.flash_message);
+		init();
+		bindFlashMessage();
+	}
+
+	private void init() {
 		initViews();
+		mHandler = new Handler(this);
+		msgProvider = new FlashMessageProvider(this.getApplicationContext(),
+				mHandler);
+		currentFlashMessages = new ArrayList<FlashMessage>();
 
 		loader = new ImageLoader();
 		adapter = new MessageAdapter(IngListActivity.this, loader);
 		adapter.setOnImageViewChangeListener(IngListActivity.this);
-
-		initBussinessService();
-		businessService.Start();
 	}
 
 	private void initViews() {
 
 		lstMsg = (PullToRefreshListView) findViewById(R.id.lstFlashMessages);
 		lstMsg.setOnRefreshListener(this);
-		lstMsg.setOnItemClickListener(this);
+		lstMsg.getRefreshableView().setOnItemClickListener(this);
 		loadingView = findViewById(R.id.loading);
 		loadingView.setVisibility(View.VISIBLE);
 		((ImageButton) findViewById(R.id.btnImgSender))
 				.setOnClickListener(SenderListener);
 	}
 
-	private void initBussinessService() {
-		businessService = new IngListService();
-		businessService.InitPipeline(this);
-		businessService.setPipeLineListener(callback);
+	private void bindFlashMessage() {
+		currentFlashMessages = msgProvider.getFlashMessages(firstPageIndex,
+				pageSize);
+		if (currentFlashMessages.size() > 0) {
+			// adapter
+			lstMsg.setAdapter(adapter);
+			loadingView.setVisibility(View.GONE);
+		}
+		else	
+		{
+			// TODO call the service download message 
+		}
 	}
+
+	@Override
+	public boolean handleMessage(Message msg) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	public void onFlashMessageLoadComplete(List<FlashMessage> list, int positon) {
+
+		if (list != null && list.size() > 0) {
+			currentFlashMessages.addAll(positon, list);
+			adapter.notifyDataSetChanged();
+		}
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 
 	private View.OnClickListener SenderListener = new View.OnClickListener() {
 

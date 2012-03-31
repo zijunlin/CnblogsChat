@@ -4,10 +4,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+
 import com.cnblogs.keyindex.R;
+import com.cnblogs.keyindex.formatters.SerializerHttpResponseHandler;
 import com.cnblogs.keyindex.model.FlashMessage;
-import com.cnblogs.keyindex.serializers.JsoupMessageSerializer;
-import com.cnblogs.keyindex.serializers.SerializerHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 import android.os.Message;
 
@@ -50,7 +50,7 @@ public class IngListService extends BusinessPipeline {
 					@Override
 					public void onStart() {
 						mHandler.sendEmptyMessage(R.string.msgGetingMessageList);
-						this.setSerializer(JsoupMessageSerializer.class
+						this.setSerializer(FlashMessage.class
 								.getName());
 					}
 

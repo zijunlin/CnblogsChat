@@ -3,10 +3,11 @@ package com.cnblogs.keyindex.business;
 import java.util.List;
 
 import org.apache.http.entity.StringEntity;
+
+
 import com.cnblogs.keyindex.R;
+import com.cnblogs.keyindex.formatters.SerializerHttpResponseHandler;
 import com.cnblogs.keyindex.model.FlashMessage;
-import com.cnblogs.keyindex.serializers.CommentSerializer;
-import com.cnblogs.keyindex.serializers.SerializerHttpResponseHandler;
 
 import android.content.Context;
 import android.os.Message;
@@ -90,7 +91,7 @@ public class CommentLoader extends BusinessPipeline {
 
 					@Override
 					public void onStart() {
-						this.setSerializer(CommentSerializer.class.getName());
+						this.setSerializer(FlashMessage.class.getName());
 					}
 
 					@Override

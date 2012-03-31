@@ -14,7 +14,7 @@ import android.util.Log;
 import com.cnblogs.indexkey.formatter.IFormatter;
 import com.cnblogs.keyindex.model.FlashMessage;
 
-public class CommentFormatter implements IFormatter {
+ class CommentFormatter implements IFormatter {
 
 	@Override
 	public List<FlashMessage> format(String response) {

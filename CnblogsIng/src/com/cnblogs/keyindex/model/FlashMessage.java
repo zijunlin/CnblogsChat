@@ -3,12 +3,9 @@
  */
 package com.cnblogs.keyindex.model;
 
-
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-
-
 
 public class FlashMessage {
 
@@ -17,38 +14,58 @@ public class FlashMessage {
 	private String generalTime;
 	private String ingId;
 	private String headImageUrl;
+	/**
+	 * 用于后期扩展为闪存图片，主要通过存储闪存中URI 或URL资源
+	 */
+	private String contentUri;
 
 	private boolean isShining = false;
 	private boolean isNewPerson = false;
-	private boolean defineHeaderImage=true;
-	private boolean hasComment=false;
+	private boolean defineHeaderImage = true;
+	private boolean hasComment = false;
 	private final String DEFAULT_HEADER_IMG_URL = "http://pic.cnblogs.com/face/sample_face.gif";
 
+	private int messageType;
 	private List<FlashMessage> comments;
 
 	public FlashMessage() {
 		comments = new ArrayList<FlashMessage>();
 	}
 
-	
-	public void setHasCommnets(boolean value)
-	{
-		hasComment=value;
+	public void setHasCommnets(boolean value) {
+		hasComment = value;
 	}
-	
-	public boolean HasComments()
-	{
+
+	public boolean HasComments() {
 		return hasComment;
 	}
-	
-	public boolean HasDefineHeaderImage()
-	{
+
+	public boolean HasDefineHeaderImage() {
 		return defineHeaderImage;
 	}
-	
+
 	public boolean IsNewPerson() {
 		return isNewPerson;
 	}
+
+	public void setContentURI(String value) {
+		contentUri = value;
+	}
+
+	public String getContentURI() {
+		return contentUri;
+	}
+
+	public void setMessageType(int value) {
+		messageType = value;
+
+	}
+
+	public int getMessageType() {
+		return messageType;
+	}
+
+	
 
 	public void setNewPerson(boolean value) {
 		isNewPerson = value;
@@ -73,11 +90,11 @@ public class FlashMessage {
 
 	public void setHeadImageUrl(String url) {
 		headImageUrl = url;
-		if(url.contentEquals(DEFAULT_HEADER_IMG_URL))
-		{
-			defineHeaderImage=false;
+		if (url.contentEquals(DEFAULT_HEADER_IMG_URL)) {
+			defineHeaderImage = false;
 		}
 	}
+
 	public List<FlashMessage> getCommentsMessage() {
 		return comments;
 	}
@@ -133,4 +150,5 @@ public class FlashMessage {
 		content = value;
 	}
 
+	
 }

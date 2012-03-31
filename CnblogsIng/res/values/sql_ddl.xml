@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="sqlFlashMessageTable">        CREATE TABLE [FlashMessages] (
+  [FeedId] VARCHAR PRIMARY KEY NOT NULL, 
+  [Author] VARCHAR, 
+  [Content] VARCHAR, 
+  [GeneralTime] VARCHAR, 
+  [HeadImageUrl] VARCHAR, 
+  [ContentURI] VARCHAR, 
+  [IsShining] BOOLEAN DEFAULT false, 
+  [IsNewPerson] BOOLEAN DEFAULT false, 
+  [HasComment] BOOLEAN DEFAULT false, 
+  [MessageType] INT,
+  [ParentFeedId] VARCHAR);</string>
+
+</resources>

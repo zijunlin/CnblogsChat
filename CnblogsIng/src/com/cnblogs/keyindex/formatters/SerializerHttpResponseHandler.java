@@ -8,7 +8,7 @@ import com.cnblogs.indexkey.formatter.FormatterFactory;
 import com.cnblogs.indexkey.formatter.IFormatter;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 
-public class SerializerHttpResponseHandler extends AsyncHttpResponseHandler {
+ class SerializerHttpResponseHandler extends AsyncHttpResponseHandler {
 
 	private int SERIALIZER_SUCCESS_MESSAGE = 5;
 
