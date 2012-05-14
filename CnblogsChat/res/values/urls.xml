@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="urlPassport">http://passport.cnblogs.com/login.aspx</string>
+    <string name="urlMessage">http://home.cnblogs.com/ajax/ing/Publish</string>
+    <string name="urlGetMessageList">http://home.cnblogs.com/ajax/ing/GetPagedIngList</string>
+    <string name="urlComments">http://home.cnblogs.com/WebService/CommentManager.asmx/GetIngRecentComments</string>
+    <string name="urlCommentSender">http://home.cnblogs.com/WebService/CommentManager.asmx/CommentInsert</string>
+</resources>

@@ -4,8 +4,10 @@
 	<classpathentry kind="src" path="gen"/>
 	<classpathentry kind="con" path="com.android.ide.eclipse.adt.ANDROID_FRAMEWORK"/>
 	<classpathentry kind="con" path="com.android.ide.eclipse.adt.LIBRARIES"/>
-	<classpathentry kind="lib" path="E:/jsoup-1.6.1.jar"/>
-	<classpathentry kind="lib" path="E:/Code/CnblogsIng/JuniorRepository.jar"/>
-	<classpathentry kind="lib" path="E:/Code/CnblogsIng/CnblogsFormatter.jar"/>
+	<classpathentry kind="lib" path="D:/code/jsoup-1.6.1.jar"/>
+	<classpathentry kind="lib" path="D:/code/CnblogsIng/JuniorRepository.jar"/>
+	<classpathentry kind="lib" path="D:/code/CnblogsIng/CnblogsFormatter.jar"/>
+	<classpathentry kind="lib" path="D:/code/CnblogsIng/android-async-http.jar"/>
+	<classpathentry kind="src" path="/PullToRefresh"/>
 	<classpathentry kind="output" path="bin/classes"/>
 </classpath>

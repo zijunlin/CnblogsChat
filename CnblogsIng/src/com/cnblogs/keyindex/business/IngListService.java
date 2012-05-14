@@ -6,7 +6,6 @@ import java.util.Map;
 
 
 import com.cnblogs.keyindex.R;
-import com.cnblogs.keyindex.formatters.SerializerHttpResponseHandler;
 import com.cnblogs.keyindex.model.FlashMessage;
 import com.loopj.android.http.RequestParams;
 import android.os.Message;

@@ -25,6 +25,7 @@ public class FlashMessageRepository implements IRepository<FlashMessage> {
 	private final String COL_IS_NEWPERSON = "IsNewPerson";
 	private final String COL_HAS_COMMENT = "HasComment";
 	private final String COL_MESSAGE_TYPE = "MessageType";
+	private final String CONDITION_SQL = " MessageType=1 ";
 
 	private Context mContext;
 	private SqliteHelper db;
@@ -43,8 +44,8 @@ public class FlashMessageRepository implements IRepository<FlashMessage> {
 			FlashMessage msg = new FlashMessage();
 			msg.setAuthorName(CursorFormatHelper.getCursorStringValue(
 					COL_AUTHOR, cursor));
-			msg.setFeedId(CursorFormatHelper.getCursorStringValue(COL_ID,
-					cursor));
+			msg.setFeedId(String.valueOf(CursorFormatHelper
+					.getCursorIntegerValue(COL_ID, cursor)));
 			msg.setGeneralTime(CursorFormatHelper.getCursorStringValue(
 					COL_TIME, cursor));
 			msg.setHasCommnets(CursorFormatHelper.getCursorBooleanValue(
@@ -120,6 +121,8 @@ public class FlashMessageRepository implements IRepository<FlashMessage> {
 	public List<FlashMessage> getAllEntity() {
 		StringBuilder sqlStr = new StringBuilder();
 		sqlStr.append(String.format("select * from %1s", TABLE_NAME));
+		sqlStr.append(CONDITION_SQL);
+		sqlStr.append(String.format(" order by %1s desc", COL_ID));
 		List<FlashMessage> list = db.query(sqlStr.toString(), null, this);
 		return list;
 
@@ -127,19 +130,45 @@ public class FlashMessageRepository implements IRepository<FlashMessage> {
 
 	/**
 	 * 
-	 * @param pageIndex base 0 the page index
+	 * @param pageIndex
+	 *            base 0 the page index
 	 * @param pageSize
 	 * @return
 	 */
-	public List<FlashMessage> queryMessageBy(int pageIndex, int pageSize) {
+	public List<FlashMessage> queryMessage(int pageIndex, int pageSize) {
 
-		
 		StringBuilder sqlStr = new StringBuilder();
 		sqlStr.append(String.format("select * from %1s", TABLE_NAME));
+		sqlStr.append(" where ");
+		sqlStr.append(CONDITION_SQL);
 		sqlStr.append(String.format(" order by %1s desc", COL_ID));
-		sqlStr.append(String.format(" limit %1d", (pageIndex+1) * pageSize));
-		sqlStr.append(String.format(" offset %1d", pageIndex  * pageSize));
+		sqlStr.append(String.format(" limit %1d", (pageIndex + 1) * pageSize));
+		sqlStr.append(String.format(" offset %1d", pageIndex * pageSize));
 		List<FlashMessage> list = db.query(sqlStr.toString(), null, this);
+		return list;
+
+	}
+
+	/**
+	 * 
+	 * @param compareOperator comparsion condition  ">" or "<" "="
+	 * @param limit size limit if value=-1 then no limit
+	 * @param feedId
+	 * @return
+	 */
+	public  List<FlashMessage> queryByCompareCondition(String compareOperator , int limit,
+			int feedId) {
+		StringBuilder sqlStr = new StringBuilder();
+		sqlStr.append(String.format("select * from %1s", TABLE_NAME));
+		sqlStr.append(" where ");
+		sqlStr.append(CONDITION_SQL);
+		sqlStr.append(" and ");
+		sqlStr.append(String.format(" %1s %2s ? ", COL_ID, compareOperator));
+		sqlStr.append(String.format(" order by %1s desc", COL_ID));
+		if (limit != -1)
+			sqlStr.append(String.format(" limit %1d", limit));
+		String[] parames = new String[] { String.valueOf(feedId) };
+		List<FlashMessage> list = db.query(sqlStr.toString(), parames, this);
 		return list;
 
 	}
@@ -149,6 +178,8 @@ public class FlashMessageRepository implements IRepository<FlashMessage> {
 		StringBuilder sqlStr = new StringBuilder();
 		sqlStr.append(String.format("select * from %1s", TABLE_NAME));
 		sqlStr.append(String.format(" where %1s=? ", COL_ID));
+		sqlStr.append(" and ");
+		sqlStr.append(CONDITION_SQL);
 		String[] parameters = new String[] { key };
 		List<FlashMessage> list = db.query(sqlStr.toString(), parameters, this);
 		if (list != null && list.size() > 0) {

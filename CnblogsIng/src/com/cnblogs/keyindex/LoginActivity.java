@@ -1,26 +1,25 @@
 package com.cnblogs.keyindex;
 
 import com.cnblogs.keyindex.business.Authorization;
+import com.cnblogs.keyindex.kernel.EventActivity;
+import com.cnblogs.keyindex.kernel.MessageEvent;
 import com.cnblogs.keyindex.model.User;
 import com.cnblogs.keyindex.model.ViewStateForms;
 
-import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Handler.Callback;
 import android.os.Message;
 
-import android.text.Html;
+
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-public class LoginActivity extends Activity implements OnClickListener,
-		Callback {
+public class LoginActivity extends EventActivity implements OnClickListener
+		 {
 
 	private static final String Ing_ACTION = "com.cnblogs.keyindex.FlashMessageActivity.view";
 	private Button btnSign;
@@ -29,8 +28,9 @@ public class LoginActivity extends Activity implements OnClickListener,
 	private EditText txtPassword;
 	private ProgressDialog logining;
 	private TextView txtMessage;
+	
 	private Authorization authorize;
-	private Handler mHandler;
+
 	private ViewStateForms baseForms;
 
 	@Override
@@ -39,12 +39,17 @@ public class LoginActivity extends Activity implements OnClickListener,
 		setContentView(R.layout.user_sigin);
 		init();
 		showCurrentUser();
+		
+		addEventHandler(R.string.msgSuccessStart, onViewStateComplete);
+		addEventHandler(R.string.msgLoginSuccess,onSuccessLogin);
+		addEventHandler(R.string.msgLoginError,onFailureLogin);
+		addEventHandler(R.string.msgInitError, onFailureLogin);
 	}
 
 	private void init() {
 		initViews();
 		authorize = new Authorization(this.getApplicationContext());
-		mHandler = new Handler(this);
+
 		// if the intent will be Null?
 		Intent intent = this.getIntent();
 		if (intent != null) {
@@ -62,6 +67,7 @@ public class LoginActivity extends Activity implements OnClickListener,
 		txtUserName = (EditText) findViewById(R.id.txtUserName);
 		txtPassword = (EditText) findViewById(R.id.txtPassword);
 		txtMessage = (TextView) findViewById(R.id.txtSiginMessage);
+		setMessageShower(txtMessage);
 		logining = new ProgressDialog(this);
 		logining.setTitle(R.string.lblLogin);
 	}
@@ -70,58 +76,39 @@ public class LoginActivity extends Activity implements OnClickListener,
 		txtUserName.setText(authorize.getUserName());
 	}
 
-	@Override
-	public boolean handleMessage(Message msg) {
-		showHandlerMessage(getString(msg.what));
-		switch (msg.what) {
-		case R.string.msgSuccessStart:
-			getViewStateSuccess((ViewStateForms) msg.obj);
-			break;
-		case R.string.msgLoginSuccess:
-			onLoginSuccess();
-			break;
-		case R.string.msgLoginError:
-			onLoginFailure();
-			break;
-		case R.string.msgInitError:
-			onLoginFailure();
-			break;
+	
+	
+	private MessageEvent onViewStateComplete=new MessageEvent() {
+		
+		@Override
+		public void EventHandler(Object sender, Message msgEventArg) {
+			baseForms = (ViewStateForms) msgEventArg .obj;
+			sigin();
 		}
-		return false;
-	}
-
-	/**
-	 * download viewstate success
-	 * 
-	 * @param obj
-	 */
-	private void getViewStateSuccess(ViewStateForms obj) {
-		baseForms = obj;
-		sigin();
-	}
-
-	/**
-	 * success login,turn to IngActivity
-	 */
-	public void onLoginSuccess() {
-		authorize.saveUserName(getUserNameText());
-		logining.dismiss();
-		Intent intent = new Intent(Ing_ACTION);
-		startActivity(intent);
-		finish();
-	}
-
-	/**
-	 * login failure
-	 */
-	public void onLoginFailure() {
-		logining.dismiss();
-		txtMessage.setText(R.string.lblFaildAuthenticate);
-	}
-
-	public void showHandlerMessage(String message) {
-		txtMessage.setText(Html.fromHtml(message));
-	}
+	};
+	
+	private MessageEvent onSuccessLogin=new MessageEvent() {
+		
+		@Override
+		public void EventHandler(Object sender, Message msgEventArg) {
+			authorize.saveUserName(getUserNameText());
+			logining.dismiss();
+			Intent intent = new Intent(Ing_ACTION);
+			startActivity(intent);
+			finish();
+			
+		}
+	};
+	
+	private MessageEvent onFailureLogin=new MessageEvent() {
+		
+		@Override
+		public void EventHandler(Object sender, Message msgEventArg) {
+			logining.dismiss();
+			txtMessage.setText(R.string.lblFaildAuthenticate);
+		}
+	};
+	
 
 	@Override
 	public void onClick(View v) {

@@ -6,7 +6,6 @@ import com.cnblogs.keyindex.R;
 import com.cnblogs.keyindex.business.ImageLoader;
 import com.cnblogs.keyindex.business.ImageLoader.ImageDownLoadedListener;
 
-import com.cnblogs.keyindex.kernel.CnblogsIngContext;
 import com.cnblogs.keyindex.model.FlashMessage;
 
 import android.content.Context;
@@ -24,12 +23,10 @@ public class MessageAdapter extends BaseAdapter {
 	private List<FlashMessage> messages;
 	private ImageLoader asynImageLoader;
 
-	private ImageViewChangeListener imgChangeListener;
-
-	public MessageAdapter(Context context, ImageLoader loader) {
+	public MessageAdapter(Context context, List<FlashMessage> list) {
 		inflater = LayoutInflater.from(context);
-		asynImageLoader = loader;
-		messages = CnblogsIngContext.getContext().getFlashMessageContainer();
+		asynImageLoader = new ImageLoader();
+		messages = list;
 	}
 
 	public void setList(List<FlashMessage> list) {

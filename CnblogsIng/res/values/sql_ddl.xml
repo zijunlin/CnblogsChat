@@ -2,7 +2,7 @@
 <resources>
 
     <string name="sqlFlashMessageTable">        CREATE TABLE [FlashMessages] (
-  [FeedId] VARCHAR PRIMARY KEY NOT NULL, 
+  [FeedId] INT PRIMARY KEY NOT NULL, 
   [Author] VARCHAR, 
   [Content] VARCHAR, 
   [GeneralTime] VARCHAR, 

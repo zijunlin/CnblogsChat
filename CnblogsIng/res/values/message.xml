@@ -25,4 +25,6 @@
 	<string name="msgDownloadCookie">构建网络环境</string>
 	<string name="msgDownloadForms">下载表单视图</string>
 	
+	<string name="msgDownloadNewMessage"></string>
+	<string name="msgRefreshComplete"></string>
 </resources>

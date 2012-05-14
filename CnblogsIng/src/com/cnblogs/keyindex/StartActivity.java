@@ -1,26 +1,23 @@
 package com.cnblogs.keyindex;
 
 import com.cnblogs.keyindex.business.Authorization;
+import com.cnblogs.keyindex.kernel.EventActivity;
+import com.cnblogs.keyindex.kernel.MessageEvent;
 import com.cnblogs.keyindex.model.ViewStateForms;
 
-import android.app.Activity;
 import android.content.Intent;
 
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Handler.Callback;
 import android.os.Message;
-import android.text.Html;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-public class StartActivity extends Activity implements Callback {
+public class StartActivity extends EventActivity {
 
 	private ProgressBar pgbLoading;
 	private TextView txtMessage;
 	private Authorization authorize;
-	private Handler mHandler;
 	private final int delayMillis = 2000;
 	private final int retryMillis = 5000;
 	private static final String LOGIN_ACTION = "com.cnblogs.keyindex.UserAcitivity.sigin";
@@ -32,22 +29,19 @@ public class StartActivity extends Activity implements Callback {
 		setContentView(R.layout.start);
 		pgbLoading = (ProgressBar) findViewById(R.id.pgbInit);
 		txtMessage = (TextView) findViewById(R.id.txtMessage);
+
+		addEventHandler(R.string.msgSuccessStart, onSuccessStart);
+		addEventHandler(R.string.msgInitError, onFailureStart);
+		setMessageShower(txtMessage);
+
 		authorize = new Authorization(this.getApplicationContext());
-		mHandler = new Handler(this);
-		turnToIngList();
+
+		verify();
 	}
 
-	private void turnToIngList() {
+	private void verify() {
 		if (authorize.hasAuthorize()) {
-			mHandler.postDelayed(new Runnable() {
-
-				@Override
-				public void run() {
-					Intent intent = new Intent(ING_ACTION);
-					startActivity(intent);
-					finish();
-				}
-			}, delayMillis);
+			postEventHandler(startIngActivity, delayMillis);
 
 		} else {
 			pgbLoading.setVisibility(View.VISIBLE);
@@ -55,42 +49,44 @@ public class StartActivity extends Activity implements Callback {
 		}
 	}
 
-	@Override
-	public boolean handleMessage(Message msg) {
-		showHandlerMessage(getString(msg.what));
-		switch (msg.what) {
-		case R.string.msgSuccessStart:
-			onSuccess((ViewStateForms) msg.obj);
-			break;
-		case R.string.msgInitError:
-			onFailure();
-			break;
-		default:
-			break;
+	private Runnable startIngActivity = new Runnable() {
+
+		@Override
+		public void run() {
+			Intent intent = new Intent(ING_ACTION);
+			startActivity(intent);
+			finish();
 		}
-		return false;
-	}
+	};
 
-	public void showHandlerMessage(String message) {
-		txtMessage.setText(Html.fromHtml(message));
-	}
+	private MessageEvent onSuccessStart = new MessageEvent() {
 
-	public void onSuccess(ViewStateForms model) {
-		Intent intent = new Intent(LOGIN_ACTION);
-		intent.putExtra(ViewStateForms.VIEW_STATE_KEY, model);
-		startActivity(intent);
-		finish();
-	}
+		@Override
+		public void EventHandler(Object sender, Message msgEventArg) {
+			Intent intent = new Intent(LOGIN_ACTION);
+			intent.putExtra(ViewStateForms.VIEW_STATE_KEY,
+					(ViewStateForms) msgEventArg.obj);
+			startActivity(intent);
+			finish();
 
-	public void onFailure() {
-		pgbLoading.setVisibility(View.INVISIBLE);
-		mHandler.postDelayed(new Runnable() {
+		}
+	};
 
-			@Override
-			public void run() {
-				authorize.getAspDotNetForms(mHandler);
-			}
-		}, retryMillis);
-	}
+	private MessageEvent onFailureStart = new MessageEvent() {
+
+		@Override
+		public void EventHandler(Object sender, Message msgEventArg) {
+			pgbLoading.setVisibility(View.INVISIBLE);
+			postEventHandler(retryStart, retryMillis);
+		}
+	};
+
+	private Runnable retryStart = new Runnable() {
+
+		@Override
+		public void run() {
+			authorize.getAspDotNetForms(mHandler);
+		}
+	};
 
 }

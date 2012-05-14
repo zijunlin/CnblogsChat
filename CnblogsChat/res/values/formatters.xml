@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="ModelClassNames">
+        <item>com.cnblogs.keyindex.chat.model.Comment</item>
+        <item>com.cnblogs.keyindex.chat.model.Chat</item>
+        <item>com.cnblogs.keyindex.chat.model.ViewStateForms</item>
+    </string-array>
+    <string-array name="FormatterClassNames">
+        <item>com.cnblogs.keyindex.chat.formatters.CommentFormatter</item>
+        <item>com.cnblogs.keyindex.chat.formatters.ChatFormatter</item>
+        <item>com.cnblogs.keyindex.chat.formatters.ViewStateFormsFormatter</item>
+    </string-array>
+
+</resources>

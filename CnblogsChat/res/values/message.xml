@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="msgSuccessDowloadedStateForm" >成功下载</string>
+    <string name="msgFailureDowloadedStateForm" >下载失败，稍候会重新下载</string>
+    <string name="msgStartDownload">开始下载</string>
+
+    <string name="msgLoginSuccess"></string>
+    <string name="msgLoginError"></string>
+    <string name="msgLoginBulidForms"></string>
+</resources>
