@@ -21,7 +21,7 @@
         </activity>
         <activity android:name=".LoginActivity" >
             <intent-filter>
-                <action android:name="com.cnblogs.keyindex.UserAcitivity.sigin" >
+                <action android:name="com.cnblogs.keyindex.chat.sigin" >
                 </action>
 
                 <category android:name="android.intent.category.DEFAULT" >

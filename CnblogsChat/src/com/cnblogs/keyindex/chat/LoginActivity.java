@@ -15,6 +15,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import roboguice.activity.RoboActivity;
 import roboguice.inject.InjectExtra;
 import roboguice.inject.InjectView;
@@ -24,17 +25,25 @@ public class LoginActivity extends RoboActivity implements OnClickListener,
 
 	@InjectView(R.id.btnSigin)
 	private Button btnSign;
+
 	@InjectView(R.id.btnCanenl)
 	private Button btnCancel;
+
 	@InjectView(R.id.txtUserName)
 	private EditText txtUserName;
+
 	@InjectView(R.id.txtPassword)
 	private EditText txtPassword;
-	@InjectExtra( value="viewStateKey",optional=true)
+
+	@InjectView(R.id.txtLoginResult)
+	private TextView txtLoginResult;
+
+	@InjectExtra(value = "viewStateKey", optional = true)
 	private ViewStateForms viewStateForm;
 
 	private ProgressDialog pdglogining;
 	private Handler handler;
+	
 	@Inject
 	private Authenticator authenticator;
 
@@ -90,10 +99,10 @@ public class LoginActivity extends RoboActivity implements OnClickListener,
 	@Override
 	public boolean handleMessage(Message msg) {
 		pdglogining.setTitle(msg.what);
-		if (msg.what == R.string.msgLoginSuccess) {
-			pdglogining.dismiss();
+		pdglogining.dismiss();
+		if (msg.what == R.string.msgLoginError) {
+			txtLoginResult.setText(getString(msg.what));
 		}
-
 		authenticator.handleMessage(msg);
 		return false;
 	}
@@ -105,7 +114,5 @@ public class LoginActivity extends RoboActivity implements OnClickListener,
 	public ProgressDialog getProgressDialog() {
 		return pdglogining;
 	}
-
-	
 
 }

@@ -21,7 +21,7 @@ public class ViewStateForms implements Parcelable {
 	/**
 	 * the intent key for Extra;
 	 */
-	public static final String VIEW_STATE_KEY = "viewStateKey";
+	public static final String INTENT_EXTRA_KEY = "viewStateKey";
 
 	private WeakHashMap<String, String> forms;
 	public static final String STATE_KEY = "__VIEWSTATE";

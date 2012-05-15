@@ -1,6 +1,9 @@
 package com.cnblogs.keyindex.chat.model.test;
 
+import java.util.Map;
+
 import com.cnblogs.keyindex.chat.model.User;
+import com.cnblogs.keyindex.chat.model.ViewStateForms;
 
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
@@ -55,7 +58,29 @@ public class UserTest extends AndroidTestCase {
 		boolean expected = user.hasAuthorize(this.mContext);
 		assertFalse(expected);
 	}
+	
+	public void test_createPassport()
+	{
+		User user=new User();
+		user.setPassword("12345");
+		user.setUserName("name");
+		ViewStateForms forms=new ViewStateForms();
+		forms.setEvent("event");
+		forms.setEventArg("arg");
+		forms.setEventTaget("target");
+		forms.setViewState("state");
+		
+		Map<String,String> actual=user.createPassport(forms);
+		
+		assertEquals(user.getPassword(), actual.get("tbPassword"));
+		assertEquals(user.getUserName(), actual.get("tbUserName"));
+		assertEquals("arg", actual.get(ViewStateForms.EVENT_ARG_KEY));
+		assertEquals("event",actual.get(ViewStateForms.EVENT_KEY));
+		assertEquals("target", actual.get(ViewStateForms.EVENT_TAGET_KEY));
+		assertEquals("state", actual.get(ViewStateForms.STATE_KEY));
+	}
 
+//	//TODO
 //	public void test_HasAuthorize() {
 //
 //		SharedPreferences.Editor editor = this.mContext.getSharedPreferences(

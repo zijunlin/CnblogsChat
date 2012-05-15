@@ -33,7 +33,7 @@ public class AppIniti implements Initialization {
 	private int retryMillis = 5000;
 	
 	private static final String ING_ACTION = "com.cnblogs.keyindex.ChatActivity.view";
-	private static final String LOGIN_ACTION = "com.cnblogs.keyindex.UserAcitivity.sigin";
+	private static final String LOGIN_ACTION = "com.cnblogs.keyindex.chat.sigin";
 
 
 	@Inject
@@ -71,7 +71,7 @@ public class AppIniti implements Initialization {
 	private void toLoginActivity(ViewStateForms forms) {
 
 		Intent intent = new Intent(LOGIN_ACTION);
-		intent.putExtra(ViewStateForms.VIEW_STATE_KEY, forms);
+		intent.putExtra(ViewStateForms.INTENT_EXTRA_KEY, forms);
 		mIntentListener.startActivity(intent);
 	}
 

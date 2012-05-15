@@ -5,7 +5,6 @@ import com.cnblogs.keyindex.chat.StartActivity;
 import com.cnblogs.keyindex.chat.service.Initialization;
 import com.cnblogs.keyindex.chat.test.mock.MocInitialization;
 
-
 import android.app.Instrumentation;
 import android.app.KeyguardManager;
 import android.content.Context;
@@ -31,7 +30,7 @@ public class StartActivityTest extends
 
 	@Override
 	protected void setUp() throws Exception {
-		
+
 		activity = getActivity();
 		mInstrumentation = this.getInstrumentation();
 		pgbLoading = (ProgressBar) activity.findViewById(R.id.pgbInit);
@@ -42,6 +41,8 @@ public class StartActivityTest extends
 	@Override
 	protected void tearDown() throws Exception {
 		getActivity().finish();
+	
+		mInstrumentation.waitForIdleSync();
 		super.tearDown();
 	}
 
@@ -93,7 +94,6 @@ public class StartActivityTest extends
 		assertEquals(expected, actual);
 	}
 
-	
 	public void test_common_handleMessage() {
 		Initialization mockAuthenticator = new MocInitialization();
 		activity.setAuthenticator(mockAuthenticator);
@@ -156,7 +156,6 @@ public class StartActivityTest extends
 		int actualViewState = pgbLoading.getVisibility();
 		assertEquals(expectedViewState, actualViewState);
 	}
-
 
 	public void test_onBackPressed() {
 		boolean condition = activity.isFinishing();

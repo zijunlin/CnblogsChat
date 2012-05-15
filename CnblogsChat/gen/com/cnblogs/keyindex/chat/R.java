@@ -24,11 +24,12 @@ public final class R {
         public static final int title_logo=0x7f020002;
     }
     public static final class id {
-        public static final int btnCanenl=0x7f070003;
-        public static final int btnSigin=0x7f070002;
-        public static final int imgLogo=0x7f070004;
-        public static final int pgbInit=0x7f070005;
-        public static final int txtMessage=0x7f070006;
+        public static final int btnCanenl=0x7f070004;
+        public static final int btnSigin=0x7f070003;
+        public static final int imgLogo=0x7f070005;
+        public static final int pgbInit=0x7f070006;
+        public static final int txtLoginResult=0x7f070002;
+        public static final int txtMessage=0x7f070007;
         public static final int txtPassword=0x7f070001;
         public static final int txtUserName=0x7f070000;
     }

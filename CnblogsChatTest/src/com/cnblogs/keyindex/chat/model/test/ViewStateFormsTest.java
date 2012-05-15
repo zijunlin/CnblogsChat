@@ -24,10 +24,10 @@ public class ViewStateFormsTest extends AndroidTestCase {
 	public void test_Can_Parcel() {
 
 		Intent intent = new Intent();
-		intent.putExtra(ViewStateForms.VIEW_STATE_KEY, state);
+		intent.putExtra(ViewStateForms.INTENT_EXTRA_KEY, state);
 
 		ViewStateForms expect = intent
-				.getParcelableExtra(ViewStateForms.VIEW_STATE_KEY);
+				.getParcelableExtra(ViewStateForms.INTENT_EXTRA_KEY);
 		assertNotNull(expect);
 		assertEquals(expect.getEvent(), state.getEvent());
 		assertEquals(expect.getEventArg(), state.getEventArg());
