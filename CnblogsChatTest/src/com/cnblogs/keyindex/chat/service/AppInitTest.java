@@ -33,7 +33,7 @@ public class AppInitTest extends AndroidTestCase {
 		target.setCurrentUser(user);
 		boolean condition = target.isVerify();
 		assertTrue(condition);
-		assertTrue(intentListener.isMethod2Called());
+		assertTrue(intentListener.isDelayStartActivityCalled());
 	}
 
 	public void test_NotVerify() {
@@ -50,7 +50,7 @@ public class AppInitTest extends AndroidTestCase {
 		
 		msg.obj = new ViewStateForms();
 		target.handleMessage(msg);
-		assertTrue(intentListener.isMethod1Called());
+		assertTrue(intentListener.isOneParamesStartActivityCalled());
 
 	}
 
@@ -58,7 +58,7 @@ public class AppInitTest extends AndroidTestCase {
 		Message msg = new Message();
 		msg.what = R.string.msgSuccessDowloadedStateForm;
 		target.handleMessage(msg);
-		assertTrue(intentListener.isMethod1Called());
+		assertTrue(intentListener.isOneParamesStartActivityCalled());
 
 	}
 

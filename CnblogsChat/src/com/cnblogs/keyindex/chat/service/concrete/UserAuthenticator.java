@@ -18,6 +18,7 @@ import com.google.inject.Inject;
 public class UserAuthenticator implements Authenticator {
 
 	private Context context;
+	@Inject
 	private HttpSender httpSender;
 	private static final String ING_ACTION = "com.cnblogs.keyindex.ChatActivity.view";
 	@Inject
@@ -30,12 +31,9 @@ public class UserAuthenticator implements Authenticator {
 
 	@Override
 	public void handleMessage(Message msg) {
-		switch (msg.what) {
-		case R.string.msgLoginSuccess:
+
+		if (msg.what == R.string.msgLoginSuccess) {
 			onSueecssedLogin((String) msg.obj);
-			break;
-		case R.string.msgLoginError:
-			break;
 		}
 	}
 

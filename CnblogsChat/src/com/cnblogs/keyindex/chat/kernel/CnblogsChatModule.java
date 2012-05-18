@@ -2,6 +2,8 @@ package com.cnblogs.keyindex.chat.kernel;
 
 import roboguice.config.AbstractAndroidModule;
 
+import com.cnblogs.keyindex.chat.net.HttpSender;
+import com.cnblogs.keyindex.chat.net.LoginHttpSender;
 import com.cnblogs.keyindex.chat.net.ViewStateFormDownloader;
 import com.cnblogs.keyindex.chat.net.Downloader;
 import com.cnblogs.keyindex.chat.net.response.ProcessResponse;
@@ -26,33 +28,8 @@ class CnblogsChatModule extends AbstractAndroidModule {
 				Names.named("VsfProcessPesponse")).to(VsfProcessPesponse.class);
 		bind(Authenticator.class).to(UserAuthenticator.class);
 
-	}
+		bind(HttpSender.class).to(LoginHttpSender.class);
 
-	// private WeakHashMap<String, String> classNames = new WeakHashMap<String,
-	// String>();
-	//
-	// /**
-	// * 此方法用于移除 对距离类型的依赖（引用依赖）。
-	// * 造成缺点是 ：没有了强类型的优势，如： 在编译时不能做类型检查，因此需要保证 参数的正确,或者重命名是不会被eclipse跟踪
-	// *
-	// * @param name
-	// * @return
-	// * @throws ClassNotFoundException
-	// */
-	// @SuppressWarnings("rawtypes")
-	// private Class getClassType(String name) throws ClassNotFoundException {
-	// String className=classNames.get(name);
-	// Class c = Class.forName(className);
-	//
-	// return c;
-	// }
-	//
-	//
-	// protected void addClass()
-	// {
-	//
-	// // classNames.put("IAuthenticator", "")
-	// }
-	//
+	}
 
 }

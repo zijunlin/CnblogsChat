@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:ptr="http://schemas.android.com/apk/res/com.cnblogs.keyindex.chat"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:id="@+id/titleBar"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content" >
+    </LinearLayout>
+
+    <com.handmark.pulltorefresh.library.PullToRefreshListView
+        android:id="@+id/lstFlashMessages"
+        android:layout_width="fill_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/titleBar"
+        android:layout_marginBottom="144dp"
+        android:background="@drawable/list_background"
+        android:cacheColorHint="@android:color/transparent"
+        android:divider="@drawable/list_divider"
+        android:dividerHeight="1dp"
+        ptr:ptrMode="both" >
+    </com.handmark.pulltorefresh.library.PullToRefreshListView>
+
+    <ImageButton
+        android:id="@+id/btnImgSender"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_marginBottom="15dp"
+        android:layout_marginLeft="10dp"
+        android:contentDescription="@string/lblShinginButton"
+        android:scaleType="fitXY"
+        android:src="@drawable/quill_pen" />
+
+    <ProgressBar
+        android:id="@+id/loading"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true" />
+
+</RelativeLayout>

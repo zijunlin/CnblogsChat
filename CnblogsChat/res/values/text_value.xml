@@ -12,8 +12,9 @@
     <string name="lblCancel">取    消</string>
     <string name="lblDeclaration">请注意</string>
     <string name="lblDeclarationContent">首先请确保您的应用来源于安全途径，本应用可查看：  ，本应用不会记录用户密码，由于Cnblgos未提供对外认证接口,因此需要进行模拟登录，以获取认证的Cookie，从而获取闪存发送资格</string>
-	<string name="lblLogining">登录中</string>
-	
-	<string name="verifyNeedInputUserName">用户名不能为空</string>
-	<string name="verifyNeedInputPasswrod">密码不能为空</string>
+    <string name="lblLogining">登录中</string>
+    <string name="verifyNeedInputUserName">用户名不能为空</string>
+    <string name="verifyNeedInputPasswrod">密码不能为空</string>
+    <string name="lblShinginButton"></string>
+
 </resources>

@@ -5,7 +5,7 @@
  * should not be modified by hand.
  */
 
-package com.cnblogs.keyindex.chat;
+package com.handmark.pulltorefresh.library;
 
 public final class R {
     public static final class array {

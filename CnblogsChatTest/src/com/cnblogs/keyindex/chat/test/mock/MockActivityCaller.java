@@ -15,11 +15,11 @@ public class MockActivityCaller implements ActivityCaller {
 		actionCalled.put("Method2", false);
 	}
 
-	public boolean isMethod1Called() {
+	public boolean isOneParamesStartActivityCalled() {
 		return actionCalled.get("Method1");
 	}
 
-	public boolean isMethod2Called() {
+	public boolean isDelayStartActivityCalled() {
 		return actionCalled.get("Method2");
 	}
 

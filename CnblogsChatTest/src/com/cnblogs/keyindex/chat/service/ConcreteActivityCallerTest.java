@@ -32,7 +32,7 @@ public class ConcreteActivityCallerTest extends
 
 	public void testStartActivity() {
 
-		Intent intent = new Intent("com.cnblogs.keyindex.UserAcitivity.sigin");
+		Intent intent = new Intent("com.cnblogs.keyindex.chat.sigin");
 		target.startActivity(intent);
 		boolean condition = activity.isFinishing();
 		instrumentation.waitForIdleSync();
